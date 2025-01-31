@@ -5,6 +5,8 @@ post_type: "blog"
 date_updated: "19-01-2025"
 tags: ["fullstack", "animals", "humor"]
 title: "If Fullstack Frameworks Were Animals, What Would They Be?"
+meta_title: "Fullstack Frameworks as Animals - Next.js and NestJS Explained"
+meta_description: "Join Pantelis Deligiannidis in exploring fullstack frameworks through animal analogies. Learn how Next.js is like a platypus and NestJS resembles a gorilla in this fun comparison."
 ---
 
 Fullstack frameworks are the ultimate multitaskers. But what if they were animals? Let’s explore this *very serious* question.

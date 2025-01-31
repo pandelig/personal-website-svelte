@@ -1,5 +1,5 @@
 <script>
-	import { onDestroy, onMount } from 'svelte';
+	import { onDestroy } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import ContactForm from '$lib/components/ContactForm.svelte';
 
@@ -78,12 +78,14 @@
 	});
 </script>
 
+<svelte:head>
+	<title>{metadata.meta_title}</title>
+	<meta name="description" content={metadata.meta_description} />
+</svelte:head>
+
 <!-- Remember to always have the last element of showContent be responsible for the Contents div -->
 {#if showContent[TOTAL_ELEMENTS_TO_TRANSITION - 1]}
-	<div
-		class="absolute -right-80 top-0 hidden h-full w-72 p-4 text-base-content/50 xl:block"
-		in:fade
-	>
+	<div class="absolute -right-80 top-0 hidden h-full w-72 p-4 text-stone-500 xl:block" in:fade>
 		<div class="sticky top-24">
 			<h2 class="mb-4 font-semibold">Contents</h2>
 			<ul>
@@ -104,7 +106,7 @@
 
 <div class="p-8">
 	{#if showContent[0]}
-		<div class="text-sm text-base-content/50" in:fade>
+		<div class="text-sm text-stone-500" in:fade>
 			{metadata.date}
 			{#if metadata.date_updated}
 				- updated {metadata.date_updated}
@@ -119,7 +121,7 @@
 				{#each metadata.tags as tag}
 					<a
 						href={`/${metadata.post_type}?tag=${tag}`}
-						class="not-prose p-2 text-base-content/50 hover:text-base-content"
+						class="not-prose p-2 text-stone-500 hover:text-base-content"
 					>
 						#{tag}
 					</a>
@@ -133,6 +135,7 @@
 
 		{#if showContent[2]}
 			<div in:fade>
+				<!-- eslint-disable-next-line -->
 				{@html content}
 			</div>
 		{/if}
@@ -141,7 +144,7 @@
 
 {#if showContent[3]}
 	<div class="p-8 py-0 text-right" in:fade>
-		<button onclick={scrollToTop} class="text-base text-base-content/50 hover:text-base-content">
+		<button onclick={scrollToTop} class="text-base text-stone-500 hover:text-base-content">
 			Back to Top
 		</button>
 	</div>

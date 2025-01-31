@@ -5,6 +5,8 @@ post_type: "blog"
 date_updated: "12-01-2025"
 tags: ["frontend", "animals", "humor"]
 title: "If Frontend Frameworks Were Animals, What Would They Be?"
+meta_title: "Frontend Frameworks as Animals - A Humorous Comparison"
+meta_description: "Explore a fun comparison of frontend frameworks like React, Svelte, and Vue as animals by Pantelis Deligiannidis. A lighthearted look at their characteristics and behaviors."
 ---
 
 Have you ever wondered what animals frontend frameworks would be if they were alive? Let’s dive into this *very important* scientific analysis.

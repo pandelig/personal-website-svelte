@@ -43,6 +43,19 @@
 	});
 </script>
 
+<svelte:head>
+	<title
+		>{postType === 'blog' ? 'Blog' : 'Projects'} - Full Stack Web Development, DevOps, Linux | Pantelis
+		Deligiannidis</title
+	>
+	<meta
+		name="description"
+		content="Discover {postType === 'blog'
+			? 'articles'
+			: 'projects'} on full stack web development, DevOps, cloud computing, Linux, and occasionally random ideas."
+	/>
+</svelte:head>
+
 <div class="p-8 pt-28">
 	<h1 class="text-lg font-semibold" in:fade>{postType[0].toUpperCase() + postType.slice(1)}</h1>
 
@@ -53,7 +66,7 @@
 				onclick={() => selectTag(tag)}
 				class="px-2 {selectedTags.includes(tag)
 					? 'text-base-content'
-					: 'text-base-content/50'} sm:hover:text-base-content"
+					: 'text-stone-500'} sm:hover:text-base-content"
 			>
 				#{tag}
 			</button>
@@ -67,13 +80,13 @@
 				<li in:fade>
 					<a href="/{postType}/{post.slug}" class="hover:link">
 						<h2>{post.title}</h2>
-						<p class="text-sm text-base-content/50">{post.date}</p>
+						<p class="text-sm text-stone-500">{post.date}</p>
 					</a>
 				</li>
 			{/if}
 		{/each}
 		{#if filteredPosts.length === 0}
-			<p class="text-base-content/50" in:fade>No posts found for these tags.</p>
+			<p class="text-stone-500" in:fade>No posts found for these tags.</p>
 		{/if}
 	</ul>
 </div>
