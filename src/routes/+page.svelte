@@ -1,6 +1,14 @@
 <script>
 	import { fade } from 'svelte/transition';
-	let { data } = $props();
+	import ContactForm from '$lib/components/ContactForm.svelte';
+
+	let { data, form } = $props();
+
+	const formParameters = $derived({
+		title: 'Get in Touch',
+		description: 'Have questions, ideas, or just want to say hi? Don\’t hesitate to reach out!',
+		formResponse: form
+	});
 
 	let showContent1 = $state(false);
 	let showContent2 = $state(false);
@@ -35,7 +43,7 @@
 				target="_blank"
 				data-tip="linkedin"
 			>
-				<img src="/socials/linkedin.svg" alt="Linkedin" class="w-6 h-6" />
+				<img src="/icons/linkedin.svg" alt="Linkedin" class="w-6 h-6" />
 			</a>
 			<a
 				href="https://github.com/pandelig"
@@ -43,7 +51,7 @@
 				target="_blank"
 				data-tip="github"
 			>
-				<img src="/socials/github.svg" alt="GitHub" class="w-6 h-6" />
+				<img src="/icons/github.svg" alt="GitHub" class="w-6 h-6" />
 			</a>
 			<a
 				href="https://www.instagram.com/pantelisdelig"
@@ -51,7 +59,7 @@
 				target="_blank"
 				data-tip="instagram"
 			>
-				<img src="/socials/instagram.svg" alt="Instagram" class="w-6 h-6" />
+				<img src="/icons/instagram.svg" alt="Instagram" class="w-6 h-6" />
 			</a>
 			<a
 				href="mailto:pandelig@gmail.com"
@@ -59,7 +67,7 @@
 				target="_blank"
 				data-tip="email"
 			>
-				<img src="/socials/email.svg" alt="Email" class="w-6 h-6" />
+				<img src="/icons/email.svg" alt="Email" class="w-6 h-6" />
 			</a>
 		</div>
 	</div>
@@ -94,7 +102,7 @@
 				<ul class="mt-4 space-y-4">
 					{#each data.projects as project, index}
 							<li in:fade>
-								<a href="/blog/{project.slug}" class="hover:link">
+								<a href="/projects/{project.slug}" class="hover:link">
 									<h2>{project.title}</h2>
 									<p class="text-sm text-base-content/50">{project.date}</p>
 								</a>
@@ -108,15 +116,5 @@
 {/if}
 
 {#if showContent4}
-	<form class="mt-8 p-8 pt-0 space-y-4" in:fade>
-		<h2 class="text-lg font-semibold">Contact Me</h2>
-		<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-			<input type="text" placeholder="Your Name" class="input input-bordered w-full" />
-			<input type="email" placeholder="Your Email" class="input input-bordered w-full" />
-		</div>
-		<textarea placeholder="Your Message" class="textarea textarea-bordered w-full"></textarea>
-		<div class="flex justify-center">
-			<button class="btn btn-primary active:animate-bounce">Send</button>
-		</div>
-	</form>
+	<ContactForm {...formParameters} />
 {/if}

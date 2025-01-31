@@ -1,0 +1,79 @@
+<script>
+	import { fade } from 'svelte/transition';
+	import { page } from '$app/state';
+
+	// Handle tag selection, called onclick
+	function selectTag(tag) {
+		if (selectedTags.includes(tag)) {
+			// Remove the tag if it's already selected
+			selectedTags = selectedTags.filter((t) => t !== tag);
+		} else {
+			// Add the tag if it's not already selected
+			selectedTags.push(tag);
+		}
+
+		showContent = Array(filteredPosts.length).fill(false);
+
+		let delay = 100;
+		filteredPosts.forEach((_, index) => {
+			setTimeout(() => {
+				showContent[index] = true;
+			}, delay);
+			delay += 200;
+		});
+	}
+	let { posts, tags, postType } = $props();
+
+	let delay = 200;
+
+	let showContent = $state(Array(posts.length).fill(false));
+	let selectedTags = $state(
+		page.url.searchParams.get('tag') ? [page.url.searchParams.get('tag')] : []
+	);
+
+	let filteredPosts = $derived(
+		posts.filter((post) => selectedTags.every((tag) => post.tags.includes(tag)))
+	);
+
+	posts.forEach((_, index) => {
+		setTimeout(() => {
+			showContent[index] = true;
+		}, delay);
+		delay += 200;
+	});
+</script>
+
+<div class="p-8 pt-28">
+	<h1 class="text-lg font-semibold" in:fade>{postType[0].toUpperCase() + postType.slice(1)}</h1>
+
+	<!-- Tag Filter -->
+	<div class="flex flex-wrap p-2" in:fade>
+		{#each tags as tag}
+			<button
+				onclick={() => selectTag(tag)}
+				class="px-2 {selectedTags.includes(tag)
+					? 'text-base-content'
+					: 'text-base-content/50'} sm:hover:text-base-content"
+			>
+				#{tag}
+			</button>
+		{/each}
+	</div>
+
+	<!-- Post List -->
+	<ul class="space-y-4">
+		{#each filteredPosts as post, index}
+			{#if showContent[index]}
+				<li in:fade>
+					<a href="/{postType}/{post.slug}" class="hover:link">
+						<h2>{post.title}</h2>
+						<p class="text-sm text-base-content/50">{post.date}</p>
+					</a>
+				</li>
+			{/if}
+		{/each}
+		{#if filteredPosts.length === 0}
+			<p class="text-base-content/50" in:fade>No posts found for these tags.</p>
+		{/if}
+	</ul>
+</div>

@@ -34,6 +34,6 @@
 	</div>
 </nav>
 
-<main class="mx-auto max-w-screen-sm text-base bg-base-100 text-base-content">
+<main class="relative mx-auto max-w-screen-sm text-base bg-base-100 text-base-content">
 	{@render children()}
 </main>

@@ -1,3 +1,5 @@
+import { handleContactForm } from '$lib/functions/handleContactForm.js';
+
 export function load() {
     const articleModules = import.meta.glob('/src/lib/articles/*.md', { eager: true });
     const projectModules = import.meta.glob('/src/lib/projects/*.md', { eager: true });
@@ -6,7 +8,7 @@ export function load() {
     const articles = Object.values(articleModules)
         .map(({ metadata }) => ({
             ...metadata,
-            slug: metadata.slug || metadata.title.toLowerCase().replace(/\s+/g, '-'),
+            slug: metadata.slug,
         }))
         .sort((a, b) => new Date(b.date) - new Date(a.date))
         .slice(0, 2); // Get 2 most recent articles
@@ -15,10 +17,16 @@ export function load() {
     const projects = Object.values(projectModules)
         .map(({ metadata }) => ({
             ...metadata,
-            slug: metadata.slug || metadata.title.toLowerCase().replace(/\s+/g, '-'),
+            slug: metadata.slug,
         }))
         .sort((a, b) => new Date(b.date) - new Date(a.date))
         .slice(0, 2); // Get 2 most recent projects
 
     return { articles, projects };
 }
+
+export const actions = {
+	default: async ({ request, platform }) => {
+		return await handleContactForm({ request, platform });
+	}
+};
