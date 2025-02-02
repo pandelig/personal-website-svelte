@@ -5,7 +5,6 @@ post_type: "blog"
 date_updated: "17-01-2025"
 tags: ["backend", "animals", "humor"]
 title: "If Backend Frameworks Were Animals, What Would They Be?"
-meta_title: "Backend Frameworks as Animals - Express.js, Django, and Flask Compared"
 meta_description: "Discover how backend frameworks compare to animals in this entertaining analysis by Pantelis Deligiannidis. From Express.js beavers to Django elephants, learn about their unique traits."
 ---
 

@@ -10,7 +10,7 @@
 	<h2 class="text-lg font-semibold">{title}</h2>
 	<p>{description}</p>
 	<input type="hidden" name="pageURLPathname" value={page.url.pathname} />
-	<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+	<div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
 		<input
 			type="text"
 			name="name"
@@ -29,7 +29,7 @@
 	<textarea
 		name="message"
 		placeholder="Your Message"
-		class="textarea textarea-bordered w-full"
+		class="textarea textarea-bordered w-full max-sm:h-32"
 		required
 	></textarea>
 	<div class="flex justify-center">
@@ -37,7 +37,8 @@
 	</div>
 	{#if formResponse?.message}
 		<div class="mt-4 text-center" in:fade>
-			{formResponse.message} {formResponse.success ? '😎' : '😥'}
+			{formResponse.message}
+			{formResponse.success ? '😎' : '😥'}
 		</div>
 	{/if}
 </form>

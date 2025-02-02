@@ -6,7 +6,7 @@
 
 	const formParameters = $derived({
 		title: 'Get in Touch',
-		description: 'Have questions, ideas, or just want to say hi? Don\’t hesitate to reach out!',
+		description: "Have questions, ideas, or just want to say hi? Don't hesitate to reach out!",
 		formResponse: form
 	});
 
@@ -34,7 +34,7 @@
 </script>
 
 <svelte:head>
-	<title>Pantelis Deligiannidis - Software Engineer - Full Stack Web Development - DevOps</title>
+	<title>Pantelis Deligiannidis</title>
 	<meta
 		name="description"
 		content="Welcome to the personal website of Pantelis Deligiannidis, a software engineer with professional experience in full stack web development and DevOps. Explore articles and projects on web development, DevOps, cloud computing, Linux, and more"
@@ -94,7 +94,7 @@
 			<section>
 				<h2 class="text-lg font-semibold">Articles</h2>
 				<ul class="mt-4 space-y-4">
-					{#each data.articles as article, index}
+					{#each data.articles as article}
 						<li in:fade>
 							<a href="/blog/{article.slug}" class="hover:link">
 								<h2>{article.title}</h2>
@@ -109,7 +109,7 @@
 			<section>
 				<h2 class="text-lg font-semibold">Projects</h2>
 				<ul class="mt-4 space-y-4">
-					{#each data.projects as project, index}
+					{#each data.projects as project}
 						<li in:fade>
 							<a href="/projects/{project.slug}" class="hover:link">
 								<h2>{project.title}</h2>

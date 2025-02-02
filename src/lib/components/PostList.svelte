@@ -44,10 +44,7 @@
 </script>
 
 <svelte:head>
-	<title
-		>{postType === 'blog' ? 'Blog' : 'Projects'} - Full Stack Web Development, DevOps, Linux | Pantelis
-		Deligiannidis</title
-	>
+	<title>{postType === 'blog' ? 'Blog' : 'Projects'} - Pantelis Deligiannidis</title>
 	<meta
 		name="description"
 		content="Discover {postType === 'blog'
@@ -57,7 +54,7 @@
 </svelte:head>
 
 <div class="p-8 pt-28">
-	<h1 class="text-lg font-semibold" in:fade>{postType[0].toUpperCase() + postType.slice(1)}</h1>
+	<h1 class="text-lg font-semibold" in:fade>{postType === 'blog' ? 'Blog' : 'Projects'}</h1>
 
 	<!-- Tag Filter -->
 	<div class="flex flex-wrap p-2" in:fade>

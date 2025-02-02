@@ -79,7 +79,7 @@
 </script>
 
 <svelte:head>
-	<title>{metadata.meta_title}</title>
+	<title>{metadata.title}</title>
 	<meta name="description" content={metadata.meta_description} />
 </svelte:head>
 
@@ -144,7 +144,7 @@
 
 {#if showContent[3]}
 	<div class="p-8 py-0 text-right" in:fade>
-		<button onclick={scrollToTop} class="text-base text-stone-500 hover:text-base-content">
+		<button onclick={scrollToTop} class="text-base text-stone-500 sm:hover:text-base-content">
 			Back to Top
 		</button>
 	</div>

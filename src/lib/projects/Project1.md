@@ -5,7 +5,6 @@ post_type: "projects"
 date_updated: "22-01-2025"
 tags: ["animals", "humor", "frontend"]
 title: "Building a Zoo for Framework Animals"
-meta_title: "Framework Animals Zoo - An Interactive Web Project"
 meta_description: "Explore a unique web project by Pantelis Deligiannidis that brings framework animals to life in an interactive zoo. Experience React octopuses and Svelte cheetahs in their virtual habitats."
 ---
 
