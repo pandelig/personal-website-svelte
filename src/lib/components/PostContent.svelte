@@ -7,6 +7,7 @@
 		window.scrollTo({ top: 0 });
 	}
 
+	/** Updates active heading based on current scroll position in the document */
 	function handleScroll() {
 		const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 		const scrollPosition = window.scrollY + 15; // Add some padding
@@ -53,7 +54,10 @@
 	}
 
 	$effect(() => {
-		if (showContent[TOTAL_ELEMENTS_TO_TRANSITION - 2] && headings.length === 0) {
+		if (
+			(showContent[TOTAL_ELEMENTS_TO_TRANSITION - 2] && headings.length === 0) ||
+			(headings.length > 0 && headings[0].text !== metadata.title)
+		) {
 			headings = Array.from(document.querySelectorAll('.prose h1, .prose h2, .prose h3')).map(
 				(h) => ({
 					id: h.id,
@@ -62,12 +66,12 @@
 					offset: h.offsetTop
 				})
 			);
+			handleScroll();
 
-			setTimeout(() => {
+			if (showContent[TOTAL_ELEMENTS_TO_TRANSITION - 1] === false) {
 				showContent[TOTAL_ELEMENTS_TO_TRANSITION - 1] = true;
 				window.addEventListener('scroll', handleScroll);
-				handleScroll();
-			}, 200);
+			}
 		}
 	});
 
