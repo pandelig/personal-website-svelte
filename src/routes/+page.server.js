@@ -1,28 +1,26 @@
 import { handleContactForm } from '$lib/functions/handleContactForm.js';
 
 export function load() {
-    const articleModules = import.meta.glob('/src/lib/articles/*.md', { eager: true });
-    const projectModules = import.meta.glob('/src/lib/projects/*.md', { eager: true });
+	const articleModules = import.meta.glob('/src/lib/articles/*.md', { eager: true });
+	const projectModules = import.meta.glob('/src/lib/projects/*.md', { eager: true });
 
-    // Load and sort articles
-    const articles = Object.values(articleModules)
-        .map(({ metadata }) => ({
-            ...metadata,
-            slug: metadata.slug,
-        }))
-        .sort((a, b) => new Date(b.date) - new Date(a.date))
-        .slice(0, 2); // Get 2 most recent articles
+	// Load and sort articles
+	const articles = Object.values(articleModules)
+		.map(({ metadata }) => ({
+			...metadata
+		}))
+		.sort((a, b) => new Date(b.date) - new Date(a.date))
+		.slice(0, 2); // Get 2 most recent articles
 
-    // Load and sort projects
-    const projects = Object.values(projectModules)
-        .map(({ metadata }) => ({
-            ...metadata,
-            slug: metadata.slug,
-        }))
-        .sort((a, b) => new Date(b.date) - new Date(a.date))
-        .slice(0, 2); // Get 2 most recent projects
+	// Load and sort projects
+	const projects = Object.values(projectModules)
+		.map(({ metadata }) => ({
+			...metadata
+		}))
+		.sort((a, b) => new Date(b.date) - new Date(a.date))
+		.slice(0, 2); // Get 2 most recent projects
 
-    return { articles, projects };
+	return { articles, projects };
 }
 
 export const actions = {

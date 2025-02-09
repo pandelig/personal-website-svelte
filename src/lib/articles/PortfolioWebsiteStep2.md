@@ -3,7 +3,7 @@ slug: "installing-configuring-daisyui"
 date: "03-02-2024"
 post_type: "blog"
 date_updated: ""
-tags: ["tutorial", "full-stack", "sveltekit", "tailwind", "daisyui"]
+tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
 title: "Personal Website with SvelteKit and TailwindCSS - Step 2: Installing and Configuring DaisyUI"
 meta_description: "Learn how to install and configure DaisyUI in your SvelteKit project to create a beautiful, modern UI with TailwindCSS in this article by Pantelis Deligiannidis."
 ---
@@ -12,11 +12,11 @@ meta_description: "Learn how to install and configure DaisyUI in your SvelteKit 
 1. [Step 1: Setting Up the Project](/blog/setting-up-sveltekit-website)
 2. (You are here) Step 2: Installing and Configuring DaisyUI
 3. [Step 3: Building the Home Page](/blog/building-the-home-page)
-4. [Step 4: Adding Progressive Loading Effects](#)
-5. [Step 5: Creating the Blog Page](#)
-6. [Step 6: Creating the Projects Page](#)
-7. [Step 7: Configuring HTTPS and Domain Setup](#)
-8. [Step 8: Finalizing and Optimizing](#)
+4. [Step 4: Building Blog and Projects Pages](#)
+5. [Step 5: Building Post Content Page](#)
+6. [Step 6: Adding Transitions and SEO](#)
+7. [Step 7: Deployment on Cloudflare Workers](#)
+8. [Step 8: Contact Form with Mailjet](#)
 
 In this step, we'll integrate DaisyUI, a component library for Tailwind CSS, into our SvelteKit project. As we start using Tailwind CSS and DaisyUI classes, you may always refer to the [Recommended Resources](/blog/setting-up-sveltekit-website#optional-recommended-resources) to soon realize how easy it is to understand and remember the logic behind the class names.
 

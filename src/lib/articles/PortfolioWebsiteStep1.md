@@ -12,21 +12,25 @@ meta_description: "Learn how to set up a personal website using SvelteKit and Ta
 1. (You are here) Step 1: Setting Up the Project
 2. [Step 2: Installing and Configuring DaisyUI](/blog/installing-configuring-daisyui)
 3. [Step 3: Building the Home Page](/blog/building-the-home-page)
-4. [Step 4: Adding Progressive Loading Effects](#)
-5. [Step 5: Creating the Blog Page](#)
-6. [Step 6: Creating the Projects Page](#)
-7. [Step 7: Configuring HTTPS and Domain Setup](#)
-8. [Step 8: Finalizing and Optimizing](#)
+4. [Step 4: Blog and Projects Pages](#)
+5. [Step 5: Post Content Pages](#)
+6. [Step 6: Transitions and SEO](#)
+7. [Step 7: Deployment on Cloudflare Workers](#)
+8. [Step 8: Contact Form Functionality](#)
 
 ## Why SvelteKit and TailwindCSS?
 
-In the evolving landscape of web development, developers are constantly seeking tools that combine performance and [developer satisfaction](https://survey.stackoverflow.co/2024/technology#1-web-frameworks-and-technologies). [SvelteKit](https://svelte.dev/), a modern full stack framework, stands out by offering a unique approach where components are compiled into highly efficient JavaScript at build time, resulting in lightweight and fast-running applications. Its simple syntax make it exceptionally beginner-friendly.
+In the evolving landscape of web development, we are constantly seeking tools that combine performance and [developer satisfaction](https://survey.stackoverflow.co/2024/technology#1-web-frameworks-and-technologies). [SvelteKit](https://svelte.dev/), a modern full stack framework, stands out by offering a unique approach where components are compiled into highly efficient JavaScript at build time, resulting in lightweight and fast-running applications. Its simple syntax makes it exceptionally beginner-friendly.
 
 [TailwindCSS](https://tailwindcss.com/) enables rapid development through class-based styling, while its component library [DaisyUI](https://daisyui.com/) extends this functionality by providing a collection of ready-to-use components that maintain consistency with Tailwind's philosophy.
 
+To make the development more enjoyable, it is recommended to install the appropriate extensions on your code editor.
+- For [VSCode](https://code.visualstudio.com/): [Svelte for VS Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode), [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss).
+- For [Zed](https://zed.dev/): [Svelte](https://zed.dev/extensions?query=svelte), [Tailwind CSS support is built into Zed](https://zed.dev/docs/languages/tailwindcss).
+
 ## What to Expect
 
-By the end of this tutorial, you will have a fully functional and deployed personal portfolio website running on Cloudflare Workers. This website will:
+By the end of this tutorial, you will have a fully functional and deployed personal portfolio website running on Cloudflare Workers. The website will:
 
 - Host and display your articles and projects
 - Include a tag filtering system for articles and projects
@@ -36,11 +40,11 @@ By the end of this tutorial, you will have a fully functional and deployed perso
 
 Basic knowledge of HTML and JavaScript is advised. Almost no CSS.
 
-## Notes on External Links and Optional Sections
+## External Links and Optional Sections
 
 1. Throughout this tutorial, you will encounter links to external resources, primarily official documentation. Following them is completely optional and intended only for those aiming to deepen their understanding.
 2. Some sections will be marked as **(Optional)**. These can be skipped without affecting the core functionality of the website.
-3. Since articles and projects have a lot in common when it comes to implementation, I will be using the term "post" when i want to refer to both articles and projects.
+3. Since articles and projects have a lot in common when it comes to implementation, I will be using the term "post" when I want to refer to both articles and projects.
 
 ## (Optional) Recommended Resources
 

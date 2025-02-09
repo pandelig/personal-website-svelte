@@ -17,7 +17,6 @@ const config = {
 				{
 					target: '_blank',
 					rel: ['noopener'], // ['nofollow', 'noopener', 'noreferrer']
-					// protocol: 'https://',
 					content: { type: 'text', value: '↗' } // adds an icon after external links, type can also be 'element' or 'comment', for value this adds an unbreakable space '\u00A0↗'
 				}
 			]
