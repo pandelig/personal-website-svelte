@@ -1,6 +1,7 @@
 <script>
-	import { onDestroy } from 'svelte';
 	import { fade } from 'svelte/transition';
+	import { onDestroy } from 'svelte';
+	import { page } from '$app/state';
 	import ContactForm from '$lib/components/ContactForm.svelte';
 
 	function scrollToTop() {
@@ -23,24 +24,24 @@
 
 	let { metadata, content, formResponse } = $props();
 
-	let contactFormTitle = metadata.post_type === 'blog' ? 'Share Your Thoughts' : 'Project Feedback';
-	let contactFormDescription =
-		metadata.post_type === 'blog'
+	const TOTAL_ELEMENTS_TO_TRANSITION = 6; // 1: dates & tags, 2: title, 3: content, 4: back to top button, 5: contact form, 6: contents
+	const CONTENTS_INDENTS = {
+		h1: 'pl-0',
+		h2: 'pl-4',
+		h3: 'pl-8'
+	};
+	const postType = page.url.pathname.split('/')[1];
+	const contactFormTitle = postType === 'blog' ? 'Share Your Thoughts' : 'Project Feedback';
+	const contactFormDescription =
+		postType === 'blog'
 			? 'Did this article help you? Got suggestions or feedback? Let me know!'
 			: 'Did you find this project helpful or interesting? Share your thoughts!';
-
-	const TOTAL_ELEMENTS_TO_TRANSITION = 6; // 1: dates & tags, 2: title, 3: content, 4: back to top button, 5: contact form, 6: contents
 	const formParameters = $derived({
 		title: contactFormTitle,
 		description: contactFormDescription,
 		formResponse
 	});
 	let delay = 200;
-	let contents_indents = {
-		h1: 'pl-0',
-		h2: 'pl-4',
-		h3: 'pl-8'
-	};
 
 	let headings = $state([]);
 	let activeHeading = $state();
@@ -89,16 +90,16 @@
 
 <!-- Remember to always have the last element of showContent be responsible for the Contents div -->
 {#if showContent[TOTAL_ELEMENTS_TO_TRANSITION - 1]}
-	<div class="absolute -right-80 top-0 hidden h-full w-72 p-4 text-stone-500 xl:block" in:fade>
+	<div class="absolute -right-80 top-0 hidden h-full w-72 p-4 text-secondary xl:block" in:fade>
 		<div class="sticky top-24">
 			<h2 class="mb-4 font-semibold">Contents</h2>
 			<ul>
 				{#each headings as heading}
 					<li
-						class="mt-1 {contents_indents[heading.level]} hover:text-base-content {heading.id ===
+						class="mt-1 {CONTENTS_INDENTS[heading.level]} hover:text-accent {heading.id ===
 						activeHeading
-							? 'text-base-content'
-							: ''}"
+							? 'text-accent'
+							: 'text-secondary'}"
 					>
 						<a href={`#${heading.id}`}>{heading.text}</a>
 					</li>
@@ -110,7 +111,7 @@
 
 <div class="p-8">
 	{#if showContent[0]}
-		<div class="text-sm text-stone-500" in:fade>
+		<div class="text-sm text-secondary" in:fade>
 			{metadata.date}
 			{#if metadata.date_updated}
 				- updated {metadata.date_updated}
@@ -124,8 +125,8 @@
 			<div class="flex flex-wrap" in:fade>
 				{#each metadata.tags as tag}
 					<a
-						href={`/${metadata.post_type}?tag=${tag}`}
-						class="not-prose p-2 text-stone-500 hover:text-base-content"
+						href={`/${postType}?tag=${tag}`}
+						class="not-prose p-2 text-secondary hover:text-accent"
 					>
 						#{tag}
 					</a>
@@ -148,7 +149,7 @@
 
 {#if showContent[3]}
 	<div class="p-8 py-0 text-right" in:fade>
-		<button onclick={scrollToTop} class="text-base text-stone-500 sm:hover:text-base-content">
+		<button onclick={scrollToTop} class="text-base text-secondary sm:hover:text-accent">
 			Back to Top
 		</button>
 	</div>

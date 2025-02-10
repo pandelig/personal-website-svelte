@@ -1,7 +1,6 @@
 ---
 slug: "first-project"
 date: "20-01-2025"
-post_type: "projects"
 date_updated: "22-01-2025"
 tags: ["animals", "humor", "frontend"]
 title: "Building a Zoo for Framework Animals"

@@ -12,7 +12,7 @@ meta_description: "Learn how to install and configure DaisyUI in your SvelteKit 
 1. [Step 1: Setting Up the Project](/blog/setting-up-sveltekit-website)
 2. (You are here) Step 2: Installing and Configuring DaisyUI
 3. [Step 3: Building the Home Page](/blog/building-the-home-page)
-4. [Step 4: Building Blog and Projects Pages](#)
+4. [Step 4: Building Blog and Projects Pages](/blog/building-blog-and-projects-pages)
 5. [Step 5: Building Post Content Page](#)
 6. [Step 6: Adding Transitions and SEO](#)
 7. [Step 7: Deployment on Cloudflare Workers](#)
@@ -28,7 +28,7 @@ npm i -D daisyui@latest
 ```
 
 ## Configure Tailwind to Use DaisyUI
-Now, update the `my-svelte-app/tailwind.config.js` file to include DaisyUI:
+Now, update the `/tailwind.config.js` file to include DaisyUI:
 
 ```javascript
 import typography from '@tailwindcss/typography';

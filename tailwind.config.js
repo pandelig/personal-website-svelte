@@ -11,6 +11,17 @@ export default {
 	plugins: [typography, require('daisyui')],
 
 	daisyui: {
-		themes: ['lofi'],
-	},
+		// themes: ['lofi'],
+		themes: [
+			{
+				mytheme: {
+					primary: '#000000',
+					secondary: '#78716c',
+					accent: '#000000',
+					neutral: '#ffffff',
+					'base-100': '#ffffff'
+				}
+			}
+		]
+	}
 };

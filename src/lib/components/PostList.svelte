@@ -22,8 +22,9 @@
 			delay += 200;
 		});
 	}
-	let { posts, tags, postType } = $props();
+	let { posts, tags } = $props();
 
+	const postType = page.url.pathname.slice(1);
 	let delay = 200;
 
 	let showContent = $state(Array(posts.length).fill(false));
@@ -62,8 +63,8 @@
 			<button
 				onclick={() => selectTag(tag)}
 				class="px-2 {selectedTags.includes(tag)
-					? 'text-base-content'
-					: 'text-stone-500'} sm:hover:text-base-content"
+					? 'text-accent'
+					: 'text-secondary'} sm:hover:text-accent"
 			>
 				#{tag}
 			</button>
@@ -77,13 +78,13 @@
 				<li in:fade>
 					<a href="/{postType}/{post.slug}" class="hover:link">
 						<h2>{post.title}</h2>
-						<p class="text-sm text-stone-500">{post.date}</p>
+						<p class="text-sm text-secondary">{post.date}</p>
 					</a>
 				</li>
 			{/if}
 		{/each}
 		{#if filteredPosts.length === 0}
-			<p class="text-stone-500" in:fade>No posts found for these tags.</p>
+			<p class="text-secondary" in:fade>No posts found for these tags.</p>
 		{/if}
 	</ul>
 </div>

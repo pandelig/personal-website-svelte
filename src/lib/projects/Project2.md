@@ -1,7 +1,6 @@
 ---
 slug: "second-project"
 date: "24-01-2025"
-post_type: "projects"
 date_updated: "25-01-2025"
 tags: ["animals", "humor", "backend"]
 title: "Creating a Safari for Backend Animals"

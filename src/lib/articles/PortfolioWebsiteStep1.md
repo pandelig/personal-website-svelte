@@ -12,7 +12,7 @@ meta_description: "Learn how to set up a personal website using SvelteKit and Ta
 1. (You are here) Step 1: Setting Up the Project
 2. [Step 2: Installing and Configuring DaisyUI](/blog/installing-configuring-daisyui)
 3. [Step 3: Building the Home Page](/blog/building-the-home-page)
-4. [Step 4: Blog and Projects Pages](#)
+4. [Step 4: Building Blog and Projects Pages](/blog/building-blog-and-projects-pages)
 5. [Step 5: Post Content Pages](#)
 6. [Step 6: Transitions and SEO](#)
 7. [Step 7: Deployment on Cloudflare Workers](#)

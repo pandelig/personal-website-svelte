@@ -1,7 +1,6 @@
 ---
 slug: "building-the-home-page"
 date: "04-02-2024"
-post_type: "blog"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
 title: "Personal Website with SvelteKit and TailwindCSS - Step 3: Building the Home Page"
@@ -13,7 +12,7 @@ meta_description: "Learn how to build the home page of your SvelteKit website us
 1. [Step 1: Setting Up the Project](/blog/setting-up-sveltekit-website)
 2. [Step 2: Installing and Configuring DaisyUI](/blog/installing-configuring-daisyui)
 3. (You are here) Building the Home Page
-4. [Step 4: Building Blog and Projects Pages](#)
+4. [Step 4: Building Blog and Projects Pages](/blog/building-blog-and-projects-pages)
 5. [Step 5: Building Post Content Page](#)
 6. [Step 6: Adding Transitions and SEO](#)
 7. [Step 7: Deployment on Cloudflare Workers](#)
@@ -49,7 +48,6 @@ Example:
 ---
 slug: "installing-configuring-daisyui"
 date: "03-02-2024"
-post_type: "blog"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
 title: "Personal Website with SvelteKit and TailwindCSS - Step 2: Installing and Configuring DaisyUI"
@@ -59,7 +57,6 @@ meta_description: "Learn how to install and configure DaisyUI in your SvelteKit 
 The frontmatter section of each article contains essential metadata that helps organize and identify the content. Here's a breakdown of each field:
 - `slug`: A unique identifier used for routing and referencing the article
 - `date`: Publication date in "DD-MM-YYYY" format
-- `post_type`: Categorizes content as either "blog" or "projects", this is also used for routing
 - `date_updated`: Optional field for tracking content revisions
 - `tags`: Array of keywords relevant to the article content, used for filtering later on
 - `title`: The full title of the article, serves multiple purposes including SEO
@@ -143,7 +140,7 @@ export function load() {
 }
 ```
 
-This function reads our Markdown files, extracts metadata, and returns them for the homepage.
+This function reads our Markdown files, extracts metadata, and returns them for the homepage. As you probably expect by reading the file's name, this code runs on the [server side](https://svelte.dev/tutorial/kit/page-data).
 - The way we import them TODO, write something more about vite's glob import, it is efficient.
 - It would be beneficial to study this code, perhaps print out the `articleModules` in the console. We don't use everything contained in the 2 `*Modules` objects as we only need the metadata in this case. Later on, when we reach the individual post pages, we will use these objects fully.
 - The sorting and slicing could happen on the client side, but since we only need the 2 most recent articles and projects, why waste the user's bandwidth.
@@ -168,7 +165,7 @@ Now, let’s build the home page, update `src/routes/+page.svelte`:
 	<div class="flex justify-center space-x-4">
 		<a
 			href="https://www.linkedin.com/in/username"
-			class="tooltip opacity-50 transition-opacity hover:opacity-100"
+			class="tooltip opacity-50 hover:opacity-100"
 			target="_blank"
 			data-tip="linkedin"
 		>
@@ -176,7 +173,7 @@ Now, let’s build the home page, update `src/routes/+page.svelte`:
 		</a>
 		<a
 			href="https://github.com/username"
-			class="tooltip opacity-50 transition-opacity hover:opacity-100"
+			class="tooltip opacity-50 hover:opacity-100"
 			target="_blank"
 			data-tip="github"
 		>
@@ -184,7 +181,7 @@ Now, let’s build the home page, update `src/routes/+page.svelte`:
 		</a>
 		<a
 			href="https://www.instagram.com/username"
-			class="tooltip opacity-50 transition-opacity hover:opacity-100"
+			class="tooltip opacity-50 hover:opacity-100"
 			target="_blank"
 			data-tip="instagram"
 		>
@@ -192,7 +189,7 @@ Now, let’s build the home page, update `src/routes/+page.svelte`:
 		</a>
 		<a
 			href="mailto:developer@example.com"
-			class="tooltip opacity-50 transition-opacity hover:opacity-100"
+			class="tooltip opacity-50 hover:opacity-100"
 			target="_blank"
 			data-tip="email"
 		>
@@ -214,7 +211,7 @@ Now, let’s build the home page, update `src/routes/+page.svelte`:
 					<li>
 						<a href="/blog/{article.slug}" class="hover:link">
 							<h2>{article.title}</h2>
-							<p class="text-sm text-stone-500">{article.date}</p>
+							<p class="text-sm text-secondary">{article.date}</p>
 						</a>
 					</li>
 				{/each}
@@ -229,7 +226,7 @@ Now, let’s build the home page, update `src/routes/+page.svelte`:
 					<li>
 						<a href="/projects/{project.slug}" class="hover:link">
 							<h2>{project.title}</h2>
-							<p class="text-sm text-stone-500">{project.date}</p>
+							<p class="text-sm text-secondary">{project.date}</p>
 						</a>
 					</li>
 				{/each}
@@ -264,43 +261,43 @@ Now, let’s create a navigation bar. We want it present in every page of the we
 </script>
 
 <nav
-	class="sticky top-0 z-10 mx-auto max-w-screen-sm bg-base-100/90 p-8 py-4 text-base text-base-content"
+	class="sticky top-0 z-10 mx-auto max-w-screen-sm bg-base-100/90 p-8 py-4 text-base text-secondary"
 >
 	<div class="flex justify-end gap-2">
 		{#if page.url.pathname !== '/'}
-			<a href="/" class="inline-block text-stone-500 hover:text-base-content"> home </a>
+			<a href="/" class="inline-block text-secondary hover:text-accent"> home </a>
 			<span> | </span>
 		{/if}
 		<a
 			href="/blog"
-			class="inline-block hover:text-base-content {page.url.pathname === '/blog'
-				? 'text-base-content'
-				: 'text-stone-500'}"
+			class="inline-block hover:text-accent {page.url.pathname === '/blog'
+				? 'text-accent'
+				: 'text-secondary'}"
 		>
 			blog
 		</a>
 		<span> | </span>
 		<a
 			href="/projects"
-			class="inline-block hover:text-base-content {page.url.pathname === '/projects'
-				? 'text-base-content'
-				: 'text-stone-500'}"
+			class="inline-block hover:text-accent {page.url.pathname === '/projects'
+				? 'text-accent'
+				: 'text-secondary'}"
 		>
 			projects
 		</a>
 	</div>
 </nav>
 
-<main class="relative mx-auto max-w-screen-sm bg-base-100 text-base text-base-content">
+<main class="relative mx-auto max-w-screen-sm bg-base-100 text-base text-primary">
 	{@render children()}
 </main>
 ```
 
 - We have seen `$app/state` [before](/blog/building-the-home-page#create-a-contact-form-component), it is now used to adapt the navbar styles based on the current url pathname. Is also used in combination with the [Svelte `#if` statement](https://svelte.dev/tutorial/svelte/if-blocks) to conditionally render the "home" button.
-- Again, you may refer to the [Recommended Resources](/blog/setting-up-sveltekit-website#optional-recommended-resources) for more information on the html classes. For example, the `sticky` and `text-base` are TW classes affecting the navbar positioning and text size while `text-base-content` is a DaisyUI color class.
+- Again, you may refer to the [Recommended Resources](/blog/setting-up-sveltekit-website#optional-recommended-resources) for more information on the html classes. For example, the `sticky` and `text-base` are TW classes affecting the navbar positioning and text size while `text-primary` is a DaisyUI color class.
 - Finally, we use the `relative` TW class to enable the usage of `absolute` positioning for the floating "Contents" you see on every post page, aiding with navigation within the post. [*"the element will act as a position reference for absolutely positioned children".*](https://tailwindcss.com/docs/position#relatively-positioning-elements)
 
 
 ## Wrapping Up Step 3
 
-Congratulations on making it this far! You have successfully created the home page of your personal website. You have learned how to structure your content, fetch it dynamically, and display it on the frontend, as well as how to create resuable components in SvelteKit. In the next step, we will [build the `/blog` and `/projects` pages](TODO). Stay tuned!
+Congratulations on making it this far! You have successfully created the home page of your personal website. You have learned how to structure your content, fetch it dynamically, and display it on the frontend, as well as how to create resuable components in SvelteKit. In the next step, we will [build the `/blog` and `/projects` pages](/blog/building-blog-and-projects-pages). Stay tuned!
