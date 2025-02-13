@@ -1,4 +1,4 @@
-@import url(../static/styles/prism-atom-dark.css);
+@import url(../static/styles/prism-darcula.css);
 
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';

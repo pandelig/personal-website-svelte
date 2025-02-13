@@ -1,26 +1,33 @@
 ---
-slug: "building-blog-and-projects-pages"
+slug: "build-blog-and-projects-pages"
 date: "05-02-2024"
-post_type: "blog"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
-title: "Personal Website with SvelteKit and TailwindCSS - Step 4: Building Blog and Projects Pages"
+title: "Personal Website with SvelteKit and TailwindCSS - Step 4: Build the Blog and Projects Pages"
 meta_description: "Learn how to create blog and project listing pages in SvelteKit using markdown files and server-side data loading."
 ---
 <!-- TODO update meta_description -->
 <!-- TODO all frontmatter dates -->
 
 <!-- TODO: Add links to the other steps once they are published. -->
-1. [Step 1: Setting Up the Project](/blog/setting-up-sveltekit-website)
-2. [Step 2: Installing and Configuring DaisyUI](/blog/installing-configuring-daisyui)
-3. [Step 3: Building the Home Page](/blog/building-the-home-page)
-4. (You are here) Building Blog and Projects Pages
-5. [Step 5: Building Post Content Page](#)
+1. [Step 1: Set Up the Project](/blog/set-up-sveltekit-website)
+2. [Step 2: Install and Configure DaisyUI](/blog/install-configure-daisyui)
+3. [Step 3: Build the Home Page](/blog/build-the-home-page)
+4. (You are here) Build the Blog and Projects Pages
+5. [Step 5: Build the Post Content Page](build-post-content-page)
 6. [Step 6: Adding Transitions and SEO](#)
 7. [Step 7: Deployment on Cloudflare Workers](#)
 8. [Step 8: Contact Form with Mailjet](#)
 
-In this step, we will create the `/blog` and `/projects` pages for our personal website. These pages will display a list of articles and projects, respectively, using metadata from markdown files while offering tag-based filtering. Similarly to Step 3, we will first create the server-side logic to fetch post metadata and then build the Svelte pages and component to display the posts.
+In this step, we will create the `/blog` and `/projects` pages for our personal website. These pages will display a list of articles and projects, respectively, using metadata from markdown files while offering tag-based filtering. Our approach will be:
+- Set up backend logic for fetching content.
+  - `src/routes/blog/+page.server.js`
+  - `src/routes/projects/+page.server.js`
+  - `src/lib/functions/loadMetadataOfPosts.js`
+- Integrate the frontend with the backend.
+  - `src/routes/blog/+page.svelte`
+  - `src/routes/projects/+page.svelte`
+  - `src/lib/components/PostList.svelte`
 
 As a reminder, we use the term "post" to refer to both articles and projects.
 
@@ -44,7 +51,7 @@ export function load() {
     return loadMetadataOfPosts('projects');
 }
 ```
-`src/lib/functions/loadMetadataOfPosts.js`
+`src/lib/functions/loadMetadataOfPosts.js`:
 ```js
 export function loadMetadataOfPosts(type) {
     let postModules;
@@ -71,10 +78,10 @@ export function loadMetadataOfPosts(type) {
 }
 ```
 
-- The code is quite similar to [what we needed for the Home page](/blog/building-the-home-page#fetch-articles-and-projects).
+- The code is quite similar to [what we needed for the Home page](/blog/build-the-home-page#fetch-articles-and-projects).
 - Placing the function under `src/lib/functions` is a personal preference for code organization, same goes for `src/lib/components`, `src/lib/articles`, and `src/lib/projects`. You can structure your project differently, SvelteKit is not opinionated about this. [Read more about the `$lib` alias here](https://svelte.dev/tutorial/kit/lib).
 
-## Displaying the Posts
+## Display the Posts
 
 Now that we have post data, we need to display it. Just like the `+page.server.js` files, the `+page.svelte` files are nearly identical.
 
@@ -100,9 +107,9 @@ Now that we have post data, we need to display it. Just like the `+page.server.j
 ```
 
 - Each file receives post data from its corresponding `+page.server.js` file.
-- The data is passed to the `PostList` component. This is the 2nd component we will create, the 1st being the [ContactForm from Step 3](http://localhost:5173/blog/building-the-home-page#create-a-contact-form-component).
+- The data is passed to the `PostList` component. This is the 2nd component we will create, the 1st being the [ContactForm from Step 3](http://localhost:5173/blog/build-the-home-page#create-a-contact-form-component).
 
-## Post List Component
+## Create Post List Component
 
 Both pages use the `PostList.svelte` component to display posts. By now, we should have a clear understanding of how to [create and use components in SvelteKit](https://svelte.dev/tutorial/svelte/nested-components) as well as [how to pass `$props` using the spread operator](https://svelte.dev/tutorial/svelte/spread-props).
 
@@ -175,4 +182,4 @@ Both pages use the `PostList.svelte` component to display posts. By now, we shou
 
 ## Wrapping Up Step 4
 
-You’ve now built the `/blog` and `/projects` pages! In Step 5, we’ll [create the Post Content Page](TODO), allowing users to read full articles and project descriptions.
+You’ve now built the `/blog` and `/projects` pages! In Step 5, we’ll [create the Post Content Page](/blog/build-post-content-page), allowing users to read full articles and project descriptions.

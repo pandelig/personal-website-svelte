@@ -1,19 +1,19 @@
 ---
-slug: "building-the-home-page"
+slug: "build-the-home-page"
 date: "04-02-2024"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
-title: "Personal Website with SvelteKit and TailwindCSS - Step 3: Building the Home Page"
+title: "Personal Website with SvelteKit and TailwindCSS - Step 3: Build the Home Page"
 meta_description: "Learn how to build the home page of your SvelteKit website using Tailwind and DaisyUI for a clean and minimalist design. This tutorial walks through structuring the page with articles, projects, and a contact form."
 ---
 <!-- TODO update meta_description -->
 
 <!-- TODO: Add links to the other steps once they are published. -->
-1. [Step 1: Setting Up the Project](/blog/setting-up-sveltekit-website)
-2. [Step 2: Installing and Configuring DaisyUI](/blog/installing-configuring-daisyui)
-3. (You are here) Building the Home Page
-4. [Step 4: Building Blog and Projects Pages](/blog/building-blog-and-projects-pages)
-5. [Step 5: Building Post Content Page](#)
+1. [Step 1: Set Up the Project](/blog/set-up-sveltekit-website)
+2. [Step 2: Install and Configure DaisyUI](/blog/install-configure-daisyui)
+3. (You are here) Build the Home Page
+4. [Step 4: Build the Blog and Projects Pages](/blog/build-blog-and-projects-pages)
+5. [Step 5: Build the Post Content Page](build-post-content-page)
 6. [Step 6: Adding Transitions and SEO](#)
 7. [Step 7: Deployment on Cloudflare Workers](#)
 8. [Step 8: Contact Form with Mailjet](#)
@@ -21,12 +21,18 @@ meta_description: "Learn how to build the home page of your SvelteKit website us
 In this article we will create the home page of our SvelteKit website. The home page will include our name, social links, a short description, a section for recent articles, another for recent projects, and a contact form.
 
 To minimize back and forth editing, we follow a structured approach:
-1. Create dummy files for articles and projects.
-2. Build the contact form.
-3. Set up backend logic for fetching content.
-4. Integrate the frontend with the backend.
+- Create dummy files for articles and projects.
+  - `src/lib/content/articles/*.md`
+  - `src/lib/content/projects/*.md`
+- Build the contact form.
+  - `src/lib/components/ContactForm.svelte`
+- Set up backend logic for fetching content.
+  - `src/routes/+page.server.js`
+- Integrate the frontend with the backend.
+  - `src/routes/+page.svelte`
+  - `src/routes/+layout.svelte`
 
-In this step you will likely come accross unknown html classes, you can refer to the Tailwind (TW) CSS and DaisyUI documentation as mentioned in the [Recommended Resources](/blog/setting-up-sveltekit-website#optional-recommended-resources). Soon you will realize how easy it is to understand and remember the logic behind the class names.
+You will likely come accross unknown html classes, you can refer to the Tailwind (TW) CSS and DaisyUI documentation as mentioned in the [Recommended Resources](/blog/set-up-sveltekit-website#optional-recommended-resources).
 
 ## Create Dummy Articles and Projects
 
@@ -46,11 +52,11 @@ Similarly, create `src/lib/content/projects/` and the following files:
 Example:
 ```yaml
 ---
-slug: "installing-configuring-daisyui"
+slug: "install-configure-daisyui"
 date: "03-02-2024"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
-title: "Personal Website with SvelteKit and TailwindCSS - Step 2: Installing and Configuring DaisyUI"
+title: "Personal Website with SvelteKit and TailwindCSS - Step 2: Install and Configure DaisyUI"
 meta_description: "Learn how to install and configure DaisyUI in your SvelteKit project..."
 ---
 ```
@@ -293,11 +299,11 @@ Now, let’s create a navigation bar. We want it present in every page of the we
 </main>
 ```
 
-- We have seen `$app/state` [before](/blog/building-the-home-page#create-a-contact-form-component), it is now used to adapt the navbar styles based on the current url pathname. Is also used in combination with the [Svelte `#if` statement](https://svelte.dev/tutorial/svelte/if-blocks) to conditionally render the "home" button.
-- Again, you may refer to the [Recommended Resources](/blog/setting-up-sveltekit-website#optional-recommended-resources) for more information on the html classes. For example, the `sticky` and `text-base` are TW classes affecting the navbar positioning and text size while `text-primary` is a DaisyUI color class.
+- We have seen `$app/state` [before](/blog/build-the-home-page#create-a-contact-form-component), it is now used to adapt the navbar styles based on the current url pathname. Is also used in combination with the [Svelte `#if` statement](https://svelte.dev/tutorial/svelte/if-blocks) to conditionally render the "home" button.
+- Again, you may refer to the [Recommended Resources](/blog/set-up-sveltekit-website#optional-recommended-resources) for more information on the html classes. For example, the `sticky` and `text-base` are TW classes affecting the navbar positioning and text size while `text-primary` is a DaisyUI color class.
 - Finally, we use the `relative` TW class to enable the usage of `absolute` positioning for the floating "Contents" you see on every post page, aiding with navigation within the post. [*"the element will act as a position reference for absolutely positioned children".*](https://tailwindcss.com/docs/position#relatively-positioning-elements)
 
 
 ## Wrapping Up Step 3
 
-Congratulations on making it this far! You have successfully created the home page of your personal website. You have learned how to structure your content, fetch it dynamically, and display it on the frontend, as well as how to create resuable components in SvelteKit. In the next step, we will [build the `/blog` and `/projects` pages](/blog/building-blog-and-projects-pages). Stay tuned!
+Congratulations on making it this far! You have successfully created the home page of your personal website. You have learned how to structure your content, fetch it dynamically, and display it on the frontend, as well as how to create resuable components in SvelteKit. In the next step, we will [build the `/blog` and `/projects` pages](/blog/build-blog-and-projects-pages). Stay tuned!

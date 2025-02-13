@@ -1,19 +1,18 @@
 ---
-slug: "setting-up-sveltekit-website"
+slug: "set-up-sveltekit-website"
 date: "02-02-2024"
-post_type: "blog"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind", "cloudflare-workers"]
-title: "Personal Website with SvelteKit and TailwindCSS - Step 1: Setting Up the Project"
+title: "Personal Website with SvelteKit and TailwindCSS - Step 1: Set Up the Project"
 meta_description: "Learn how to set up a personal website using SvelteKit and TailwindCSS in this comprehensive tutorial by Pantelis Deligiannidis. Step-by-step guide for project initialization and configuration."
 ---
 
 <!-- TODO: Add links to the other steps once they are published. -->
-1. (You are here) Step 1: Setting Up the Project
-2. [Step 2: Installing and Configuring DaisyUI](/blog/installing-configuring-daisyui)
-3. [Step 3: Building the Home Page](/blog/building-the-home-page)
-4. [Step 4: Building Blog and Projects Pages](/blog/building-blog-and-projects-pages)
-5. [Step 5: Post Content Pages](#)
+1. (You are here) Step 1: Set Up the Project
+2. [Step 2: Install and Configure DaisyUI](/blog/install-configure-daisyui)
+3. [Step 3: Build the Home Page](/blog/build-the-home-page)
+4. [Step 4: Build the Blog and Projects Pages](/blog/build-blog-and-projects-pages)
+5. [Step 5: Build the Post Content Page](build-post-content-page)
 6. [Step 6: Transitions and SEO](#)
 7. [Step 7: Deployment on Cloudflare Workers](#)
 8. [Step 8: Contact Form Functionality](#)
@@ -122,4 +121,4 @@ npm run dev -- --open
 
 Congratulations on completing the first step of building your portfolio website! You've successfully set up your development environment with SvelteKit and TailwindCSS.
 
-In the next step, we'll dive into [installing and configuring DaisyUI](/blog/installing-configuring-daisyui).
+In the next step, we'll dive into [installing and configuring DaisyUI](/blog/install-configure-daisyui).
