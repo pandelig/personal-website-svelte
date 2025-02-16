@@ -1,3 +1,4 @@
+<!-- @component Displays a filterable list of posts (blog or project articles) with tags and animated transitions -->
 <script>
 	import { fade } from 'svelte/transition';
 	import { page } from '$app/state';

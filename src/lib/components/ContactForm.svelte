@@ -1,3 +1,4 @@
+<!-- @component A customizable contact form component with name, email, and message fields that supports form submission feedback -->
 <script>
 	import { fade } from 'svelte/transition';
 	import { enhance } from '$app/forms';

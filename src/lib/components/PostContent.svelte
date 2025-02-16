@@ -1,3 +1,4 @@
+<!-- @component Displays a post (blog or project article) with interactive tags, a back to top button, table of contents, and a contact form -->
 <script>
 	import { fade } from 'svelte/transition';
 	import { onDestroy } from 'svelte';

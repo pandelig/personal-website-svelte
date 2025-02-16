@@ -14,7 +14,7 @@ meta_description: "Learn how to build a dynamic post content page in SvelteKit u
 2. [Step 2: Installing and Configuring DaisyUI](/blog/installing-configuring-daisyui)
 3. [Step 3: Build the Home Page](/blog/build-the-home-page)
 4. [Step 4: Build the Blog and Projects Pages](/blog/build-blog-and-projects-pages)
-5. (You are here) Build the Post Content Page
+5. (You are here) Step 5: Build the Post Content Page
 6. [Step 6: Adding Transitions and SEO](#)
 7. [Step 7: Deployment on Cloudflare Workers](#)
 8. [Step 8: Contact Form with Mailjet](#)
@@ -90,7 +90,7 @@ export function loadPost(type, slug) {
 - We return a 404 error if the post doesn't exist.
 - We make use of `render()` to convert markdown into HTML before returning it. Try logging `post.default` and `renderedContent` to compare the before and after states for better understanding.
 
-## Configure `mdsvex` plugins
+## Configure `mdsvex` Plugins
 
 To render markdown content, we are using the `mdsvex` plugin. As mentioned in [its docs](https://mdsvex.pngwn.io/docs#remarkplugins--rehypeplugins), mdsvex allows us to use [`remark`](https://github.com/remarkjs/remark/blob/main/doc/plugins.md#list-of-plugins) and [`rehype`](https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#list-of-plugins) plugins to customize the markdown rendering process.
 
@@ -127,7 +127,7 @@ export default config;
 ```
 
 - `rehype-slug`: add ids to headings.
-- `rehype-external-links`: add `target="_blank"` and `rel="noopener"` to external links. The `content` option adds an icon after external links, `type` can also be `'element'` or `'comment'`, for `value` this adds an unbreakable space `'\u00A0↗'`, a simple space before the emoji seems to be getting removed.
+- `rehype-external-links`: add `target="_blank"` and `rel="noopener"` to external links. The `content` option adds an icon after external links, `type` can also be `'element'` or `'comment'`, for `value` this adds an unbreakable space: `'\u00A0↗'`, a simple space before the emoji seems to be getting removed.
 - By default, mdsvex does not support markdown files (`.md`), so we add it to the `extensions` array in accordance with the [mdsvex docs](https://mdsvex.pngwn.io/docs#extensions).
 
 
@@ -216,16 +216,123 @@ Article and project pages use the same code to display their content. We create 
 - We display the post's `date` and, if available, the `date_updated`.
 - Notice how the rendered tags associated with the post are clickable links that lead to `/blog` or `/projects` and filter posts by the selected tag.
 - The html `prose-*` classes are available from the [tailwind typography plugin](https://github.com/tailwindlabs/tailwindcss-typography).
-- The post's title gets its `id` dynamically from the metadata title. We will see how the other titles of our posts get their `id` and how we make use of title's ids in the section below.
+- The post's title gets its `id` dynamically from the metadata title. We saw how the other headings of our posts get their `id` and in the section below we will see how we make use of heading ids.
 - Renders the post's `content` using `{@html content}` to [inject raw HTML](https://svelte.dev/tutorial/svelte/html-tags).
 - A button that triggers the `scrollToTop` function when clicked, allowing users to scroll back to the top of the page.
 - We have [seen the `postType` functionality before](/blog/build-blog-and-projects-pages#create-post-list-component), as well as the [`page` usage](/blog/build-the-home-page#create-a-contact-form-component) and [how to understand tailwind classes](/blog/set-up-sveltekit-website#optional-recommended-resources). The Svelte [`#each` block should also be familiar by now](/blog/build-the-home-page#create-the-home-page).
+- Observe how the posts look without the typography plugin by temporarily removing it from the `svelte.config.js` file. This helps understand its role in styling markdown content.
+
+### Add Floating Table of Contents (TOC)
+
+To enhance the user experience, we add a floating Table of Contents (TOC) that scrolls with the page. This feature is especially useful for long posts, aiding navigation.
+
+`src/lib/components/PostContent.svelte`:
+```svelte
+<script>
+  import { onMount, onDestroy } from 'svelte';
+  // other imports from earlier
+
+  // scrollToTop function from earlier
+
+  /** Updates active heading based on current scroll position in the document */
+  function handleScroll() {
+   	const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+   	const scrollPosition = window.scrollY + 15; // Add some padding
+
+   	// Check if the user has scrolled to the bottom
+   	if (scrollTop + clientHeight >= scrollHeight - 10) {
+      activeHeading = headings[headings.length - 1].id;
+   	} else {
+      let current = headings.findLast((h) => scrollPosition >= h.offset);
+      activeHeading = current ? current.id : headings[0].id;
+   	}
+  }
+
+  // $props from earlier
+  const CONTENTS_INDENTS = {
+  	h1: 'pl-0',
+  	h2: 'pl-4',
+  	h3: 'pl-8'
+  };
+
+  // ...
+  // const formParameters from earlier
+  let headings = $state([]);
+  let activeHeading = $state();
+
+  $effect(() => {
+  	if (
+  		headings.length === 0 ||
+  		(headings.length > 0 && headings[0].text !== metadata.title)
+  	) {
+  		headings = Array.from(document.querySelectorAll('.prose h1, .prose h2, .prose h3')).map(
+  			(h) => ({
+  				id: h.id,
+  				text: h.innerText,
+  				level: h.tagName.toLowerCase(),
+  				offset: h.offsetTop
+  			})
+  		);
+  		handleScroll();
+  });
+
+  onMount(() => {
+    window.addEventListener('scroll', handleScroll);
+  });
+
+  onDestroy(() => {
+    return () => {
+     	window.removeEventListener('scroll', handleScroll);
+    };
+  });
+</script>
+
+<div
+    class="absolute -right-80 top-0 hidden h-full w-72 p-4 text-secondary xl:block"
+    in:fade
+>
+    <div class="sticky top-24">
+        <h2 class="mb-4 font-semibold">Contents</h2>
+        <ul>
+            {#each headings as heading}
+                <li
+                    class="mt-1 {CONTENTS_INDENTS[
+                        heading.level
+                    ]} hover:text-accent {heading.id === activeHeading
+                        ? 'text-accent'
+                        : 'text-secondary'}"
+                >
+                    <a href={`#${heading.id}`}>{heading.text}</a>
+                </li>
+            {/each}
+        </ul>
+    </div>
+</div>
+
+// other html code from earlier
+````
+
+- The component uses Svelte's `onMount` and `onDestroy` lifecycle functions to manage scroll event listeners.
+- `handleScroll` function updates the `activeHeading` based on the current scroll position, with special handling for when users reach the bottom of the page.
+- `CONTENTS_INDENTS` is an object that maps heading levels (h1, h2, h3) to Tailwind padding classes, creating a hierarchical indentation in the TOC.
+- `headings` and `activeHeading` variables are reactive, we have discussed this functionality before in ["Create Post List Component" of the previous step](/blog/build-blog-and-projects-pages#create-post-list-component)
+- We encounter [`$effect`](https://svelte.dev/tutorial/svelte/effects) for the first time. It is important to understand [what triggers it](https://svelte.dev/docs/svelte/$effect#Understanding-dependencies). In our case it runs when the component mounts or when metadata changes, collecting all h1, h2, and h3 headings from the post content.
+- For each heading, it stores:
+  - `id`: The heading's ID, which is used to determine the `activeHeading`.
+  - `text`: The heading's text content.
+  - `level`: The heading type (h1, h2, or h3), which determines the indentation through `CONTENTS_INDENTS`.
+  - `offset`: The heading's vertical position from the top, used in `handleScroll()` to determine the `activeHeading`.
+- The TOC is positioned absolutely on the right side of the content, only visible on extra-large screens (xl:block). Remember the usage of `relative` in the [parent container](/blog/build-the-home-page#add-a-navbar).
+
+It would be beneficial here to spend some time understanding the code, how indentation is managed, how the colors of the TOC items change, what triggers the `$effect` block, the tailwind classes used etc.
+
+As an advanced note, we have to define the `CONTENTS_INDENTS` object, if we dynamically create the `pl-*` classes in the `class=` attribute, tailwind will not include the required CSS in the built app because it sees no mentions of these classes anywhere in the source files.
 
 ## Enhance the Styling
 
-The `src/app.css` file is updated to improve scrolling behavior and add code highlighting styles:
+The `src/app.css` file is updated to improve scrolling behavior and add code highlighting style, this is its final form:
 ```css
-@import url(../static/styles/prism-atom-dark.css);
+@import url(../static/styles/prism-darcula.css);
 
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
@@ -252,26 +359,6 @@ html {
 - `scroll-margin-top`: Ensures headings don’t get covered by the sticky navbar.
 
 You can experiment with different `app.css` configurations while running `npm run dev` to see the changes in real-time.
-
-## Customizing Code Blocks
-
-You can change the PrismJS theme by importing a different CSS file:
-```css
-@import url(../static/styles/prism-atom-dark.css);
-```
-To use a different theme:
-1. Browse [PrismJS themes](https://prismjs.com/)
-2. Download your favorite theme
-3. Replace `prism-atom-dark.css` with the new theme file
-
-## Optional: Experiment with Tailwind
-
-Try removing the `typography` plugin in `tailwind.config.js`:
-```js
-// Remove this from tailwind.config.js
-require('@tailwindcss/typography')
-```
-Observe how your posts look without it—this helps understand its role in styling markdown content.
 
 ## Wrapping Up Step 5
 
