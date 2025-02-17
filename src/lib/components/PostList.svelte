@@ -15,7 +15,7 @@
 
 		showContent = Array(filteredPosts.length).fill(false);
 
-		let delay = 100;
+		let delay = 200;
 		filteredPosts.forEach((_, index) => {
 			setTimeout(() => {
 				showContent[index] = true;

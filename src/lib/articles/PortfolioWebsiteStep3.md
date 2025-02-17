@@ -14,7 +14,7 @@ meta_description: "Learn how to build the home page of your SvelteKit website us
 3. (You are here) Step 3: Build the Home Page
 4. [Step 4: Build the Blog and Projects Pages](/blog/build-blog-and-projects-pages)
 5. [Step 5: Build the Post Content Page](build-post-content-page)
-6. [Step 6: Adding Transitions and SEO](#)
+6. [Step 6: Added Transitions and SEO](/blog/add-transitions-and-seo)
 7. [Step 7: Deployment on Cloudflare Workers](#)
 8. [Step 8: Contact Form with Mailjet](#)
 
@@ -171,35 +171,31 @@ Now, let’s build the home page, update `src/routes/+page.svelte`:
 	<div class="flex justify-center space-x-4">
 		<a
 			href="https://www.linkedin.com/in/username"
-			class="tooltip opacity-50 hover:opacity-100"
+			class="text-secondary hover:text-accent"
 			target="_blank"
-			data-tip="linkedin"
 		>
-			<img src="/icons/linkedin.svg" alt="Linkedin" class="h-6 w-6" />
+			linkedin
 		</a>
 		<a
 			href="https://github.com/username"
-			class="tooltip opacity-50 hover:opacity-100"
+			class="text-secondary hover:text-accent"
 			target="_blank"
-			data-tip="github"
 		>
-			<img src="/icons/github.svg" alt="GitHub" class="h-6 w-6" />
+			github
 		</a>
 		<a
 			href="https://www.instagram.com/username"
-			class="tooltip opacity-50 hover:opacity-100"
+			class="text-secondary hover:text-accent"
 			target="_blank"
-			data-tip="instagram"
 		>
-			<img src="/icons/instagram.svg" alt="Instagram" class="h-6 w-6" />
+			instagram
 		</a>
 		<a
 			href="mailto:developer@example.com"
-			class="tooltip opacity-50 hover:opacity-100"
+			class="text-secondary hover:text-accent"
 			target="_blank"
-			data-tip="email"
 		>
-			<img src="/icons/email.svg" alt="Email" class="h-6 w-6" />
+			email
 		</a>
 	</div>
 </div>
@@ -249,11 +245,52 @@ Now, let’s build the home page, update `src/routes/+page.svelte`:
 - Notice how we import the `ContactForm` component and pass the `formParameters` to it.
 - The `data` object is [passed to the page from the server-side](https://svelte.dev/tutorial/kit/page-data) function `load()`. This is how we access the articles and projects metadata, i.e. the frontmatter data.
   - From the frontmatter data, we are making use of the `title`, `date`, and `slug` fields.
+- Familirize yourself with the [Svelte each block](https://svelte.dev/tutorial/svelte/each-blocks). We will need it again.
+
+### (Optional) Add Socials Icons
+
+If you want to add social icons to your home page, you can either use SVG icons as files or inline them directly in the HTML. Here's how to use SVG files:
+
+```html
+<a
+	href="https://www.linkedin.com/in/username"
+	class="text-secondary hover:text-accent tooltip"
+	target="_blank"
+	data-tip="linkedin"
+>
+	<img src="/socials/linkedin.svg" alt="Linkedin" class="w-6 h-6" />
+</a>
+```
+
 - Regarding the socials icons, you may search for "free social icons" in your favorite search engine. I used [Iconfinder](https://www.iconfinder.com/) with the "Free" filter.
   1. Download the icons as SVG files.
-  2. Store them in `static/icons/`.
+  2. Store them in `static/socials/`.
   Keep in mind that the "static" is not part of the URL path, so you can access the icons directly from the root of your domain.
-- Familirize yourself with the [Svelte each block](https://svelte.dev/tutorial/svelte/each-blocks). We will need it again.
+
+  Alternatively, here's how to use them inline:
+  ```html
+  <a
+		href="https://www.linkedin.com/in/username"
+		class="tooltip text-secondary hover:text-accent"
+		target="_blank"
+		data-tip="linkedin"
+		aria-label="Visit my LinkedIn profile"
+	>
+		<svg class="h-6 w-6 fill-current" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+			<g data-name="in linkedin portfolio social media" id="in_linkedin_portfolio_social_media">
+				<path d="M6.5,3A3.5,3.5,0,1,0,10,6.5,3.5,3.5,0,0,0,6.5,3Zm0,5A1.5,1.5,0,1,1,8,6.5,1.5,1.5,0,0,1,6.5,8Z" />
+				<path d="M9,11H4a1,1,0,0,0,0,2H8V27H5V16a1,1,0,0,0-2,0V28a1,1,0,0,0,1,1H9a1,1,0,0,0,1-1V12A1,1,0,0,0,9,11Z"	/>
+				<path	d="M27.34,12.68A5.94,5.94,0,0,0,23,11H22a7.84,7.84,0,0,0-4,.89A1,1,0,0,0,17,11H12a1,1,0,0,0-1,1V28a1,1,0,0,0,1,1h5a1,1,0,0,0,1-1V19a2,2,0,0,1,4,0v9a1,1,0,0,0,1,1h5a1,1,0,0,0,1-1V17A5.9,5.9,0,0,0,27.34,12.68ZM27,27H24V19a4,4,0,0,0-8,0v8H13V13h3v1a1,1,0,0,0,.62.92,1,1,0,0,0,1.09-.21c.95-1,1.7-1.71,4.29-1.71h1a4,4,0,0,1,2.92,1.09A4,4,0,0,1,27,17Z"	/>
+			</g>
+		</svg>
+	</a>
+  ```
+
+  This is the option I went for since it allows for easy color customization based on the secondary color we have set in [the previous step](/blog/install-configure-daisyui).
+  To get the SVG code, download the SVG file and open it in a text editor. Copy the contents and paste them in your `src/routes/+page.svelte` file. Notice how:
+  - We removed the `<?xml version="1.0" ?>` tag, it's primarily used when the SVG is a standalone file to indicate that it's an XML document.
+  - We removed the `<title />` tag. It's used for accessibility purposes, but in this case, the added `aria-label` attribute on the `<a>` tag serves the same purpose.
+  - We added classes to the SVG elements to apply Tailwind CSS classes for styling.
 
 ## Add a Navbar
 

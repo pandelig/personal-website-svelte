@@ -18,7 +18,7 @@
 	// Delay the rendering to trigger transitions
 	setTimeout(() => {
 		showContent1 = true;
-	}, 100);
+	}, 200);
 
 	$effect(() => {
 		if (showContent1) {
@@ -37,7 +37,7 @@
 	<title>Pantelis Deligiannidis</title>
 	<meta
 		name="description"
-		content="Welcome to the personal website of Pantelis Deligiannidis, a software engineer with professional experience in full stack web development and DevOps. Explore articles and projects on web development, DevOps, cloud computing, Linux, and more"
+		content="Welcome to the personal website of Pantelis Deligiannidis, a Software Engineer with experience in full stack web development and DevOps. Explore articles and projects on web development, DevOps, cloud computing, Linux, and more"
 	/>
 </svelte:head>
 
@@ -127,8 +127,8 @@
 
 {#if showContent2}
 	<p class="mb-8 px-8" in:fade>
-		Software Engineer with professional experience in full stack web development and DevOps,
-		exploring tech, education, and occasionally random ideas.
+		Software Engineer with experience in full stack web development and DevOps, exploring tech,
+		education, and occasionally random ideas.
 	</p>
 {/if}
 
@@ -139,7 +139,7 @@
 				<h2 class="text-lg font-semibold">Articles</h2>
 				<ul class="mt-4 space-y-4">
 					{#each data.articles as article}
-						<li in:fade>
+						<li>
 							<a href="/blog/{article.slug}" class="hover:link">
 								<h2>{article.title}</h2>
 								<p class="text-sm text-secondary">{article.date}</p>
@@ -154,7 +154,7 @@
 				<h2 class="text-lg font-semibold">Projects</h2>
 				<ul class="mt-4 space-y-4">
 					{#each data.projects as project}
-						<li in:fade>
+						<li>
 							<a href="/projects/{project.slug}" class="hover:link">
 								<h2>{project.title}</h2>
 								<p class="text-sm text-secondary">{project.date}</p>

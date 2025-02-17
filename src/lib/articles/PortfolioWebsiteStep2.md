@@ -13,7 +13,7 @@ meta_description: "Learn how to install and configure DaisyUI in your SvelteKit 
 3. [Step 3: Build the Home Page](/blog/build-the-home-page)
 4. [Step 4: Build the Blog and Projects Pages](/blog/build-blog-and-projects-pages)
 5. [Step 5: Build the Post Content Page](build-post-content-page)
-6. [Step 6: Adding Transitions and SEO](#)
+6. [Step 6: Added Transitions and SEO](/blog/add-transitions-and-seo)
 7. [Step 7: Deployment on Cloudflare Workers](#)
 8. [Step 8: Contact Form with Mailjet](#)
 

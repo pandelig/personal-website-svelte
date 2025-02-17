@@ -15,7 +15,7 @@ meta_description: "Learn how to build a dynamic post content page in SvelteKit u
 3. [Step 3: Build the Home Page](/blog/build-the-home-page)
 4. [Step 4: Build the Blog and Projects Pages](/blog/build-blog-and-projects-pages)
 5. (You are here) Step 5: Build the Post Content Page
-6. [Step 6: Adding Transitions and SEO](#)
+6. [Step 6: Added Transitions and SEO](/blog/add-transitions-and-seo)
 7. [Step 7: Deployment on Cloudflare Workers](#)
 8. [Step 8: Contact Form with Mailjet](#)
 
@@ -289,7 +289,6 @@ To enhance the user experience, we add a floating Table of Contents (TOC) that s
 
 <div
     class="absolute -right-80 top-0 hidden h-full w-72 p-4 text-secondary xl:block"
-    in:fade
 >
     <div class="sticky top-24">
         <h2 class="mb-4 font-semibold">Contents</h2>
@@ -317,6 +316,7 @@ To enhance the user experience, we add a floating Table of Contents (TOC) that s
 - `CONTENTS_INDENTS` is an object that maps heading levels (h1, h2, h3) to Tailwind padding classes, creating a hierarchical indentation in the TOC.
 - `headings` and `activeHeading` variables are reactive, we have discussed this functionality before in ["Create Post List Component" of the previous step](/blog/build-blog-and-projects-pages#create-post-list-component)
 - We encounter [`$effect`](https://svelte.dev/tutorial/svelte/effects) for the first time. It is important to understand [what triggers it](https://svelte.dev/docs/svelte/$effect#Understanding-dependencies). In our case it runs when the component mounts or when metadata changes, collecting all h1, h2, and h3 headings from the post content.
+  - When navigating from one article to another, [a page reload will not be triggered](https://svelte.dev/docs/kit/state-management#Component-and-page-state-is-preserved) by default but the `metadata` will change, triggering the `$effect` block.
 - For each heading, it stores:
   - `id`: The heading's ID, which is used to determine the `activeHeading`.
   - `text`: The heading's text content.
