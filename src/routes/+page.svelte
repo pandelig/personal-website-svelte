@@ -142,7 +142,12 @@
 						<li>
 							<a href="/blog/{article.slug}" class="hover:link">
 								<h2>{article.title}</h2>
-								<p class="text-sm text-secondary">{article.date}</p>
+								<p class="text-sm text-secondary">
+									{article.date}
+									{#if article.date_updated}
+										- updated {article.date_updated}
+									{/if}
+								</p>
 							</a>
 						</li>
 					{/each}
@@ -157,7 +162,12 @@
 						<li>
 							<a href="/projects/{project.slug}" class="hover:link">
 								<h2>{project.title}</h2>
-								<p class="text-sm text-secondary">{project.date}</p>
+								<p class="text-sm text-secondary">
+									{project.date}
+									{#if project.date_updated}
+										- updated {project.date_updated}
+									{/if}
+								</p>
 							</a>
 						</li>
 					{/each}

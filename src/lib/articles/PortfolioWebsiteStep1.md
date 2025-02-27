@@ -7,15 +7,13 @@ title: "Personal Website with SvelteKit and TailwindCSS - Step 1: Set Up the Pro
 meta_description: "Learn how to set up a personal website using SvelteKit and TailwindCSS in this comprehensive tutorial by Pantelis Deligiannidis. Step-by-step guide for project initialization and configuration."
 ---
 
-<!-- TODO: Add links to the other steps once they are published. -->
 1. (You are here) Step 1: Set Up the Project
-2. [Step 2: Install and Configure DaisyUI](/blog/install-configure-daisyui)
+2. [Step 2: Install and Configure DaisyUI](/blog/install-and-configure-daisyui)
 3. [Step 3: Build the Home Page](/blog/build-the-home-page)
 4. [Step 4: Build the Blog and Projects Pages](/blog/build-blog-and-projects-pages)
 5. [Step 5: Build the Post Content Page](/blog/build-post-content-page)
 6. [Step 6: Add Transitions and SEO](/blog/add-transitions-and-seo)
-7. [Step 7: Deployment on Cloudflare Workers](#)
-8. [Step 8: Contact Form Functionality](#)
+7. [Step 7: Deploy on Cloudflare Workers](/blog/deploy-on-cloudflare-workers)
 
 ## Why SvelteKit and TailwindCSS?
 
@@ -33,9 +31,9 @@ By the end of this tutorial, you will have a fully functional and deployed perso
 
 - Host and display your articles and projects
 - Include a tag filtering system for articles and projects
-- Feature a working contact form
 - Be fully SEO-optimized ([PageSpeed Insights](https://pagespeed.web.dev/): 100 on everything - Performance, Accessibility, Best Practices, SEO)
 - Require no database
+- Look like the website you are browsing right now. The general theme of the website we are aiming to build was inspired by [markhorn's](https://github.com/markhorn-dev/astro-nano?tab=readme-ov-file) [AstroNano theme](https://astro.build/themes/details/astronano/) and [Paco Coursey's personal website](https://paco.me/). They just seemed amazing to me.
 
 Basic knowledge of HTML and JavaScript is advised. Almost no CSS.
 
@@ -106,7 +104,6 @@ Which package manager do you want to install dependencies with?
 - npm
 ```
 
-- "forms" plugin is not necessary since TailwindCSS's form styling utilities have been proven to be sufficient.
 - Do not let the questions here overwhelm you. You can always add or remove these features later.
 
 ### (Optional) Finalizing the Setup
@@ -121,4 +118,4 @@ npm run dev -- --open
 
 Congratulations on completing the first step of building your portfolio website! You've successfully set up your development environment with SvelteKit and TailwindCSS.
 
-In the next step, we'll dive into [installing and configuring DaisyUI](/blog/install-configure-daisyui).
+In the next step, we'll dive into [installing and configuring DaisyUI](/blog/install-and-configure-daisyui).

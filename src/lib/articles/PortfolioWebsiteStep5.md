@@ -9,15 +9,13 @@ meta_description: "Learn how to build a dynamic post content page in SvelteKit u
 <!-- TODO update meta_description -->
 <!-- TODO all frontmatter dates -->
 
-<!-- TODO: Add links to the other steps once they are published. -->
 1. [Step 1: Set Up the Project](/blog/set-up-sveltekit-website)
-2. [Step 2: Installing and Configuring DaisyUI](/blog/installing-configuring-daisyui)
+2. [Step 2: Install and Configure DaisyUI](/blog/install-and-configure-daisyui)
 3. [Step 3: Build the Home Page](/blog/build-the-home-page)
 4. [Step 4: Build the Blog and Projects Pages](/blog/build-blog-and-projects-pages)
 5. (You are here) Step 5: Build the Post Content Page
-6. [Step 6: Added Transitions and SEO](/blog/add-transitions-and-seo)
-7. [Step 7: Deployment on Cloudflare Workers](#)
-8. [Step 8: Contact Form with Mailjet](#)
+6. [Step 6: Add Transitions and SEO](/blog/add-transitions-and-seo)
+7. [Step 7: Deploy on Cloudflare Workers](/blog/deploy-on-cloudflare-workers)
 
 In this step, we will build the Post Content Page, which is responsible for rendering individual blog posts and project descriptions. Our approach:
 - Set up backend logic for fetching content.
@@ -154,7 +152,6 @@ Article and project pages use the same code to display their content. We create 
 ```svelte
 <script>
 	import { page } from '$app/state';
-	import ContactForm from '$lib/components/ContactForm.svelte';
 
 	function scrollToTop() {
 		window.scrollTo({ top: 0 });
@@ -163,15 +160,6 @@ Article and project pages use the same code to display their content. We create 
 	let { metadata, content } = $props();
 
 	const postType = page.url.pathname.split('/')[1];
-	const contactFormTitle = postType === 'blog' ? 'Share Your Thoughts' : 'Project Feedback';
-	const contactFormDescription =
-		postType === 'blog'
-			? 'Did this article help you? Got suggestions or feedback? Let me know!'
-			: 'Did you find this project helpful or interesting? Share your thoughts!';
-	const formParameters = {
-		title: contactFormTitle,
-		description: contactFormDescription,
-	};
 </script>
 
 <div class="p-8">
@@ -208,18 +196,15 @@ Article and project pages use the same code to display their content. We create 
 		Back to Top
 	</button>
 </div>
-
-<ContactForm {...formParameters} />
 ```
 
-- We import the ContactForm component we created during [Step 3: Build the Home Page](/blog/build-the-home-page#create-a-contact-form-component) and pass the form parameters as props.
 - We display the post's `date` and, if available, the `date_updated`.
 - Notice how the rendered tags associated with the post are clickable links that lead to `/blog` or `/projects` and filter posts by the selected tag.
 - The html `prose-*` classes are available from the [tailwind typography plugin](https://github.com/tailwindlabs/tailwindcss-typography).
 - The post's title gets its `id` dynamically from the metadata title. We saw how the other headings of our posts get their `id` and in the section below we will see how we make use of heading ids.
 - Renders the post's `content` using `{@html content}` to [inject raw HTML](https://svelte.dev/tutorial/svelte/html-tags).
 - A button that triggers the `scrollToTop` function when clicked, allowing users to scroll back to the top of the page.
-- We have [seen the `postType` functionality before](/blog/build-blog-and-projects-pages#create-post-list-component), as well as the [`page` usage](/blog/build-the-home-page#create-a-contact-form-component) and [how to understand tailwind classes](/blog/set-up-sveltekit-website#optional-recommended-resources). The Svelte [`#each` block should also be familiar by now](/blog/build-the-home-page#create-the-home-page).
+- We have [seen the `postType` functionality before](/blog/build-blog-and-projects-pages#create-post-list-component), as well as the [`page` usage](/blog/build-the-home-page#add-a-navbar) and [how to understand tailwind classes](/blog/set-up-sveltekit-website#optional-recommended-resources). The Svelte [`#each` block should also be familiar by now](/blog/build-the-home-page#create-the-home-page).
 - Observe how the posts look without the typography plugin by temporarily removing it from the `svelte.config.js` file. This helps understand its role in styling markdown content.
 
 ### Add Floating Table of Contents (TOC)
@@ -248,15 +233,16 @@ To enhance the user experience, we add a floating Table of Contents (TOC) that s
    	}
   }
 
-  // $props from earlier
+  let { metadata, content } = $props();
+
   const CONTENTS_INDENTS = {
   	h1: 'pl-0',
   	h2: 'pl-4',
   	h3: 'pl-8'
   };
 
-  // ...
-  // const formParameters from earlier
+  const postType = page.url.pathname.split('/')[1];
+
   let headings = $state([]);
   let activeHeading = $state();
 
@@ -362,4 +348,4 @@ You can experiment with different `app.css` configurations while running `npm ru
 
 ## Wrapping Up Step 5
 
-Awesome work! You’ve successfully built the Post Content Page. In the next step, we’ll add transitions and SEO enhancements to improve the user experience.
+Awesome work! You’ve successfully built the Post Content Page. In the next step, we’ll [add transitions and SEO enhancements](/blog/add-transitions-and-seo) to improve the user experience.

@@ -9,20 +9,17 @@ meta_description: "Learn how to add smooth transitions and improve SEO in a Svel
 <!-- TODO update meta_description -->
 <!-- TODO all frontmatter dates -->
 
-<!-- TODO: Add links to the other steps once they are published. -->
 1. [Step 1: Set Up the Project](/blog/set-up-sveltekit-website)
-2. [Step 2: Installing and Configuring DaisyUI](/blog/installing-configuring-daisyui)
+2. [Step 2: Install and Configure DaisyUI](/blog/install-and-configure-daisyui)
 3. [Step 3: Build the Home Page](/blog/build-the-home-page)
 4. [Step 4: Build the Blog and Projects Pages](/blog/build-blog-and-projects-pages)
-5. [Step 5: Build the Post Content Page](build-post-content-page)
+5. [Step 5: Build the Post Content Page](/blog/build-post-content-page)
 6. (You are here) Step 6: Add Transitions and SEO
-7. [Step 7: Deployment on Cloudflare Workers](#)
-8. [Step 8: Contact Form with Mailjet](#)
+7. [Step 7: Deploy on Cloudflare Workers](/blog/deploy-on-cloudflare-workers)
 
 In this step, we will enhance our SvelteKit website by adding transitions to various components and improving SEO by adding metadata tags. We will be updating the following files:
 
 - Transitions:
-  - `src/lib/components/ContactForm.svelte`
   - `src/routes/+layout.svelte`
   - `src/routes/+page.svelte`
   - `src/lib/components/PostList.svelte`
@@ -36,26 +33,6 @@ In this step, we will enhance our SvelteKit website by adding transitions to var
 ## Add Transitions
 
 We will be using Svelte's built in `fade` transition.
-
-### ContactForm Component
-We can add the `fade` transition to the `ContactForm.svelte` component to make elements appear smoothly.
-
-`src/lib/components/PostContent.svelte`:
-```svelte
-<script>
-	import { fade } from 'svelte/transition';
-	// ...
-</script>
-
-<form method="POST" class="mt-8 space-y-2 p-8 pt-0" in:fade>
-// ...
-```
-
-We simply added a new import and then used the `fade` transition on the form element.
-- `in`: The transition will run when the element is added to the DOM.
-- `out`: The transition will run when the element is removed from the DOM.
-- `transition`: The transition will run when the element is added or removed from the DOM.
-- You may also [pass parameters to the transition](https://svelte.dev/docs/svelte/transition#Transition-parameters), such as duration, easing, and delay, e.g., `in:fade={{ duration: 500 }}`.
 
 ### Layout File
 
@@ -72,7 +49,11 @@ Regarding `src/routes/+layout.svelte`, we will make the `Home` button appear wit
 // ...
 ```
 
-Similarly to the Contact Form, we added the `fade` transition to 2 elements after importing it.
+We simply added a new import and then used the `fade` transition on 2 elements after importing it.
+- `in`: The transition will run when the element is added to the DOM.
+- `out`: The transition will run when the element is removed from the DOM.
+- `transition`: The transition will run when the element is added or removed from the DOM.
+- You may also [pass parameters to the transition](https://svelte.dev/docs/svelte/transition#Transition-parameters), such as duration, easing, and delay, e.g., `in:fade={{ duration: 500 }}`.
 
 ### Home Page
 
@@ -138,13 +119,9 @@ On the home page, we aim to achieve a staggering effect, meaning to fade in sect
 		</div>
 	</div>
 {/if}
-
-{#if showContent4}
-	<ContactForm {...formParameters} />
-{/if}
 ```
 
-As we [we discussed this in a previoues step](/blog/build-post-content-page#add-floating-table-of-contents-toc), a change in a reactive variable triggers the `$effect` block. So when `showContent1` changes to `true`, it triggers a chain of changes to `showContent2`, `showContent3`, and `showContent4`.
+As we [we discussed this in a previous step](/blog/build-post-content-page#add-floating-table-of-contents-toc), a change in a reactive variable triggers the `$effect` block. So when `showContent1` changes to `true`, it triggers a chain of changes to `showContent2`, `showContent3`, and `showContent4`.
 
 You may experiment using `elif` in the `$effect` block to see that since `showContent2` and `showContent3` are not uncoditionally evaluated, they don't trigger the `$effect` block when they change. You may also experiment with different `setTimeout` values, keep in mind that the default duration of the `fade` transition is [400ms](https://svelte.dev/docs/svelte/transition#Custom-transition-functions).
 
@@ -253,7 +230,7 @@ Similarly, we can fade in blog posts when viewing an article.
   // handleScroll function from earlier
 
   // $props from earlier
-  const TOTAL_ELEMENTS_TO_TRANSITION = 6; // 1: dates & tags, 2: title, 3: content, 4: back to top button, 5: contact form, 6: contents
+  const TOTAL_ELEMENTS_TO_TRANSITION = 5; // 1: dates & tags, 2: title, 3: content, 4: back to top button, 5: table of contents
 
   // ...
   // activeHeading definition from earlier
@@ -348,15 +325,11 @@ Similarly, we can fade in blog posts when viewing an article.
 		</button>
 	</div>
 {/if}
-
-{#if showContent[4]}
-	<ContactForm {...formParameters} />
-{/if}
 ```
 
 - We imported the `fade` transition and removed `onMount` as we don't need it anymore.
 - This time the length of the `showContent` array depends on a constant value.
-- Notice how the `TOTAL_ELEMENTS_TO_TRANSITION` constant is used in the `$effect` block to check if the contact form has been rendered.
+- Notice how the `TOTAL_ELEMENTS_TO_TRANSITION` constant is used in the `$effect` block to check if the back to top button has been rendered.
 - It would be beneficial here to understand which element of the `showContent` array corresponds to which element in the DOM.
 
 ## SEO Improvements
@@ -366,6 +339,7 @@ Search Engine Optimization (SEO) helps search engines understand and rank our pa
 ### Global Metadata
 
 In the `src/app.html` file we will add the metadata tags that are common to all pages. Add an author meta tag and Open Graph (OG) tags.
+
 ```html
 <!doctype html>
 <html lang="en">
@@ -390,39 +364,68 @@ In the `src/app.html` file we will add the metadata tags that are common to all 
   - Optionally, you can add more OG tags like `og:title`, `og:description`, `og:url`, etc. If you don't, they will default to the values of the corresponding meta tags that we will add in the remainder of this step.
   - You can test how your website will look when shared on social media platforms using the [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/).
 
-### Adding `svelte:head` for Page-Specific SEO
-Each page should have unique metadata.
+### Home Page
 
-#### Adding `svelte:head` to the Home Page
+Add the following code immediately after the `script` tag in `src/routes/+page.svelte`:
 ```svelte
+<script>
+  // ...
+</script>
 <svelte:head>
-	<title>Home - Pantelis Deligiannidis</title>
-	<meta name="description" content="Welcome to my portfolio and blog about web development, DevOps, and cloud computing." />
+	<title>John Doeloper</title>
+	<meta
+		name="description"
+		content="Welcome to the digital playground of John Doeloper, where bugs are features and coffee is the primary food group. Expect witty commits, occasional semicolon rants, and code that mostly works on my machine™"
+	/>
 </svelte:head>
 ```
 
-#### Adding `svelte:head` to `PostList.svelte`
+`svelte:head`: This is how Svelte allows for [inserting metadata tags in the `head` of the document](https://svelte.dev/docs/svelte/svelte-head).
+
+
+### PostList Component
+
+Similarly for `src/lib/components/PostList.svelte`:
+
 ```svelte
+<script>
+  // ...
+</script>
 <svelte:head>
 	<title>{postType === 'blog' ? 'Blog' : 'Projects'} - Pantelis Deligiannidis</title>
-	<meta name="description" content="Explore {postType === 'blog' ? 'articles' : 'projects'} on full-stack development and DevOps." />
+	<meta
+		name="description"
+		content="Dive into a collection of {postType === 'blog'
+			? 'sleep-deprived thoughts'
+			: 'weekend projects'} about turning coffee into code, debugging adventures, and that one time I fixed a production issue by turning it off and on again."
+	/>
 </svelte:head>
 ```
 
-#### Adding `svelte:head` to `PostContent.svelte`
+### PostContent Component
+
+And for `src/lib/components/PostContent.svelte`:
+
 ```svelte
+<script>
+  // ...
+</script>
 <svelte:head>
+	<title>{metadata.title}</title>
+	<meta name="description" content={metadata.meta_description} />
 </svelte:head>
 ```
 
-## Interesting Notes
-- Instead of reducing opacity for fade effects, we used a "stone" color to avoid accessibility warnings about low contrast.
-- The `"title"` frontmatter key is used for multiple purposes:
-	1. Displayed as the post title in the rendered article.
-	2. Used for SEO metadata in `svelte:head`.
-	3. Displayed in the blog post list.
+## (Optional) Interesting Notes
+
+- Initially, instead of using `secondary` color to get the gray color [defined in my custom DaisyUI theme](/blog/install-and-configure-daisyui#optional-define-a-custom-theme), I used `opacity-50` to get the same effect. That was up until I saw the deployed website getting warnings about low contrast in [PageSpeed Insights](https://pagespeed.web.dev/).
+- On [Step 3: Build the Home Page](/blog/build-the-home-page), you might have wondered, why do we choose to place the article's title in the frontmatter key value pairs instead of *just after* it as `# This is a title`. I hope by now it is clear, that the `"title"` frontmatter key serves us in many ways:
+	1. Displayed as the post title in the rendered post.
+	2. Used for SEO metadata in the `svelte:head` of all posts.
+	3. Used to list posts in the home page.
+	4. Used to list posts in `/blog` and `/projects` pages.
+	5. The `$effect` block in `PostContent.svelte` relies on it to update the table of contents, when navigating from one post to another.
 
 ### Next Steps
-Congratulations! Your website now has smooth transitions and SEO-friendly metadata.
 
-In the next step, we will deploy our website to Cloudflare Workers.
+Congratulations! You've made a long way, your website now has transitions and SEO-friendly metadata. In the next step, we will [deploy our website to Cloudflare Workers](/blog/deploy-on-cloudflare-workers).

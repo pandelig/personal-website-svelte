@@ -1,5 +1,5 @@
 ---
-slug: "install-configure-daisyui"
+slug: "install-and-configure-daisyui"
 date: "03-02-2024"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
@@ -7,15 +7,13 @@ title: "Personal Website with SvelteKit and TailwindCSS - Step 2: Install and Co
 meta_description: "Learn how to install and configure DaisyUI in your SvelteKit project to create a beautiful, modern UI with TailwindCSS in this article by Pantelis Deligiannidis."
 ---
 
-<!-- TODO: Add links to the other steps once they are published. -->
 1. [Step 1: Set Up the Project](/blog/set-up-sveltekit-website)
 2. (You are here) Step 2: Install and Configure DaisyUI
 3. [Step 3: Build the Home Page](/blog/build-the-home-page)
 4. [Step 4: Build the Blog and Projects Pages](/blog/build-blog-and-projects-pages)
-5. [Step 5: Build the Post Content Page](build-post-content-page)
+5. [Step 5: Build the Post Content Page](/blog/build-post-content-page)
 6. [Step 6: Added Transitions and SEO](/blog/add-transitions-and-seo)
-7. [Step 7: Deployment on Cloudflare Workers](#)
-8. [Step 8: Contact Form with Mailjet](#)
+7. [Step 7: Deploy on Cloudflare Workers](/blog/deploy-on-cloudflare-workers)
 
 In this step, we'll integrate DaisyUI, a component library for Tailwind CSS, into our SvelteKit project. As we start using Tailwind CSS and DaisyUI classes, you may always refer to the [Recommended Resources](/blog/set-up-sveltekit-website#optional-recommended-resources) to soon realize how easy it is to understand and remember the logic behind the class names.
 
@@ -48,10 +46,31 @@ export default {
 };
 ```
 
-### (Optional) Choosing a Theme
-DaisyUI provides many built-in themes that you can use. You can view [all available themes here](https://daisyui.com/docs/themes/). You can [define your own theme](https://daisyui.com/docs/themes/#-4).
+### Choose a Theme
+DaisyUI provides many built-in themes that you can use. You can view [all available themes here](https://daisyui.com/docs/themes/).
 
-For this tutorial, we will use the "lofi" theme, which has a clean, minimalist design with a white background.
+### (Optional) Define a Custom Theme
+
+You can [define your own theme](https://daisyui.com/docs/themes/#-4). For example, `tailwind.config.js`:
+
+```javascript
+daisyui: {
+		// themes: ['lofi'],
+		themes: [
+			{
+				mytheme: {
+					primary: '#000000',
+					secondary: '#78716c',
+					accent: '#000000',
+					neutral: '#ffffff',
+					'base-100': '#ffffff'
+				}
+			}
+		]
+	}
+```
+
+This is the configuration I went for.
 
 ## Test DaisyUI Integration
 To ensure that DaisyUI is working correctly, let's create a simple test component.
@@ -82,4 +101,3 @@ If a browser tab doesn't open automatically, visit `http://localhost:5173`, and 
 ## Wrapping Up Step 2
 
 Great job! You have successfully installed and configured DaisyUI in your SvelteKit project. Now you're ready for [Step 3: Build the Home Page](/blog/build-the-home-page).
-<!-- TODO: Add link to the next step once it is published. -->

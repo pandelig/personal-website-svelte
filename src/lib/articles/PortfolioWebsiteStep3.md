@@ -4,28 +4,24 @@ date: "04-02-2024"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
 title: "Personal Website with SvelteKit and TailwindCSS - Step 3: Build the Home Page"
-meta_description: "Learn how to build the home page of your SvelteKit website using Tailwind and DaisyUI for a clean and minimalist design. This tutorial walks through structuring the page with articles, projects, and a contact form."
+meta_description: "Learn how to build the home page of your SvelteKit website using Tailwind and DaisyUI for a clean and minimalist design. This tutorial walks through structuring the page with articles, projects."
 ---
 <!-- TODO update meta_description -->
 
-<!-- TODO: Add links to the other steps once they are published. -->
 1. [Step 1: Set Up the Project](/blog/set-up-sveltekit-website)
-2. [Step 2: Install and Configure DaisyUI](/blog/install-configure-daisyui)
+2. [Step 2: Install and Configure DaisyUI](/blog/install-and-configure-daisyui)
 3. (You are here) Step 3: Build the Home Page
 4. [Step 4: Build the Blog and Projects Pages](/blog/build-blog-and-projects-pages)
-5. [Step 5: Build the Post Content Page](build-post-content-page)
+5. [Step 5: Build the Post Content Page](/blog/build-post-content-page)
 6. [Step 6: Added Transitions and SEO](/blog/add-transitions-and-seo)
-7. [Step 7: Deployment on Cloudflare Workers](#)
-8. [Step 8: Contact Form with Mailjet](#)
+7. [Step 7: Deploy on Cloudflare Workers](/blog/deploy-on-cloudflare-workers)
 
-In this article we will create the home page of our SvelteKit website. The home page will include our name, social links, a short description, a section for recent articles, another for recent projects, and a contact form.
+In this article we will create the home page of our SvelteKit website. The home page will include our name, social links, a short description, a section for recent articles, and another for recent projects.
 
 To minimize back and forth editing, we follow a structured approach:
 - Create dummy files for articles and projects.
   - `src/lib/content/articles/*.md`
   - `src/lib/content/projects/*.md`
-- Build the contact form.
-  - `src/lib/components/ContactForm.svelte`
 - Set up backend logic for fetching content.
   - `src/routes/+page.server.js`
 - Integrate the frontend with the backend.
@@ -52,7 +48,7 @@ Similarly, create `src/lib/content/projects/` and the following files:
 Example:
 ```yaml
 ---
-slug: "install-configure-daisyui"
+slug: "install-and-configure-daisyui"
 date: "03-02-2024"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
@@ -68,54 +64,8 @@ The frontmatter section of each article contains essential metadata that helps o
 - `title`: The full title of the article, serves multiple purposes including SEO
 - `meta_description`: A concise summary used for SEO meta tags in a later step
 
-## Create a Contact Form Component
-
-We will be reusing the contact form in the end of every article and project so let's create a separate Svelte component.
-
-Create the file `src/lib/components/ContactForm.svelte`:
-```svelte
-<script>
-	import { page } from '$app/state';
-
-	let { title, description, buttonText = 'Send' } = $props();
-</script>
-
-<form method="POST" class="mt-8 space-y-2 p-8 pt-0">
-	<h2 class="text-lg font-semibold">{title}</h2>
-	<p>{description}</p>
-	<input type="hidden" name="pageURLPathname" value={page.url.pathname} />
-	<div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
-		<input
-			type="text"
-			name="name"
-			placeholder="Your Name"
-			class="input input-bordered w-full"
-			required
-		/>
-		<input
-			type="email"
-			name="email"
-			placeholder="Your Email"
-			class="input input-bordered w-full"
-			required
-		/>
-	</div>
-	<textarea
-		name="message"
-		placeholder="Your Message"
-		class="textarea textarea-bordered w-full max-sm:h-32"
-		required
-	></textarea>
-	<div class="flex justify-center">
-		<button type="submit" class="btn btn-primary">{buttonText}</button>
-	</div>
-</form>
-```
-
-This form is static for now. We will make it functional in a later step.
-- You can read more about `$app/state` in [this part of the excellent SvelteKit interactive tutorial](https://svelte.dev/tutorial/kit/page-state).
+<!-- TODO: move this $props intro to the first mention of props -->
 - Likewise, in these 3 parts, you can learn more about [`$props` in Svelte](https://svelte.dev/tutorial/svelte/declaring-props). This functionality allows us to customize the form's title, description etc. depending on whether it's used in the home page, articles, or projects.
-  - The reason the hidden input exists in the form, is to see which page the form was submitted from.
 
 ## Fetch Articles and Projects
 
@@ -147,7 +97,7 @@ export function load() {
 ```
 
 This function reads our Markdown files, extracts metadata, and returns them for the homepage. As you probably expect by reading the file's name, this code runs on the [server side](https://svelte.dev/tutorial/kit/page-data).
-- The way we import them TODO, write something more about vite's glob import, it is efficient.
+- `import.meta.glob` is a built-in feature in Vite (and by extension SvelteKit) that makes handling file imports in bulk efficient and straightforward. The `eager: true` option means the imports are resolved during build time, allowing us to directly access their `metadata`.
 - It would be beneficial to study this code, perhaps print out the `articleModules` in the console. We don't use everything contained in the 2 `*Modules` objects as we only need the metadata in this case. Later on, when we reach the individual post pages, we will use these objects fully.
 - The sorting and slicing could happen on the client side, but since we only need the 2 most recent articles and projects, why waste the user's bandwidth.
 
@@ -156,14 +106,7 @@ This function reads our Markdown files, extracts metadata, and returns them for 
 Now, let’s build the home page, update `src/routes/+page.svelte`:
 ```svelte
 <script>
-	import ContactForm from '$lib/components/ContactForm.svelte';
-
 	let { data } = $props();
-
-	const formParameters = {
-		title: 'Get in Touch',
-		description: "If you found a bug in the Matrix or just want to discuss why coffee is better than tea, drop me a line!"
-	};
 </script>
 
 <div class="flex justify-between gap-4 p-8 pb-2 pt-28">
@@ -237,15 +180,12 @@ Now, let’s build the home page, update `src/routes/+page.svelte`:
 		</section>
 	</div>
 </div>
-
-<ContactForm {...formParameters} />
 ```
 
 - Regarding the file path: in SvelteKit, `src/routes/+page.svelte` represents the home page (/) because SvelteKit uses [file-based routing](https://svelte.dev/tutorial/kit/pages). This convention makes the routing structure clear and intuitive by matching the file system structure to the URL structure.
-- Notice how we import the `ContactForm` component and pass the `formParameters` to it.
 - The `data` object is [passed to the page from the server-side](https://svelte.dev/tutorial/kit/page-data) function `load()`. This is how we access the articles and projects metadata, i.e. the frontmatter data.
   - From the frontmatter data, we are making use of the `title`, `date`, and `slug` fields.
-- Familirize yourself with the [Svelte each block](https://svelte.dev/tutorial/svelte/each-blocks). We will need it again.
+- Familiarize yourself with the [Svelte each block](https://svelte.dev/tutorial/svelte/each-blocks). We will need it again.
 
 ### (Optional) Add Socials Icons
 
@@ -286,7 +226,7 @@ If you want to add social icons to your home page, you can either use SVG icons 
 	</a>
   ```
 
-  This is the option I went for since it allows for easy color customization based on the secondary color we have set in [the previous step](/blog/install-configure-daisyui).
+  This is the option I went for since it allows for easy color customization based on the secondary color we have set in [the previous step](/blog/install-and-configure-daisyui).
   To get the SVG code, download the SVG file and open it in a text editor. Copy the contents and paste them in your `src/routes/+page.svelte` file. Notice how:
   - We removed the `<?xml version="1.0" ?>` tag, it's primarily used when the SVG is a standalone file to indicate that it's an XML document.
   - We removed the `<title />` tag. It's used for accessibility purposes, but in this case, the added `aria-label` attribute on the `<a>` tag serves the same purpose.
@@ -336,7 +276,8 @@ Now, let’s create a navigation bar. We want it present in every page of the we
 </main>
 ```
 
-- We have seen `$app/state` [before](/blog/build-the-home-page#create-a-contact-form-component), it is now used to adapt the navbar styles based on the current url pathname. Is also used in combination with the [Svelte `#if` statement](https://svelte.dev/tutorial/svelte/if-blocks) to conditionally render the "home" button.
+- You can read more about `$app/state` in [this part of the excellent SvelteKit interactive tutorial](https://svelte.dev/tutorial/kit/page-state).
+  - It is used to adapt the navbar styles based on the current url pathname. Is also used in combination with the [Svelte `#if` statement](https://svelte.dev/tutorial/svelte/if-blocks) to conditionally render the "home" button.
 - Again, you may refer to the [Recommended Resources](/blog/set-up-sveltekit-website#optional-recommended-resources) for more information on the html classes. For example, the `sticky` and `text-base` are TW classes affecting the navbar positioning and text size while `text-primary` is a DaisyUI color class.
 - Finally, we use the `relative` TW class to enable the usage of `absolute` positioning for the floating "Contents" you see on every post page, aiding with navigation within the post. [*"the element will act as a position reference for absolutely positioned children".*](https://tailwindcss.com/docs/position#relatively-positioning-elements)
 

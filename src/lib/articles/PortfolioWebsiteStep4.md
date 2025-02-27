@@ -9,15 +9,13 @@ meta_description: "Learn how to create blog and project listing pages in SvelteK
 <!-- TODO update meta_description -->
 <!-- TODO all frontmatter dates -->
 
-<!-- TODO: Add links to the other steps once they are published. -->
 1. [Step 1: Set Up the Project](/blog/set-up-sveltekit-website)
-2. [Step 2: Install and Configure DaisyUI](/blog/install-configure-daisyui)
+2. [Step 2: Install and Configure DaisyUI](/blog/install-and-configure-daisyui)
 3. [Step 3: Build the Home Page](/blog/build-the-home-page)
 4. (You are here) Step 4: Build the Blog and Projects Pages
-5. [Step 5: Build the Post Content Page](build-post-content-page)
-6. [Step 6: Added Transitions and SEO](/blog/add-transitions-and-seo)
-7. [Step 7: Deployment on Cloudflare Workers](#)
-8. [Step 8: Contact Form with Mailjet](#)
+5. [Step 5: Build the Post Content Page](/blog/build-post-content-page)
+6. [Step 6: Add Transitions and SEO](/blog/add-transitions-and-seo)
+7. [Step 7: Deploy on Cloudflare Workers](/blog/deploy-on-cloudflare-workers)
 
 In this step, we will create the `/blog` and `/projects` pages for our personal website. These pages will display a list of articles and projects, respectively, using metadata from markdown files while offering tag-based filtering. Our approach will be:
 - Set up backend logic for fetching content.
@@ -107,7 +105,7 @@ Now that we have post data, we need to display it. Just like the `+page.server.j
 ```
 
 - Each file receives post data from its corresponding `+page.server.js` file.
-- The data is passed to the `PostList` component. This is the 2nd component we will create, the 1st being the [ContactForm from Step 3](http://localhost:5173/blog/build-the-home-page#create-a-contact-form-component).
+- The data is passed to the `PostList` component. This is the 1st component we will create.
 
 ## Create Post List Component
 
