@@ -37,7 +37,7 @@
 	<title>Pantelis Deligiannidis</title>
 	<meta
 		name="description"
-		content="Welcome to the personal website of Pantelis Deligiannidis, a Software Engineer with experience in full stack web development and DevOps. Explore articles and projects on web development, DevOps, cloud computing, Linux, and more"
+		content="Welcome to the personal website of Pantelis Deligiannidis, a Software Engineer with experience in full stack Web Development and DevOps. Explore articles and projects on Web Development, DevOps, Cloud Computing, Linux, and more"
 	/>
 </svelte:head>
 

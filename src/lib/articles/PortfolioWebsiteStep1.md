@@ -1,10 +1,10 @@
 ---
 slug: "set-up-sveltekit-website"
-date: "02-02-2024"
+date: "27 Feb 2025"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind", "cloudflare-workers"]
 title: "Personal Website with SvelteKit and TailwindCSS - Step 1: Set Up the Project"
-meta_description: "Learn how to set up a personal website using SvelteKit and TailwindCSS in this comprehensive tutorial by Pantelis Deligiannidis. Step-by-step guide for project initialization and configuration."
+meta_description: "Learn how to build a personal website with Pantelis Deligiannidis using SvelteKit and TailwindCSS. This comprehensive guide covers project setup, development environment configuration, and foundational concepts for creating a modern web portfolio."
 ---
 
 1. (You are here) Step 1: Set Up the Project

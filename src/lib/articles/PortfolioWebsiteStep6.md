@@ -1,13 +1,11 @@
 ---
 slug: "add-transitions-and-seo"
-date: "07-02-2024"
+date: "04 Mar 2025"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
 title: "Personal Website with SvelteKit and TailwindCSS - Step 6: Add Transitions and SEO"
-meta_description: "Learn how to add smooth transitions and improve SEO in a SvelteKit website by using fade animations and metadata."
+meta_description: "Learn how to add smooth page transitions and improve SEO in your SvelteKit website with Pantelis Deligiannidis. Step-by-step guide covering fade transitions, staggered animations, and metadata optimization for better search engine visibility."
 ---
-<!-- TODO update meta_description -->
-<!-- TODO all frontmatter dates -->
 
 1. [Step 1: Set Up the Project](/blog/set-up-sveltekit-website)
 2. [Step 2: Install and Configure DaisyUI](/blog/install-and-configure-daisyui)

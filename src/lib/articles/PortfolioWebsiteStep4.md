@@ -1,13 +1,11 @@
 ---
 slug: "build-blog-and-projects-pages"
-date: "05-02-2024"
+date: "02 Mar 2025"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
 title: "Personal Website with SvelteKit and TailwindCSS - Step 4: Build the Blog and Projects Pages"
-meta_description: "Learn how to create blog and project listing pages in SvelteKit using markdown files and server-side data loading."
+meta_description: "Learn how to build blog and projects pages with SvelteKit and TailwindCSS in this detailed tutorial by Pantelis Deligiannidis. Create reusable components, implement tag filtering, and handle post metadata effectively."
 ---
-<!-- TODO update meta_description -->
-<!-- TODO all frontmatter dates -->
 
 1. [Step 1: Set Up the Project](/blog/set-up-sveltekit-website)
 2. [Step 2: Install and Configure DaisyUI](/blog/install-and-configure-daisyui)
@@ -38,7 +36,7 @@ If you compare the [`/blog`](https://pandelig.com/blog) and [`/projects`](https:
 import { loadMetadataOfPosts } from '$lib/functions/loadMetadataOfPosts';
 
 export function load() {
-    return loadMetadataOfPosts('articles');
+  return loadMetadataOfPosts('articles');
 }
 ```
 `src/routes/projects/+page.server.js`:
@@ -46,33 +44,33 @@ export function load() {
 import { loadMetadataOfPosts } from '$lib/functions/loadMetadataOfPosts';
 
 export function load() {
-    return loadMetadataOfPosts('projects');
+  return loadMetadataOfPosts('projects');
 }
 ```
 `src/lib/functions/loadMetadataOfPosts.js`:
 ```js
 export function loadMetadataOfPosts(type) {
-    let postModules;
+  let postModules;
 
-    if (type === 'articles') {
-        postModules = import.meta.glob('/src/lib/articles/*.md', { eager: true });
-    } else if (type === 'projects') {
-        postModules = import.meta.glob('/src/lib/projects/*.md', { eager: true });
-    } else {
-        throw new Error(`Unknown type: ${type}`);
-    }
+  if (type === 'articles') {
+    postModules = import.meta.glob('/src/lib/articles/*.md', { eager: true });
+  } else if (type === 'projects') {
+    postModules = import.meta.glob('/src/lib/projects/*.md', { eager: true });
+  } else {
+    throw new Error(`Unknown type: ${type}`);
+  }
 
-    const posts = Object.values(postModules).map(({ metadata }) => ({
-        ...metadata
-    }));
+  const posts = Object.values(postModules).map(({ metadata }) => ({
+    ...metadata
+  }));
 
-    // Sort posts by date in descending order
-    posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+  // Sort posts by date in descending order
+  posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    // Extract unique tags for filtering
-    const tags = [...new Set(posts.flatMap(post => post.tags))];
+  // Extract unique tags for filtering
+  const tags = [...new Set(posts.flatMap(post => post.tags))];
 
-    return { posts, tags };
+  return { posts, tags };
 }
 ```
 
@@ -109,7 +107,7 @@ Now that we have post data, we need to display it. Just like the `+page.server.j
 
 ## Create Post List Component
 
-Both pages use the `PostList.svelte` component to display posts. By now, we should have a clear understanding of how to [create and use components in SvelteKit](https://svelte.dev/tutorial/svelte/nested-components) as well as [how to pass `$props` using the spread operator](https://svelte.dev/tutorial/svelte/spread-props).
+Both pages will use the `PostList.svelte` component to display posts. We will now be [creating our first component in SvelteKit](https://svelte.dev/tutorial/svelte/nested-components), [pass `$props` to it](https://svelte.dev/tutorial/svelte/declaring-props) [using the spread operator](https://svelte.dev/tutorial/svelte/spread-props). This functionality allows us to customize the displayed list, depending on whether it's used under `/blog` or `/projects`.
 
 `src/lib/components/PostList.svelte`:
 ```svelte
@@ -172,7 +170,7 @@ Both pages use the `PostList.svelte` component to display posts. By now, we shou
 </div>
 ```
 
-- We see now, for the 1st time, how reactivity is used in SvelteKit. The `selectedTags` and `filteredPosts` variables are reactive, updating the UI whenever they change.
+- We also see now, for the 1st time, how reactivity is used in SvelteKit. The `selectedTags` and `filteredPosts` variables are reactive, updating the UI whenever they change.
   - A concise explanation is provided in the interactive tutorial: [`$state`](https://svelte.dev/tutorial/svelte/state) and [`$derived`](https://svelte.dev/tutorial/svelte/derived-state).
   - For a more in depth look, check out the Svelte docs: [`$state`](https://svelte.dev/docs/svelte/$state) and [`$derived`](https://svelte.dev/docs/svelte/$derived).
 - Notice how `postType` is used to determine whether the page is a blog or projects page.

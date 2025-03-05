@@ -51,14 +51,12 @@ export async function handleContactForm({ request, platform }) {
 
         return {
             success: true,
-            // message: "Your message has been sent successfully!"
             message: "Message sent! "
         };
     } catch (error) {
         console.error("Error sending email:", error);
         return {
             success: false,
-            // message: "Failed to send your message. Please try again later."
             message: "Message not sent "
         };
     }

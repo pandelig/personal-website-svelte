@@ -51,7 +51,7 @@
 		name="description"
 		content="Discover {postType === 'blog'
 			? 'articles'
-			: 'projects'} on full stack web development, DevOps, cloud computing, Linux, and occasionally random ideas."
+			: 'projects'} on full stack Web Development, DevOps, Cloud Computing, Linux, and occasionally random ideas."
 	/>
 </svelte:head>
 

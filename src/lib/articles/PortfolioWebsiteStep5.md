@@ -1,13 +1,11 @@
 ---
-slug: "build-post-content-page"
-date: "06-02-2024"
-date_updated: ""
-tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
-title: "Personal Website with SvelteKit and TailwindCSS - Step 5: Build the Post Content Page"
-meta_description: "Learn how to build a dynamic post content page in SvelteKit using markdown files, smooth scrolling, and a table of contents."
+slug: 'build-post-content-page'
+date: '03 Mar 2025'
+date_updated: ''
+tags: ['tutorial', 'full-stack', 'sveltekit', 'tailwind']
+title: 'Personal Website with SvelteKit and TailwindCSS - Step 5: Build the Post Content Page'
+meta_description: 'Learn how to build a dynamic post content page with SvelteKit and TailwindCSS in this detailed tutorial by Pantelis Deligiannidis. Includes floating table of contents, markdown support, and code syntax highlighting.'
 ---
-<!-- TODO update meta_description -->
-<!-- TODO all frontmatter dates -->
 
 1. [Step 1: Set Up the Project](/blog/set-up-sveltekit-website)
 2. [Step 2: Install and Configure DaisyUI](/blog/install-and-configure-daisyui)
@@ -18,6 +16,7 @@ meta_description: "Learn how to build a dynamic post content page in SvelteKit u
 7. [Step 7: Deploy on Cloudflare Workers](/blog/deploy-on-cloudflare-workers)
 
 In this step, we will build the Post Content Page, which is responsible for rendering individual blog posts and project descriptions. Our approach:
+
 - Set up backend logic for fetching content.
   - `src/routes/blog/[slug]/+page.server.js`
   - `src/routes/projects/[slug]/+page.server.js`
@@ -36,51 +35,54 @@ As a reminder, we use the term "post" to refer to both articles and projects.
 To load posts dynamically, we use a `+page.server.js` file in both the `/blog/[slug]/` and `/projects/[slug]/` routes. Since the files are nearly identical, we can create a reusable function to fetch the data.
 
 `src/routes/blog/[slug]/+page.server.js`:
+
 ```js
 import { loadPost } from '$lib/functions/loadPost';
 
 export function load({ params }) {
-    return loadPost('articles', params.slug);
+	return loadPost('articles', params.slug);
 }
 ```
+
 `src/routes/projects/[slug]/+page.server.js`:
+
 ```js
 import { loadPost } from '$lib/functions/loadPost';
 
 export function load({ params }) {
-    return loadPost('projects', params.slug);
+	return loadPost('projects', params.slug);
 }
 ```
+
 `src/lib/functions/loadPost.js`:
+
 ```js
 import { error } from '@sveltejs/kit';
 import { render } from 'svelte/server';
 
 export function loadPost(type, slug) {
-    let postModules;
+	let postModules;
 
-    if (type === 'articles') {
-        postModules = import.meta.glob('/src/lib/articles/*.md', { eager: true });
-    } else if (type === 'projects') {
-        postModules = import.meta.glob('/src/lib/projects/*.md', { eager: true });
-    } else {
-        throw error(500, `Unknown post type: ${type}`);
-    }
+	if (type === 'articles') {
+		postModules = import.meta.glob('/src/lib/articles/*.md', { eager: true });
+	} else if (type === 'projects') {
+		postModules = import.meta.glob('/src/lib/projects/*.md', { eager: true });
+	} else {
+		throw error(500, `Unknown post type: ${type}`);
+	}
 
-    const post = Object.values(postModules).find(({ metadata }) =>
-        metadata.slug === slug
-    );
+	const post = Object.values(postModules).find(({ metadata }) => metadata.slug === slug);
 
-    if (!post) {
-        throw error(404, `${type.slice(0, -1)} not found. The following slug doesn't exist: ${slug}`);
-    }
+	if (!post) {
+		throw error(404, `${type.slice(0, -1)} not found. The following slug doesn't exist: ${slug}`);
+	}
 
-    const renderedContent = render(post.default);
+	const renderedContent = render(post.default);
 
-    return {
-        metadata: post.metadata,
-        content: renderedContent.html // Pre-rendered HTML
-    };
+	return {
+		metadata: post.metadata,
+		content: renderedContent.html // Pre-rendered HTML
+	};
 }
 ```
 
@@ -93,6 +95,7 @@ export function loadPost(type, slug) {
 To render markdown content, we are using the `mdsvex` plugin. As mentioned in [its docs](https://mdsvex.pngwn.io/docs#remarkplugins--rehypeplugins), mdsvex allows us to use [`remark`](https://github.com/remarkjs/remark/blob/main/doc/plugins.md#list-of-plugins) and [`rehype`](https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#list-of-plugins) plugins to customize the markdown rendering process.
 
 We will be making use of 2 rehype plugins, `svelte.config.js`:
+
 ```js
 import adapter from '@sveltejs/adapter-cloudflare-workers';
 import { mdsvex } from 'mdsvex';
@@ -128,7 +131,6 @@ export default config;
 - `rehype-external-links`: add `target="_blank"` and `rel="noopener"` to external links. The `content` option adds an icon after external links, `type` can also be `'element'` or `'comment'`, for `value` this adds an unbreakable space: `'\u00A0↗'`, a simple space before the emoji seems to be getting removed.
 - By default, mdsvex does not support markdown files (`.md`), so we add it to the `extensions` array in accordance with the [mdsvex docs](https://mdsvex.pngwn.io/docs#extensions).
 
-
 ## Display Post Content
 
 Article and project pages use the same code to display their content. We create a reusable component as a result.
@@ -136,6 +138,7 @@ Article and project pages use the same code to display their content. We create 
 `src/routes/blog/[slug]/+page.svelte`:
 
 `src/routes/projects/[slug]/+page.svelte`:
+
 ```svelte
 <script>
 	import PostContent from '$lib/components/PostContent.svelte';
@@ -148,7 +151,9 @@ Article and project pages use the same code to display their content. We create 
 
 <PostContent {...postParameters} />
 ```
+
 `src/lib/components/PostContent.svelte`:
+
 ```svelte
 <script>
 	import { page } from '$app/state';
@@ -174,10 +179,7 @@ Article and project pages use the same code to display their content. We create 
 	>
 		<div class="flex flex-wrap">
 			{#each metadata.tags as tag}
-				<a
-					href={`/${postType}?tag=${tag}`}
-					class="not-prose p-2 text-secondary hover:text-accent"
-				>
+				<a href={`/${postType}?tag=${tag}`} class="not-prose p-2 text-secondary hover:text-accent">
 					#{tag}
 				</a>
 			{/each}
@@ -212,6 +214,7 @@ Article and project pages use the same code to display their content. We create 
 To enhance the user experience, we add a floating Table of Contents (TOC) that scrolls with the page. This feature is especially useful for long posts, aiding navigation.
 
 `src/lib/components/PostContent.svelte`:
+
 ```svelte
 <script>
   import { onMount, onDestroy } from 'svelte';
@@ -248,18 +251,18 @@ To enhance the user experience, we add a floating Table of Contents (TOC) that s
 
   $effect(() => {
   	if (
-  		headings.length === 0 ||
-  		(headings.length > 0 && headings[0].text !== metadata.title)
+      headings.length === 0 ||
+      (headings.length > 0 && headings[0].text !== metadata.title)
   	) {
-  		headings = Array.from(document.querySelectorAll('.prose h1, .prose h2, .prose h3')).map(
-  			(h) => ({
-  				id: h.id,
-  				text: h.innerText,
-  				level: h.tagName.toLowerCase(),
-  				offset: h.offsetTop
-  			})
-  		);
-  		handleScroll();
+      headings = Array.from(document.querySelectorAll('.prose h1, .prose h2, .prose h3')).map(
+       	(h) => ({
+          id: h.id,
+          text: h.innerText,
+          level: h.tagName.toLowerCase(),
+          offset: h.offsetTop
+       	})
+      );
+      handleScroll();
   });
 
   onMount(() => {
@@ -268,34 +271,31 @@ To enhance the user experience, we add a floating Table of Contents (TOC) that s
 
   onDestroy(() => {
     return () => {
-     	window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   });
 </script>
 
-<div
-    class="absolute -right-80 top-0 hidden h-full w-72 p-4 text-secondary xl:block"
->
-    <div class="sticky top-24">
-        <h2 class="mb-4 font-semibold">Contents</h2>
-        <ul>
-            {#each headings as heading}
-                <li
-                    class="mt-1 {CONTENTS_INDENTS[
-                        heading.level
-                    ]} hover:text-accent {heading.id === activeHeading
-                        ? 'text-accent'
-                        : 'text-secondary'}"
-                >
-                    <a href={`#${heading.id}`}>{heading.text}</a>
-                </li>
-            {/each}
-        </ul>
-    </div>
+<div class="absolute -right-80 top-0 hidden h-full w-72 p-4 text-secondary xl:block">
+	<div class="sticky top-24">
+		<h2 class="mb-4 font-semibold">Contents</h2>
+		<ul>
+			{#each headings as heading}
+				<li
+					class="mt-1 {CONTENTS_INDENTS[heading.level]} hover:text-accent {heading.id ===
+					activeHeading
+						? 'text-accent'
+						: 'text-secondary'}"
+				>
+					<a href={`#${heading.id}`}>{heading.text}</a>
+				</li>
+			{/each}
+		</ul>
+	</div>
 </div>
 
 // other html code from earlier
-````
+```
 
 - The component uses Svelte's `onMount` and `onDestroy` lifecycle functions to manage scroll event listeners.
 - `handleScroll` function updates the `activeHeading` based on the current scroll position, with special handling for when users reach the bottom of the page.
@@ -317,6 +317,7 @@ As an advanced note, we have to define the `CONTENTS_INDENTS` object, if we dyna
 ## Enhance the Styling
 
 The `src/app.css` file is updated to improve scrolling behavior and add code highlighting style, this is its final form:
+
 ```css
 @import url(../static/styles/prism-darcula.css);
 

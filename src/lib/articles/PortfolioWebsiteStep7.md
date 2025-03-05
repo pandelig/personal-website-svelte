@@ -1,13 +1,11 @@
 ---
 slug: "deploy-on-cloudflare-workers"
-date: "08-02-2024"
+date: "05 Mar 2025"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "cloudflare-workers"]
 title: "Personal Website with SvelteKit and TailwindCSS - Step 7: Deploy on Cloudflare Workers"
-meta_description: "Learn how to deploy your SvelteKit website on Cloudflare Workers, configure wrangler.json, and optimize for performance."
+meta_description: "Learn how to deploy your SvelteKit website on Cloudflare Workers with Pantelis Deligiannidis. Step-by-step guide covering account setup, domain configuration, and deployment using wrangler CLI."
 ---
-<!-- TODO update meta_description -->
-<!-- TODO all frontmatter dates -->
 
 1. [Step 1: Set Up the Project](/blog/set-up-sveltekit-website)
 2. [Step 2: Install and Configure DaisyUI](/blog/install-and-configure-daisyui)
@@ -25,12 +23,12 @@ First, you need a Cloudflare account. If you don’t have one, sign up at [Cloud
 
 ## Buy a Domain Name
 
-If you already own a domain, you can either:
+You can either:
 
 - Buy a domain from Cloudflare: The easiest method, with direct integration.
-- Use an external domain: Follow [Cloudflare's guide](https://developers.cloudflare.com/dns/zone-setups/full-setup/) to point it to Cloudflare.
+- Use an external domain: Follow [Cloudflare's guide](https://developers.cloudflare.com/dns/zone-setups/full-setup/setup/) to point it to Cloudflare.
 
-After adding your domain, go to DNS Settings and ensure it is properly configured.
+After adding your domain, ensure it is properly configured.
 
 ### Configure the Records
 
@@ -145,7 +143,7 @@ Svelte(kit) offers [a way to add docstrings](https://svelte.dev/docs/svelte/faq#
 
 ## Next Steps
 
-Congratulations! You have successfully developed and deployed your SvelteKit website on Cloudflare! What's next? A lot!
+Congratulations! You have successfully developed and deployed your SvelteKit website on Cloudflare! What's next?
 
 Here are some ideas for improving your SvelteKit site further:
 
@@ -163,5 +161,4 @@ Would you like to see any of these become a part of the tutorial? Let me know.
 
 ## Final Words
 
-For me, all this was a personal bet that I am happy to finally see through. All I knew when I started this journey was that I wanted a personal website that I could use to share my thoughts and projects. After realizing the necessity of javascript, I religiously went though the [Modern Javascript Tutorial](https://javascript.info/) docs to feel comfortable with the language. Then came the question, what framework to use? After making attempts with the popular ones, I was lucky to discover Svelte(Kit) from a YouTube comment, which, funnily enough, was declaring it as a bad choice. The [Interactive Tutorial](TODO) was a blast and I was hooked. TailwindCSS was also new to me, but easy to learn and fun to work with. Next was the deployment, I ended up with Cloudflare Workers and soon found myself reading through the docs. Finally, after a successful deployment, I decided to write this tutorial as a way to give back to the community and to help others who might be in the same position as me. I hope you found it helpful and that you are now ready to take on the world with your new personal website. If you have any questions or feedback, feel free to reach out to me using the contact form below or directly by [email](TODO). I would love to hear from you!
-<!-- TODO: make final words more concise, keep the long explanations for the project post -->
+For me, all this was a personal bet that I am happy to finally see through. All I knew when I started this project was that I wanted a personal website to share my thoughts. Eventually, after a successful deployment, I decided to write this tutorial as a way to give back to the community and to help others who might be in a similar position. I hope you found it helpful and that you are now ready to take on the world with your new personal website! If you have any questions or feedback, feel free to reach out to me using the contact form below or directly by [email](TODO). I would love to hear from you!

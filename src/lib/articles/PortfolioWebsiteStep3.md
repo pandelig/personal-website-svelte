@@ -1,12 +1,11 @@
 ---
 slug: "build-the-home-page"
-date: "04-02-2024"
+date: "01 Mar 2025"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
 title: "Personal Website with SvelteKit and TailwindCSS - Step 3: Build the Home Page"
-meta_description: "Learn how to build the home page of your SvelteKit website using Tailwind and DaisyUI for a clean and minimalist design. This tutorial walks through structuring the page with articles, projects."
+meta_description: "Learn how to build a dynamic home page for your personal website with Pantelis Deligiannidis. This detailed tutorial covers creating content structures, implementing server-side data fetching, and building a responsive UI with SvelteKit and TailwindCSS."
 ---
-<!-- TODO update meta_description -->
 
 1. [Step 1: Set Up the Project](/blog/set-up-sveltekit-website)
 2. [Step 2: Install and Configure DaisyUI](/blog/install-and-configure-daisyui)
@@ -49,7 +48,7 @@ Example:
 ```yaml
 ---
 slug: "install-and-configure-daisyui"
-date: "03-02-2024"
+date: "28 Feb 2025"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
 title: "Personal Website with SvelteKit and TailwindCSS - Step 2: Install and Configure DaisyUI"
@@ -63,9 +62,6 @@ The frontmatter section of each article contains essential metadata that helps o
 - `tags`: Array of keywords relevant to the article content, used for filtering later on
 - `title`: The full title of the article, serves multiple purposes including SEO
 - `meta_description`: A concise summary used for SEO meta tags in a later step
-
-<!-- TODO: move this $props intro to the first mention of props -->
-- Likewise, in these 3 parts, you can learn more about [`$props` in Svelte](https://svelte.dev/tutorial/svelte/declaring-props). This functionality allows us to customize the form's title, description etc. depending on whether it's used in the home page, articles, or projects.
 
 ## Fetch Articles and Projects
 
@@ -182,7 +178,7 @@ Now, let’s build the home page, update `src/routes/+page.svelte`:
 </div>
 ```
 
-- Regarding the file path: in SvelteKit, `src/routes/+page.svelte` represents the home page (/) because SvelteKit uses [file-based routing](https://svelte.dev/tutorial/kit/pages). This convention makes the routing structure clear and intuitive by matching the file system structure to the URL structure.
+- Regarding the file path: in SvelteKit, `src/routes/+page.svelte` represents the home page (`/`) because SvelteKit uses [file-based routing](https://svelte.dev/tutorial/kit/pages). This convention makes the routing structure clear and intuitive by matching the file system structure to the URL structure.
 - The `data` object is [passed to the page from the server-side](https://svelte.dev/tutorial/kit/page-data) function `load()`. This is how we access the articles and projects metadata, i.e. the frontmatter data.
   - From the frontmatter data, we are making use of the `title`, `date`, and `slug` fields.
 - Familiarize yourself with the [Svelte each block](https://svelte.dev/tutorial/svelte/each-blocks). We will need it again.
@@ -207,30 +203,30 @@ If you want to add social icons to your home page, you can either use SVG icons 
   2. Store them in `static/socials/`.
   Keep in mind that the "static" is not part of the URL path, so you can access the icons directly from the root of your domain.
 
-  Alternatively, here's how to use them inline:
-  ```html
-  <a
-		href="https://www.linkedin.com/in/username"
-		class="tooltip text-secondary hover:text-accent"
-		target="_blank"
-		data-tip="linkedin"
-		aria-label="Visit my LinkedIn profile"
-	>
-		<svg class="h-6 w-6 fill-current" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-			<g data-name="in linkedin portfolio social media" id="in_linkedin_portfolio_social_media">
-				<path d="M6.5,3A3.5,3.5,0,1,0,10,6.5,3.5,3.5,0,0,0,6.5,3Zm0,5A1.5,1.5,0,1,1,8,6.5,1.5,1.5,0,0,1,6.5,8Z" />
-				<path d="M9,11H4a1,1,0,0,0,0,2H8V27H5V16a1,1,0,0,0-2,0V28a1,1,0,0,0,1,1H9a1,1,0,0,0,1-1V12A1,1,0,0,0,9,11Z"	/>
-				<path	d="M27.34,12.68A5.94,5.94,0,0,0,23,11H22a7.84,7.84,0,0,0-4,.89A1,1,0,0,0,17,11H12a1,1,0,0,0-1,1V28a1,1,0,0,0,1,1h5a1,1,0,0,0,1-1V19a2,2,0,0,1,4,0v9a1,1,0,0,0,1,1h5a1,1,0,0,0,1-1V17A5.9,5.9,0,0,0,27.34,12.68ZM27,27H24V19a4,4,0,0,0-8,0v8H13V13h3v1a1,1,0,0,0,.62.92,1,1,0,0,0,1.09-.21c.95-1,1.7-1.71,4.29-1.71h1a4,4,0,0,1,2.92,1.09A4,4,0,0,1,27,17Z"	/>
-			</g>
-		</svg>
-	</a>
-  ```
+Alternatively, here's how to use them inline:
+```html
+<a
+	href="https://www.linkedin.com/in/username"
+	class="tooltip text-secondary hover:text-accent"
+	target="_blank"
+	data-tip="linkedin"
+	aria-label="Visit my LinkedIn profile"
+>
+	<svg class="h-6 w-6 fill-current" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+		<g data-name="in linkedin portfolio social media" id="in_linkedin_portfolio_social_media">
+			<path d="M6.5,3A3.5,3.5,0,1,0,10,6.5,3.5,3.5,0,0,0,6.5,3Zm0,5A1.5,1.5,0,1,1,8,6.5,1.5,1.5,0,0,1,6.5,8Z" />
+			<path d="M9,11H4a1,1,0,0,0,0,2H8V27H5V16a1,1,0,0,0-2,0V28a1,1,0,0,0,1,1H9a1,1,0,0,0,1-1V12A1,1,0,0,0,9,11Z"	/>
+			<path	d="M27.34,12.68A5.94,5.94,0,0,0,23,11H22a7.84,7.84,0,0,0-4,.89A1,1,0,0,0,17,11H12a1,1,0,0,0-1,1V28a1,1,0,0,0,1,1h5a1,1,0,0,0,1-1V19a2,2,0,0,1,4,0v9a1,1,0,0,0,1,1h5a1,1,0,0,0,1-1V17A5.9,5.9,0,0,0,27.34,12.68ZM27,27H24V19a4,4,0,0,0-8,0v8H13V13h3v1a1,1,0,0,0,.62.92,1,1,0,0,0,1.09-.21c.95-1,1.7-1.71,4.29-1.71h1a4,4,0,0,1,2.92,1.09A4,4,0,0,1,27,17Z"	/>
+		</g>
+	</svg>
+</a>
+```
 
-  This is the option I went for since it allows for easy color customization based on the secondary color we have set in [the previous step](/blog/install-and-configure-daisyui).
-  To get the SVG code, download the SVG file and open it in a text editor. Copy the contents and paste them in your `src/routes/+page.svelte` file. Notice how:
-  - We removed the `<?xml version="1.0" ?>` tag, it's primarily used when the SVG is a standalone file to indicate that it's an XML document.
-  - We removed the `<title />` tag. It's used for accessibility purposes, but in this case, the added `aria-label` attribute on the `<a>` tag serves the same purpose.
-  - We added classes to the SVG elements to apply Tailwind CSS classes for styling.
+This is the option I went for, since it allows for easy color customization based on the secondary color we have set in [the previous step](/blog/install-and-configure-daisyui).
+To get the SVG code, download the SVG file and open it in a text editor. Copy the contents and paste them in your `src/routes/+page.svelte` file. Notice how:
+- We removed the `<?xml version="1.0" ?>` tag, it's primarily used when the SVG is a standalone file to indicate that it's an XML document.
+- We removed the `<title />` tag. It's used for accessibility purposes, but in this case, the added `aria-label` attribute on the `<a>` tag serves the same purpose.
+- We added classes to the SVG elements to apply Tailwind CSS classes for styling.
 
 ## Add a Navbar
 
@@ -280,7 +276,6 @@ Now, let’s create a navigation bar. We want it present in every page of the we
   - It is used to adapt the navbar styles based on the current url pathname. Is also used in combination with the [Svelte `#if` statement](https://svelte.dev/tutorial/svelte/if-blocks) to conditionally render the "home" button.
 - Again, you may refer to the [Recommended Resources](/blog/set-up-sveltekit-website#optional-recommended-resources) for more information on the html classes. For example, the `sticky` and `text-base` are TW classes affecting the navbar positioning and text size while `text-primary` is a DaisyUI color class.
 - Finally, we use the `relative` TW class to enable the usage of `absolute` positioning for the floating "Contents" you see on every post page, aiding with navigation within the post. [*"the element will act as a position reference for absolutely positioned children".*](https://tailwindcss.com/docs/position#relatively-positioning-elements)
-
 
 ## Wrapping Up Step 3
 
