@@ -27,7 +27,7 @@ npm i -D daisyui@latest
 
 ## Configure Tailwind to Use DaisyUI
 
-Now, update the `tailwind.config.js` file to include DaisyUI:
+Now, create a `tailwind.config.js` file in the root directory:
 
 ```javascript
 import typography from '@tailwindcss/typography';
@@ -73,7 +73,7 @@ daisyui: {
 }
 ```
 
-This is the configuration I went for.
+This is the configuration I went for. We will be using `'base-100'` as the background color for our website.
 
 ## Test DaisyUI Integration
 
@@ -100,7 +100,7 @@ Start the development server:
 npm run dev -- --open
 ```
 
-If a browser tab doesn't open automatically, visit `http://localhost:5173`, and you should see a styled button from DaisyUI.
+You should be able to see a styled button from DaisyUI in your browser.
 
 ## Wrapping Up Step 2
 

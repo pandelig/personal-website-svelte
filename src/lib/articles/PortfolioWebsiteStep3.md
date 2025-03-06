@@ -19,8 +19,10 @@ In this article we will create the home page of our SvelteKit website. The home 
 
 To minimize back and forth editing, we follow a structured approach:
 - Create dummy files for articles and projects.
-  - `src/lib/content/articles/*.md`
-  - `src/lib/content/projects/*.md`
+  - `src/lib/articles/*.md`
+  - `src/lib/projects/*.md`
+- Configure `mdsvex`.
+  - `svelte.config.js`
 - Set up backend logic for fetching content.
   - `src/routes/+page.server.js`
 - Integrate the frontend with the backend.
@@ -33,14 +35,14 @@ You will likely come accross unknown html classes, you can refer to the Tailwind
 
 Our articles and projects will be stored as Markdown (`.md`) files, let's create some sample content. For that purpose, feel free to use your favorite AI assistant, otherwise, you may use the following linked content. Take notice to maintain the frontmatter structure present in the linked content as it will soon become apparent that each key holds a certain significance.
 
-Create the folder `src/lib/content/articles/` and the following files:
-- `src/lib/content/articles/Article1.md` - [Article 1 github link](TODO)
-- `src/lib/content/articles/Article2.md` - [Article 2 github link](TODO)
-- `src/lib/content/articles/Article3.md` - [Article 3 github link](TODO)
+Create the folder `src/lib/articles/` and the following files:
+- `src/lib/articles/Article1.md` - [Article 1 github link](TODO)
+- `src/lib/articles/Article2.md` - [Article 2 github link](TODO)
+- `src/lib/articles/Article3.md` - [Article 3 github link](TODO)
 
-Similarly, create `src/lib/content/projects/` and the following files:
-- `src/lib/content/projects/Project1.md` - [Project 1 github link](TODO)
-- `src/lib/content/projects/Project2.md` - [Project 2 github link](TODO)
+Similarly, create `src/lib/projects/` and the following files:
+- `src/lib/projects/Project1.md` - [Project 1 github link](TODO)
+- `src/lib/projects/Project2.md` - [Project 2 github link](TODO)
 
 ### Frontmatter Structure
 
@@ -56,12 +58,39 @@ meta_description: "Learn how to install and configure DaisyUI in your SvelteKit 
 ---
 ```
 The frontmatter section of each article contains essential metadata that helps organize and identify the content. Here's a breakdown of each field:
-- `slug`: A unique identifier used for routing and referencing the article
-- `date`: Publication date in "DD-MM-YYYY" format
-- `date_updated`: Optional field for tracking content revisions
-- `tags`: Array of keywords relevant to the article content, used for filtering later on
-- `title`: The full title of the article, serves multiple purposes including SEO
-- `meta_description`: A concise summary used for SEO meta tags in a later step
+- `slug`: A unique identifier used for routing and referencing the article.
+- `date`: Publication date in RFC 2822 format: `"DD MMM YYYY"`.
+- `date_updated`: Optional field for tracking content revisions.
+- `tags`: Array of keywords relevant to the article content, used for filtering later on.
+- `title`: The full title of the article, serves multiple purposes including SEO.
+- `meta_description`: A concise summary used for SEO meta tags in a later step.
+
+## Configure `mdsvex`
+
+To read the markdown metadata of each file, we are using the `mdsvex` plugin. It is not configured to support `.md` files by default, which is why we need to update our `svelte.config.js` file:
+
+```js
+import { mdsvex } from 'mdsvex';
+import adapter from '@sveltejs/adapter-cloudflare-workers';
+
+/** @type {import('@sveltejs/kit').Config} */
+const config = {
+	kit: {
+		adapter: adapter()
+	},
+
+	preprocess: [
+		mdsvex({
+			extensions: ['.svx', '.md']
+		})
+	],
+	extensions: ['.svelte', '.svx', '.md']
+};
+
+export default config;
+```
+
+Our changes [follow the docs](https://mdsvex.pngwn.io/docs#extensions).
 
 ## Fetch Articles and Projects
 
@@ -92,9 +121,9 @@ export function load() {
 }
 ```
 
-This function reads our Markdown files, extracts metadata, and returns them for the homepage. As you probably expect by reading the file's name, this code runs on the [server side](https://svelte.dev/tutorial/kit/page-data).
+This function reads our Markdown files, extracts metadata, and returns them to the homepage. As you probably expect by reading the file's name, this code runs on the [server side](https://svelte.dev/tutorial/kit/page-data).
 - `import.meta.glob` is a built-in feature in Vite (and by extension SvelteKit) that makes handling file imports in bulk efficient and straightforward. The `eager: true` option means the imports are resolved during build time, allowing us to directly access their `metadata`.
-- It would be beneficial to study this code, perhaps print out the `articleModules` in the console. We don't use everything contained in the 2 `*Modules` objects as we only need the metadata in this case. Later on, when we reach the individual post pages, we will use these objects fully.
+- It would be beneficial to study this code, perhaps print out the `articleModules` in the console. We don't use everything contained in the 2 `*Modules` objects as we only need the metadata in this case. Later on, when we create the individual post content pages, we will use these objects fully.
 - The sorting and slicing could happen on the client side, but since we only need the 2 most recent articles and projects, why waste the user's bandwidth.
 
 ## Create the Home Page
@@ -230,7 +259,7 @@ To get the SVG code, download the SVG file and open it in a text editor. Copy th
 
 ## Add a Navbar
 
-Now, let’s create a navigation bar. We want it present in every page of the website so it  will be handled in [a layout file](https://svelte.dev/tutorial/kit/layouts) `src/routes/+layout.svelte`:
+Now, let’s create a navigation bar. We want it present in every page of the website so it  will be handled in [the layout file](https://svelte.dev/tutorial/kit/layouts) `src/routes/+layout.svelte`:
 ```svelte
 <script>
 	import '../app.css';
@@ -279,4 +308,4 @@ Now, let’s create a navigation bar. We want it present in every page of the we
 
 ## Wrapping Up Step 3
 
-Congratulations on making it this far! You have successfully created the home page of your personal website. You have learned how to structure your content, fetch it dynamically, and display it on the frontend, as well as how to create resuable components in SvelteKit. In the next step, we will [build the `/blog` and `/projects` pages](/blog/build-blog-and-projects-pages). Stay tuned!
+Congratulations on making it this far! You have successfully created the home page of your personal website. You have learned how to structure your content, fetch it dynamically, and display it on the frontend. In the next step, we will [build the `/blog` and `/projects` pages](/blog/build-blog-and-projects-pages). Stay tuned!

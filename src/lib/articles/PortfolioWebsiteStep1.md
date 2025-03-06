@@ -17,7 +17,7 @@ meta_description: "Learn how to build a personal website with Pantelis Deligiann
 
 ## Why SvelteKit and TailwindCSS?
 
-In the evolving landscape of web development, we are constantly seeking tools that combine performance and [developer satisfaction](https://survey.stackoverflow.co/2024/technology#1-web-frameworks-and-technologies). [SvelteKit](https://svelte.dev/), a modern full stack framework, stands out by offering a unique approach where components are compiled into highly efficient JavaScript at build time, resulting in lightweight and fast-running applications. Its simple syntax makes it exceptionally beginner-friendly.
+In the evolving landscape of web development, we are constantly seeking tools that combine performance and [developer satisfaction](https://2024.stateofjs.com/en-US/libraries/#tier_list). [SvelteKit](https://svelte.dev/), a modern full stack framework, stands out by offering a unique approach where components are compiled into highly efficient JavaScript at build time, resulting in lightweight and fast-running applications. Its simple syntax makes it exceptionally beginner-friendly.
 
 [TailwindCSS](https://tailwindcss.com/) enables rapid development through class-based styling, while its component library [DaisyUI](https://daisyui.com/) extends this functionality by providing a collection of ready-to-use components that maintain consistency with Tailwind's philosophy.
 
@@ -33,7 +33,7 @@ By the end of this tutorial, you will have a fully functional and deployed perso
 - Include a tag filtering system for articles and projects
 - Be fully SEO-optimized ([PageSpeed Insights](https://pagespeed.web.dev/): 100 on everything - Performance, Accessibility, Best Practices, SEO)
 - Require no database
-- Look like the website you are browsing right now. The general theme of the website we are aiming to build was inspired by [markhorn's](https://github.com/markhorn-dev/astro-nano?tab=readme-ov-file) [AstroNano theme](https://astro.build/themes/details/astronano/) and [Paco Coursey's personal website](https://paco.me/). They just seemed amazing to me.
+- Look like the website you are browsing right now. The theme of the website was inspired by [Mark Horn's AstroNano theme](https://astro.build/themes/details/astronano/) ([repo](https://github.com/markhorn-dev/astro-nano?tab=readme-ov-file)) and [Paco Coursey's personal website](https://paco.me/). They just seemed amazing to me.
 
 Basic knowledge of HTML and JavaScript is advised. Almost no CSS.
 
@@ -55,7 +55,7 @@ It's beneficial to keep the following documentation tabs open for quick referenc
 
 Additionally, if you plan to experiment beyond the scope of this tutorial, consider joining the [Svelte Discord server](https://discord.com/invite/svelte) to ask questions and get help from the community. Keep in mind that your favorite AI assistant is probably not up to date with Svelte 5.0 yet!
 
-## Starting the Project
+## Create the Project
 
 You have at least two options for setting up your project: using [Cloudflare Workers](https://developers.cloudflare.com/workers/frameworks/framework-guides/svelte/) or a [standard SvelteKit installation](https://svelte.dev/docs/kit/creating-a-project). I have chosen to deploy on Cloudflare Workers, if you have a different preference feel free to do your own thing when we reach the deployment Step of the tutorial.
 
@@ -104,15 +104,18 @@ Which package manager do you want to install dependencies with?
 - npm
 ```
 
-- Do not let the questions here overwhelm you. You can always add or remove these features later.
+Do not let the questions overwhelm you. You can always add or remove these features later.
+- *Do you want to use git for version control?*, choose `Yes`.
+- *Do you want to deploy your application?*, choose `No`
 
-### (Optional) Finalizing the Setup
-Once your project is created, run the following commands to create a git repository and start the development server:
+### Run the Development Server
+Once your project is created, start the development server:
 ```bash
 cd my-svelte-app
-git init && git add -A && git commit -m "Initial commit"
 npm run dev -- --open
 ```
+
+If everything is set up correctly, you should see your new SvelteKit app running in your browser.
 
 ## Wrapping Up Step 1
 

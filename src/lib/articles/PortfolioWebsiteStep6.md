@@ -424,6 +424,6 @@ And for `src/lib/components/PostContent.svelte`:
 	4. Used to list posts in `/blog` and `/projects` pages.
 	5. The `$effect` block in `PostContent.svelte` relies on it to update the table of contents, when navigating from one post to another.
 
-### Next Steps
+### Wrapping Up Step 6
 
 Congratulations! You've made a long way, your website now has transitions and SEO-friendly metadata. In the next step, we will [deploy our website to Cloudflare Workers](/blog/deploy-on-cloudflare-workers).

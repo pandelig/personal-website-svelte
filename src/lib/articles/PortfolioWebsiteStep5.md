@@ -129,7 +129,6 @@ export default config;
 
 - `rehype-slug`: add ids to headings.
 - `rehype-external-links`: add `target="_blank"` and `rel="noopener"` to external links. The `content` option adds an icon after external links, `type` can also be `'element'` or `'comment'`, for `value` this adds an unbreakable space: `'\u00A0↗'`, a simple space before the emoji seems to be getting removed.
-- By default, mdsvex does not support markdown files (`.md`), so we add it to the `extensions` array in accordance with the [mdsvex docs](https://mdsvex.pngwn.io/docs#extensions).
 
 ## Display Post Content
 
