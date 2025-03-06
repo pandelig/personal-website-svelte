@@ -183,7 +183,7 @@ To achieve the staggering effect here, we will use a more scalable approach, `sr
 				onclick={() => selectTag(tag)}
 				class="px-2 {selectedTags.includes(tag)
 					? 'text-accent'
-					: 'text-secondary'} sm:hover:text-accent"
+					: 'text-secondary'} sm:hover:text-accent cursor-pointer"
 			>
 				#{tag}
 			</button>
@@ -318,7 +318,7 @@ Similarly, we can fade in blog posts when viewing an article.
 
 {#if showContent[3]}
 	<div class="p-8 py-0 text-right" in:fade>
-		<button onclick={scrollToTop} class="text-base text-secondary sm:hover:text-accent">
+		<button onclick={scrollToTop} class="text-base text-secondary sm:hover:text-accent cursor-pointer">
 			Back to Top
 		</button>
 	</div>

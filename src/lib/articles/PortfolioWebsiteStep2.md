@@ -25,27 +25,12 @@ To [install DaisyUI](https://daisyui.com/docs/install/), run the following comma
 npm i -D daisyui@latest
 ```
 
-## Configure Tailwind to Use DaisyUI
+Add daisyUI to `src/app.css`:
+```css
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
 
-Now, create a `tailwind.config.js` file in the root directory:
-
-```javascript
-import typography from '@tailwindcss/typography';
-
-/** @type {import('tailwindcss').Config} */
-export default {
-	content: ['./src/**/*.{html,js,svelte,ts}'],
-
-	theme: {
-		extend: {}
-	},
-
-	plugins: [typography, require('daisyui')],
-
-	daisyui: {
-		themes: ['lofi'] // Choose any theme or create your own!
-	}
-};
+@plugin "daisyui";
 ```
 
 ### Choose a Theme
@@ -54,26 +39,53 @@ DaisyUI provides many built-in themes that you can use. You can view [all availa
 
 ### (Optional) Define a Custom Theme
 
-You can [define your own theme](https://daisyui.com/docs/themes/#-4). For example, `tailwind.config.js`:
+You can [define your own theme](https://daisyui.com/theme-generator/). For example, `src/app.css`:
 
-```javascript
-daisyui: {
-	// themes: ['lofi'],
-	themes: [
-		{
-			mytheme: {
-				primary: '#000000',
-				secondary: '#78716c',
-				accent: '#000000',
-				neutral: '#ffffff',
-				'base-100': '#ffffff'
-			}
-		}
-	]
+```css
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@plugin "daisyui";
+@plugin "daisyui/theme" {
+	name: 'lofi';
+	default: true;
+	prefersdark: false;
+	color-scheme: 'light';
+	--color-base-100: oklch(100% 0 0);
+	--color-base-200: oklch(97% 0 0);
+	--color-base-300: oklch(94% 0 0);
+	--color-base-content: oklch(0% 0 0);
+	--color-primary: oklch(15.906% 0 0);
+	--color-primary-content: oklch(100% 0 0);
+	--color-secondary: oklch(55% 0.013 58.071);
+	--color-secondary-content: oklch(100% 0 0);
+	--color-accent: oklch(26.861% 0 0);
+	--color-accent-content: oklch(100% 0 0);
+	--color-neutral: oklch(0% 0 0);
+	--color-neutral-content: oklch(100% 0 0);
+	--color-info: oklch(79.54% 0.103 205.9);
+	--color-info-content: oklch(15.908% 0.02 205.9);
+	--color-success: oklch(90.13% 0.153 164.14);
+	--color-success-content: oklch(18.026% 0.03 164.14);
+	--color-warning: oklch(88.37% 0.135 79.94);
+	--color-warning-content: oklch(17.674% 0.027 79.94);
+	--color-error: oklch(78.66% 0.15 28.47);
+	--color-error-content: oklch(15.732% 0.03 28.47);
+	--radius-selector: 2rem;
+	--radius-field: 0.25rem;
+	--radius-box: 0.5rem;
+	--size-selector: 0.25rem;
+	--size-field: 0.25rem;
+	--border: 1px;
+	--depth: 0;
+	--noise: 0;
 }
 ```
 
-This is the configuration I went for. We will be using `'base-100'` as the background color for our website.
+This is the configuration I went for.
+- Make sure to click the `CSS` button in the Theme Generator when you are done configuring your theme, it will give you the CSS code.
+- We will be using `'base-100'` as the background color for our website.
+- If you have trouble making the daisyUI theme work, make sure your browser is up to date, `oklch` support was introduced in the major browsers around 2023.
 
 ## Test DaisyUI Integration
 

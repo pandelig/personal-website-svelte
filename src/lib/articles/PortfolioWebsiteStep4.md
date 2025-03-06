@@ -79,7 +79,7 @@ export function loadMetadataOfPosts(type) {
 
 ## Display the Posts
 
-Now that we have post data, we need to display it. Just like the `+page.server.js` files, the `+page.svelte` files are nearly identical.
+Now that we have post data, we need to display it. This time, the 2 files are identical.
 
 `src/routes/blog/+page.svelte`:
 ```svelte
@@ -146,7 +146,7 @@ Both pages will use the `PostList.svelte` component to display posts. We will no
 				onclick={() => selectTag(tag)}
 				class="px-2 {selectedTags.includes(tag)
 					? 'text-accent'
-					: 'text-secondary'} sm:hover:text-accent"
+					: 'text-secondary'} sm:hover:text-accent cursor-pointer"
 			>
 				#{tag}
 			</button>

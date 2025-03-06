@@ -193,7 +193,7 @@ Article and project pages use the same code to display their content. We create 
 </div>
 
 <div class="p-8 py-0 text-right">
-	<button onclick={scrollToTop} class="text-base text-secondary sm:hover:text-accent">
+	<button onclick={scrollToTop} class="text-base text-secondary sm:hover:text-accent cursor-pointer">
 		Back to Top
 	</button>
 </div>

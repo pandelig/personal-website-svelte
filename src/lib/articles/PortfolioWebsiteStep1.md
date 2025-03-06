@@ -17,9 +17,9 @@ meta_description: "Learn how to build a personal website with Pantelis Deligiann
 
 ## Why SvelteKit and TailwindCSS?
 
-In the evolving landscape of web development, we are constantly seeking tools that combine performance and [developer satisfaction](https://2024.stateofjs.com/en-US/libraries/#tier_list). [SvelteKit](https://svelte.dev/), a modern full stack framework, stands out by offering a unique approach where components are compiled into highly efficient JavaScript at build time, resulting in lightweight and fast-running applications. Its simple syntax makes it exceptionally beginner-friendly.
+In the evolving landscape of web development, we are constantly seeking tools that combine performance and [developer satisfaction](https://2024.stateofjs.com/en-US/libraries/#tier_list). [SvelteKit](https://svelte.dev/), a modern full stack framework, stands out by offering a unique approach where components are compiled into highly efficient JavaScript at build time, resulting in lightweight and fast-running applications. Its simple syntax makes it exceptionally beginner-friendly. We will be using Svelte 5.
 
-[TailwindCSS](https://tailwindcss.com/) enables rapid development through class-based styling, while its component library [DaisyUI](https://daisyui.com/) extends this functionality by providing a collection of ready-to-use components that maintain consistency with Tailwind's philosophy.
+[TailwindCSS](https://tailwindcss.com/) enables rapid development through class-based styling, while its component library [DaisyUI](https://daisyui.com/) extends this functionality by providing a collection of ready-to-use components that maintain consistency with Tailwind's philosophy. We will be using the versions `v4.0.0` and `v5.0.0` respectively.
 
 To make the development more enjoyable, it is recommended to install the appropriate extensions on your code editor.
 - For [VSCode](https://code.visualstudio.com/): [Svelte for VS Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode), [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss).

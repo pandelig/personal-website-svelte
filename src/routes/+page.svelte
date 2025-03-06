@@ -46,7 +46,7 @@
 		<h1 class="text-lg font-semibold">Pantelis Deligiannidis</h1>
 		<div class="flex justify-center space-x-4">
 			<a
-				href="https://www.linkedin.com/in/pantelisdelig"
+				href="https://www.linkedin.com/in/pandelig"
 				class="tooltip text-secondary hover:text-accent"
 				target="_blank"
 				data-tip="linkedin"

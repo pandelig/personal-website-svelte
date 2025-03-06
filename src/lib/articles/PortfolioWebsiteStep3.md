@@ -18,6 +18,7 @@ meta_description: "Learn how to build a dynamic home page for your personal webs
 In this article we will create the home page of our SvelteKit website. The home page will include our name, social links, a short description, a section for recent articles, and another for recent projects.
 
 To minimize back and forth editing, we follow a structured approach:
+
 - Create dummy files for articles and projects.
   - `src/lib/articles/*.md`
   - `src/lib/projects/*.md`
@@ -36,17 +37,20 @@ You will likely come accross unknown html classes, you can refer to the Tailwind
 Our articles and projects will be stored as Markdown (`.md`) files, let's create some sample content. For that purpose, feel free to use your favorite AI assistant, otherwise, you may use the following linked content. Take notice to maintain the frontmatter structure present in the linked content as it will soon become apparent that each key holds a certain significance.
 
 Create the folder `src/lib/articles/` and the following files:
+
 - `src/lib/articles/Article1.md` - [Article 1 github link](TODO)
 - `src/lib/articles/Article2.md` - [Article 2 github link](TODO)
 - `src/lib/articles/Article3.md` - [Article 3 github link](TODO)
 
 Similarly, create `src/lib/projects/` and the following files:
+
 - `src/lib/projects/Project1.md` - [Project 1 github link](TODO)
 - `src/lib/projects/Project2.md` - [Project 2 github link](TODO)
 
 ### Frontmatter Structure
 
 Example:
+
 ```yaml
 ---
 slug: "install-and-configure-daisyui"
@@ -57,7 +61,9 @@ title: "Personal Website with SvelteKit and TailwindCSS - Step 2: Install and Co
 meta_description: "Learn how to install and configure DaisyUI in your SvelteKit project..."
 ---
 ```
+
 The frontmatter section of each article contains essential metadata that helps organize and identify the content. Here's a breakdown of each field:
+
 - `slug`: A unique identifier used for routing and referencing the article.
 - `date`: Publication date in RFC 2822 format: `"DD MMM YYYY"`.
 - `date_updated`: Optional field for tracking content revisions.
@@ -122,6 +128,7 @@ export function load() {
 ```
 
 This function reads our Markdown files, extracts metadata, and returns them to the homepage. As you probably expect by reading the file's name, this code runs on the [server side](https://svelte.dev/tutorial/kit/page-data).
+
 - `import.meta.glob` is a built-in feature in Vite (and by extension SvelteKit) that makes handling file imports in bulk efficient and straightforward. The `eager: true` option means the imports are resolved during build time, allowing us to directly access their `metadata`.
 - It would be beneficial to study this code, perhaps print out the `articleModules` in the console. We don't use everything contained in the 2 `*Modules` objects as we only need the metadata in this case. Later on, when we create the individual post content pages, we will use these objects fully.
 - The sorting and slicing could happen on the client side, but since we only need the 2 most recent articles and projects, why waste the user's bandwidth.
@@ -129,6 +136,7 @@ This function reads our Markdown files, extracts metadata, and returns them to t
 ## Create the Home Page
 
 Now, let’s build the home page, update `src/routes/+page.svelte`:
+
 ```svelte
 <script>
 	let { data } = $props();
@@ -181,7 +189,12 @@ Now, let’s build the home page, update `src/routes/+page.svelte`:
 					<li>
 						<a href="/blog/{article.slug}" class="hover:link">
 							<h2>{article.title}</h2>
-							<p class="text-sm text-secondary">{article.date}</p>
+							<p class="text-sm text-secondary">
+								{article.date}
+								{#if article.date_updated}
+									- updated {article.date_updated}
+								{/if}
+							</p>
 						</a>
 					</li>
 				{/each}
@@ -196,7 +209,12 @@ Now, let’s build the home page, update `src/routes/+page.svelte`:
 					<li>
 						<a href="/projects/{project.slug}" class="hover:link">
 							<h2>{project.title}</h2>
-							<p class="text-sm text-secondary">{project.date}</p>
+							<p class="text-sm text-secondary">
+								{project.date}
+								{#if project.date_updated}
+									- updated {project.date_updated}
+								{/if}
+							</p>
 						</a>
 					</li>
 				{/each}
@@ -227,12 +245,14 @@ If you want to add social icons to your home page, you can either use SVG icons 
 </a>
 ```
 
-- Regarding the socials icons, you may search for "free social icons" in your favorite search engine. I used [Iconfinder](https://www.iconfinder.com/) with the "Free" filter.
+Regarding the socials icons, you may search for "free social icons" in your favorite search engine. I used [Iconfinder](https://www.iconfinder.com/) with the "Free" filter.
   1. Download the icons as SVG files.
   2. Store them in `static/socials/`.
-  Keep in mind that the "static" is not part of the URL path, so you can access the icons directly from the root of your domain.
+
+Keep in mind that the "static" is not part of the URL path, so you can access the icons directly from the root of your domain.
 
 Alternatively, here's how to use them inline:
+
 ```html
 <a
 	href="https://www.linkedin.com/in/username"
@@ -243,9 +263,15 @@ Alternatively, here's how to use them inline:
 >
 	<svg class="h-6 w-6 fill-current" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
 		<g data-name="in linkedin portfolio social media" id="in_linkedin_portfolio_social_media">
-			<path d="M6.5,3A3.5,3.5,0,1,0,10,6.5,3.5,3.5,0,0,0,6.5,3Zm0,5A1.5,1.5,0,1,1,8,6.5,1.5,1.5,0,0,1,6.5,8Z" />
-			<path d="M9,11H4a1,1,0,0,0,0,2H8V27H5V16a1,1,0,0,0-2,0V28a1,1,0,0,0,1,1H9a1,1,0,0,0,1-1V12A1,1,0,0,0,9,11Z"	/>
-			<path	d="M27.34,12.68A5.94,5.94,0,0,0,23,11H22a7.84,7.84,0,0,0-4,.89A1,1,0,0,0,17,11H12a1,1,0,0,0-1,1V28a1,1,0,0,0,1,1h5a1,1,0,0,0,1-1V19a2,2,0,0,1,4,0v9a1,1,0,0,0,1,1h5a1,1,0,0,0,1-1V17A5.9,5.9,0,0,0,27.34,12.68ZM27,27H24V19a4,4,0,0,0-8,0v8H13V13h3v1a1,1,0,0,0,.62.92,1,1,0,0,0,1.09-.21c.95-1,1.7-1.71,4.29-1.71h1a4,4,0,0,1,2.92,1.09A4,4,0,0,1,27,17Z"	/>
+			<path
+				d="M6.5,3A3.5,3.5,0,1,0,10,6.5,3.5,3.5,0,0,0,6.5,3Zm0,5A1.5,1.5,0,1,1,8,6.5,1.5,1.5,0,0,1,6.5,8Z"
+			/>
+			<path
+				d="M9,11H4a1,1,0,0,0,0,2H8V27H5V16a1,1,0,0,0-2,0V28a1,1,0,0,0,1,1H9a1,1,0,0,0,1-1V12A1,1,0,0,0,9,11Z"
+			/>
+			<path
+				d="M27.34,12.68A5.94,5.94,0,0,0,23,11H22a7.84,7.84,0,0,0-4,.89A1,1,0,0,0,17,11H12a1,1,0,0,0-1,1V28a1,1,0,0,0,1,1h5a1,1,0,0,0,1-1V19a2,2,0,0,1,4,0v9a1,1,0,0,0,1,1h5a1,1,0,0,0,1-1V17A5.9,5.9,0,0,0,27.34,12.68ZM27,27H24V19a4,4,0,0,0-8,0v8H13V13h3v1a1,1,0,0,0,.62.92,1,1,0,0,0,1.09-.21c.95-1,1.7-1.71,4.29-1.71h1a4,4,0,0,1,2.92,1.09A4,4,0,0,1,27,17Z"
+			/>
 		</g>
 	</svg>
 </a>
@@ -253,13 +279,15 @@ Alternatively, here's how to use them inline:
 
 This is the option I went for, since it allows for easy color customization based on the secondary color we have set in [the previous step](/blog/install-and-configure-daisyui).
 To get the SVG code, download the SVG file and open it in a text editor. Copy the contents and paste them in your `src/routes/+page.svelte` file. Notice how:
+
 - We removed the `<?xml version="1.0" ?>` tag, it's primarily used when the SVG is a standalone file to indicate that it's an XML document.
 - We removed the `<title />` tag. It's used for accessibility purposes, but in this case, the added `aria-label` attribute on the `<a>` tag serves the same purpose.
 - We added classes to the SVG elements to apply Tailwind CSS classes for styling.
 
 ## Add a Navbar
 
-Now, let’s create a navigation bar. We want it present in every page of the website so it  will be handled in [the layout file](https://svelte.dev/tutorial/kit/layouts) `src/routes/+layout.svelte`:
+Now, let’s create a navigation bar. We want it present in every page of the website so it will be handled in [the layout file](https://svelte.dev/tutorial/kit/layouts) `src/routes/+layout.svelte`:
+
 ```svelte
 <script>
 	import '../app.css';
@@ -304,7 +332,7 @@ Now, let’s create a navigation bar. We want it present in every page of the we
 - You can read more about `$app/state` in [this part of the excellent SvelteKit interactive tutorial](https://svelte.dev/tutorial/kit/page-state).
   - It is used to adapt the navbar styles based on the current url pathname. Is also used in combination with the [Svelte `#if` statement](https://svelte.dev/tutorial/svelte/if-blocks) to conditionally render the "home" button.
 - Again, you may refer to the [Recommended Resources](/blog/set-up-sveltekit-website#optional-recommended-resources) for more information on the html classes. For example, the `sticky` and `text-base` are TW classes affecting the navbar positioning and text size while `text-primary` is a DaisyUI color class.
-- Finally, we use the `relative` TW class to enable the usage of `absolute` positioning for the floating "Contents" you see on every post page, aiding with navigation within the post. [*"the element will act as a position reference for absolutely positioned children".*](https://tailwindcss.com/docs/position#relatively-positioning-elements)
+- Finally, we use the `relative` TW class to enable the usage of `absolute` positioning for the floating "Contents" you see on every post page, aiding with navigation within the post. [_"the element will act as a position reference for absolutely positioned children"._](https://tailwindcss.com/docs/position#relatively-positioning-elements)
 
 ## Wrapping Up Step 3
 
