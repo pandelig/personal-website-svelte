@@ -34,7 +34,7 @@
 		required
 	></textarea>
 	<div class="flex justify-center">
-		<button type="submit" class="btn btn-primary">{buttonText}</button>
+		<button type="submit" class="btn">{buttonText}</button>
 	</div>
 	{#if formResponse?.message}
 		<div class="mt-4 text-center" in:fade>

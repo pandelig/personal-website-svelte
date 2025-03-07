@@ -226,63 +226,63 @@ To enhance the user experience, we add a floating Table of Contents (TOC) that s
 
 ```svelte
 <script>
-  import { onMount, onDestroy } from 'svelte';
-  // other imports from earlier
+    import { onMount, onDestroy } from 'svelte';
+    // other imports from earlier
 
-  // scrollToTop function from earlier
+    // scrollToTop function from earlier
 
-  /** Updates active heading based on current scroll position in the document */
-  function handleScroll() {
-   	const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-   	const scrollPosition = window.scrollY + 15; // Add some padding
+    /** Updates active heading based on current scroll position in the document */
+    function handleScroll() {
+       	const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+       	const scrollPosition = window.scrollY + 15; // Add some padding
 
-   	// Check if the user has scrolled to the bottom
-   	if (scrollTop + clientHeight >= scrollHeight - 10) {
-      activeHeading = headings[headings.length - 1].id;
-   	} else {
-      let current = headings.findLast((h) => scrollPosition >= h.offset);
-      activeHeading = current ? current.id : headings[0].id;
-   	}
-  }
+       	// Check if the user has scrolled to the bottom
+       	if (scrollTop + clientHeight >= scrollHeight - 10) {
+            activeHeading = headings[headings.length - 1].id;
+       	} else {
+            let current = headings.findLast((h) => scrollPosition >= h.offset);
+            activeHeading = current ? current.id : headings[0].id;
+       	}
+    }
 
-  let { metadata, content } = $props();
+    let { metadata, content } = $props();
 
-  const CONTENTS_INDENTS = {
-  	h1: 'pl-0',
-  	h2: 'pl-4',
-  	h3: 'pl-8'
-  };
-
-  const postType = page.url.pathname.split('/')[1];
-
-  let headings = $state([]);
-  let activeHeading = $state();
-
-  $effect(() => {
-  	if (
-      headings.length === 0 ||
-      (headings.length > 0 && headings[0].text !== metadata.title)
-  	) {
-      headings = Array.from(document.querySelectorAll('.prose h1, .prose h2, .prose h3')).map(
-       	(h) => ({
-          id: h.id,
-          text: h.innerText,
-          level: h.tagName.toLowerCase(),
-          offset: h.offsetTop
-       	})
-      );
-      handleScroll();
-  });
-
-  onMount(() => {
-    window.addEventListener('scroll', handleScroll);
-  });
-
-  onDestroy(() => {
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
+    const CONTENTS_INDENTS = {
+       	h1: 'pl-0',
+       	h2: 'pl-4',
+       	h3: 'pl-8'
     };
-  });
+
+    const postType = page.url.pathname.split('/')[1];
+
+    let headings = $state([]);
+    let activeHeading = $state();
+
+    $effect(() => {
+       	if (
+            headings.length === 0 ||
+            (headings.length > 0 && headings[0].text !== metadata.title)
+       	) {
+            headings = Array.from(document.querySelectorAll('.prose h1, .prose h2, .prose h3')).map(
+               	(h) => ({
+                id: h.id,
+                text: h.innerText,
+                level: h.tagName.toLowerCase(),
+                offset: h.offsetTop
+               	})
+        );
+        handleScroll();
+    });
+
+    onMount(() => {
+        window.addEventListener('scroll', handleScroll);
+    });
+
+    onDestroy(() => {
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    });
 </script>
 
 <div class="absolute -right-80 top-0 hidden h-full w-72 p-4 text-secondary xl:block">

@@ -366,7 +366,7 @@ In the `src/app.html` file we will add the metadata tags that are common to all 
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="author" content="John Doeloper" />
-		<meta property="og:image" content="https://pandelig.com/favicon.png" />
+		<meta property="og:image" content="https://yourdomainname.com/favicon.png" />
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
