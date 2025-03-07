@@ -4,7 +4,7 @@ date: "05 Mar 2025"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind", "cloudflare-workers"]
 title: "Personal Website with SvelteKit and TailwindCSS"
-meta_description: "Explore Pantelis Deligiannidis's personal website project built with SvelteKit and Tailwind CSS. Features a blog, portfolio, and comprehensive tutorial series for building fast, SEO-friendly web applications with modern tech stack."
+meta_description: "Explore Pantelis Deligiannidis's personal website project built with SvelteKit and Tailwind CSS. Features a blog, portfolio, and comprehensive tutorial series for building fast, SEO-friendly web applications with a modern tech stack."
 ---
 
 [GitHub Repository](https://github.com/pandelig/personal-website-svelte)
@@ -44,8 +44,8 @@ If you'd like to build a similar website and familiarize yourself with Svelte(Ki
 Clone the repository, install dependencies, and start the development server:
 
 ```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/pandelig/personal-website-svelte.git
+cd personal-website-svelte
 npm install
 npm run dev
 ```

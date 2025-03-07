@@ -35,8 +35,8 @@ If you'd like to build a similar website and familiarize yourself with Svelte(Ki
 Clone the repository, install dependencies, and start the development server:
 
 ```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/pandelig/personal-website-svelte.git
+cd personal-website-svelte
 npm install
 npm run dev
 ```
