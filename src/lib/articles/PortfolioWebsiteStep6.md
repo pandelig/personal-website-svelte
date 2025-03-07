@@ -1,5 +1,5 @@
 ---
-slug: "add-transitions-and-seo"
+slug: "step-6-add-transitions-and-seo"
 date: "04 Mar 2025"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
@@ -124,7 +124,7 @@ On the home page, we aim to achieve a staggering effect, meaning to fade in sect
 
 As [we discussed this in a previous step](/blog/build-post-content-page#add-floating-table-of-contents-toc), a change in a reactive variable triggers the `$effect` block. So when `showContent1` changes to `true`, it triggers a chain of changes to `showContent2`, `showContent3`, and `showContent4`.
 
-You may experiment using `elif` in the `$effect` block to see that since `showContent2` and `showContent3` are not uncoditionally evaluated, they don't trigger the `$effect` block when they change. You may also experiment with different `setTimeout` values.
+You may experiment using `elif` in the `$effect` block to see that since `showContent2` and `showContent3` are not unconditionally evaluated, they don't trigger the `$effect` block when they change. You may also experiment with different `setTimeout` values.
 
 ### PostList Component
 
@@ -225,9 +225,7 @@ To achieve the staggering effect here, we will use a more scalable approach, `sr
 
 ### PostContent Component
 
-Similarly, we can fade in blog posts when viewing an article.
-
-#### Updated `PostContent.svelte`
+Similarly, we can fade in blog posts when viewing an article, `src/lib/components/PostContent.svelte`:
 
 ```svelte
 <script>
@@ -441,11 +439,11 @@ And for `src/lib/components/PostContent.svelte`:
 
 - Initially, instead of using `secondary` color to get the gray color [defined in my custom DaisyUI theme](/blog/install-and-configure-daisyui#optional-define-a-custom-theme), I used `opacity-50` to get the same effect. That was up until I saw the deployed website getting warnings about low contrast in [PageSpeed Insights](https://pagespeed.web.dev/).
 - On [Step 3: Build the Home Page](/blog/build-the-home-page), you might have wondered, why do we choose to place the article's title in the frontmatter key value pairs instead of _just after it_, as `# This is a title`. I hope by now it is clear, that the `"title"` frontmatter key serves us in many ways:
-  1.  Displayed as the post title in the rendered post.
-  2.  Used for SEO metadata in the `svelte:head` of all posts.
-  3.  Used to list posts in the home page.
-  4.  Used to list posts in `/blog` and `/projects` pages.
-  5.  The `$effect` block in `PostContent.svelte` relies on it to update the table of contents, when navigating from one post to another.
+  1. Displayed as the post title in the rendered post.
+  2. Used for SEO metadata in the `svelte:head` of all posts.
+  3. Used to list posts in the home page.
+  4. Used to list posts in `/blog` and `/projects` pages.
+  5. The `$effect` block in `PostContent.svelte` relies on it to update the table of contents, when navigating from one post to another.
 
 ## Wrapping Up Step 6
 

@@ -1,5 +1,5 @@
 ---
-slug: "set-up-sveltekit-website"
+slug: "step-1-set-up-sveltekit-website"
 date: "27 Feb 2025"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind", "cloudflare-workers"]
@@ -22,6 +22,7 @@ In the evolving landscape of web development, we are constantly seeking tools th
 [TailwindCSS](https://tailwindcss.com/) enables rapid development through class-based styling, while its component library [DaisyUI](https://daisyui.com/) extends this functionality by providing a collection of ready-to-use components that maintain consistency with Tailwind's philosophy. We will be using the versions `v4.0.0` and `v5.0.0` respectively.
 
 To make the development more enjoyable, it is recommended to install the appropriate extensions on your code editor.
+
 - For [VSCode](https://code.visualstudio.com/): [Svelte for VS Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode), [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss).
 - For [Zed](https://zed.dev/): [Svelte](https://zed.dev/extensions?query=svelte), [Tailwind CSS support is built into Zed](https://zed.dev/docs/languages/tailwindcss).
 
@@ -62,13 +63,17 @@ You have at least two options for setting up your project: using [Cloudflare Wor
 Before everything, make sure you have [Node.js](https://nodejs.org/en/download/) installed on your machine.
 
 ### Option 1: Cloudflare Workers (Recommended)
+
 Run the following command:
+
 ```bash
 npm create cloudflare@latest my-svelte-app -- --framework=svelte --experimental
 ```
 
 ### Option 2: Standard SvelteKit Setup
+
 If you prefer more flexibility with deployment, use the following commands:
+
 ```bash
 npx sv create my-svelte-app
 cd my-app
@@ -77,6 +82,7 @@ npm run dev
 ```
 
 ### Setup Questions
+
 Regardless of the method chosen, you will be prompted to configure your project. Here are my selections:
 
 ```text
@@ -105,11 +111,14 @@ Which package manager do you want to install dependencies with?
 ```
 
 Do not let the questions overwhelm you. You can always add or remove these features later.
+
 - *Do you want to use git for version control?*, choose `Yes`.
 - *Do you want to deploy your application?*, choose `No`
 
 ### Run the Development Server
+
 Once your project is created, start the development server:
+
 ```bash
 cd my-svelte-app
 npm run dev -- --open

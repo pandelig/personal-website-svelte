@@ -1,5 +1,5 @@
 ---
-slug: "build-the-home-page"
+slug: "step-3-build-the-home-page"
 date: "01 Mar 2025"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
@@ -30,7 +30,7 @@ To minimize back and forth editing, we follow a structured approach:
   - `src/routes/+page.svelte`
   - `src/routes/+layout.svelte`
 
-You will likely come accross unknown html classes, you can refer to the Tailwind (TW) CSS and DaisyUI documentation as mentioned in the [Recommended Resources](/blog/set-up-sveltekit-website#optional-recommended-resources).
+You will likely come across unknown html classes, you can refer to the Tailwind (TW) CSS and DaisyUI documentation as mentioned in the [Recommended Resources](/blog/set-up-sveltekit-website#optional-recommended-resources).
 
 ## Create Dummy Articles and Projects
 
@@ -38,14 +38,14 @@ Our articles and projects will be stored as Markdown (`.md`) files, let's create
 
 Create the folder `src/lib/articles/` and the following files:
 
-- `src/lib/articles/Article1.md` - [Article 1 github link](TODO)
-- `src/lib/articles/Article2.md` - [Article 2 github link](TODO)
-- `src/lib/articles/Article3.md` - [Article 3 github link](TODO)
+- `src/lib/articles/Article1.md` - [Article 1 github link](https://github.com/pandelig/personal-website-svelte/blob/tutorial/src/lib/articles/Article1.md)
+- `src/lib/articles/Article2.md` - [Article 2 github link](https://github.com/pandelig/personal-website-svelte/blob/tutorial/src/lib/articles/Article2.md)
+- `src/lib/articles/Article3.md` - [Article 3 github link](https://github.com/pandelig/personal-website-svelte/blob/tutorial/src/lib/articles/Article3.md)
 
 Similarly, create `src/lib/projects/` and the following files:
 
-- `src/lib/projects/Project1.md` - [Project 1 github link](TODO)
-- `src/lib/projects/Project2.md` - [Project 2 github link](TODO)
+- `src/lib/projects/Project1.md` - [Project 1 github link](https://github.com/pandelig/personal-website-svelte/blob/tutorial/src/lib/projects/Project1.md)
+- `src/lib/projects/Project2.md` - [Project 2 github link](https://github.com/pandelig/personal-website-svelte/blob/tutorial/src/lib/projects/Project2.md)
 
 ### Frontmatter Structure
 
@@ -53,7 +53,7 @@ Example:
 
 ```yaml
 ---
-slug: "install-and-configure-daisyui"
+slug: "step-2-install-and-configure-daisyui"
 date: "28 Feb 2025"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
@@ -246,6 +246,7 @@ If you want to add social icons to your home page, you can either use SVG icons 
 ```
 
 Regarding the socials icons, you may search for "free social icons" in your favorite search engine. I used [Iconfinder](https://www.iconfinder.com/) with the "Free" filter.
+
   1. Download the icons as SVG files.
   2. Store them in `static/socials/`.
 

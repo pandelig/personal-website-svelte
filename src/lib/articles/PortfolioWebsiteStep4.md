@@ -1,5 +1,5 @@
 ---
-slug: "build-blog-and-projects-pages"
+slug: "step-4-build-blog-and-projects-pages"
 date: "02 Mar 2025"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
@@ -189,7 +189,7 @@ Both pages will use the `PostList.svelte` component to display posts. We will no
   - A concise explanation is provided in the interactive tutorial: [`$state`](https://svelte.dev/tutorial/svelte/state) and [`$derived`](https://svelte.dev/tutorial/svelte/derived-state).
   - For a more in depth look, check out the Svelte docs: [`$state`](https://svelte.dev/docs/svelte/$state) and [`$derived`](https://svelte.dev/docs/svelte/$derived).
 - Notice how `postType` is used to determine whether the page is a blog or projects page.
-- `onclick` is an example of how Svelte handles [event listeners](https://svelte.dev/tutorial/svelte/dom-events). You may come accross the `on:click` syntax in other Svelte tutorials, [it is older Svelte syntax](https://svelte.dev/docs/svelte/legacy-on), not Svelte 5.
+- `onclick` is an example of how Svelte handles [event listeners](https://svelte.dev/tutorial/svelte/dom-events). You may come across the `on:click` syntax in other Svelte tutorials, [it is older Svelte syntax](https://svelte.dev/docs/svelte/legacy-on), not Svelte 5.
 
 ## Wrapping Up Step 4
 

@@ -1,5 +1,5 @@
 ---
-slug: "deploy-on-cloudflare-workers"
+slug: "step-7-deploy-on-cloudflare-workers"
 date: "05 Mar 2025"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "cloudflare-workers"]
@@ -79,7 +79,7 @@ Yet, if we attempt to replace:
 
 with the [Workers Static Assets configuration](https://developers.cloudflare.com/workers/static-assets/) and run `npm run preview` we get the following error:
 
-```
+```bash
 > Using @sveltejs/adapter-cloudflare-workers
 error during build:
 Error: You must specify site.bucket in wrangler.json. Consult https://developers.cloudflare.com/workers/platform/sites/configuration
@@ -108,6 +108,7 @@ Check for improvements and optimize accordingly.
 ## (Optional) Document the Components
 
 Svelte(kit) offers [a way to add docstrings](https://svelte.dev/docs/svelte/faq#How-do-I-document-my-components) to our components. This way, when we mouse over an imported component in our code editor, our comment will be displayed. For example, `src/lib/components/PostList.svelte`:
+
 ```svelte
 <!-- @component Displays a filterable list of posts (blog or project articles) with tags and animated transitions -->
 <script>
@@ -116,12 +117,14 @@ Svelte(kit) offers [a way to add docstrings](https://svelte.dev/docs/svelte/faq#
 ```
 
 `src/lib/components/PostContent.svelte`:
+
 ```svelte
 <!-- @component Displays a post (blog or project article) with interactive tags, a back to top button, and a table of contents -->
 <script>
     // ...
 </script>
 ```
+
 ## Next Steps
 
 Congratulations! You have successfully developed and deployed your SvelteKit website on Cloudflare! What's next?

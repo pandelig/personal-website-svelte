@@ -1,5 +1,5 @@
 ---
-slug: 'install-and-configure-daisyui'
+slug: 'step-2-install-and-configure-daisyui'
 date: '28 Feb 2025'
 date_updated: ''
 tags: ['tutorial', 'full-stack', 'sveltekit', 'tailwind']
@@ -26,6 +26,7 @@ npm i -D daisyui@latest
 ```
 
 Add daisyUI to `src/app.css`:
+
 ```css
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
@@ -83,6 +84,7 @@ You can [define your own theme](https://daisyui.com/theme-generator/). For examp
 ```
 
 This is the configuration I went for.
+
 - Make sure to click the `CSS` button in the Theme Generator when you are done configuring your theme, it will give you the CSS code.
 - We will be using `'base-100'` as the background color for our website.
 - If you have trouble making the daisyUI theme work, make sure your browser is up to date, `oklch` support was introduced in the major browsers around 2023.

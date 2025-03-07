@@ -55,6 +55,7 @@ You can find all the `npm` commands in `package.json`.
 ## Acknowledgments
 
 The theme of this website was inspired by:
+
 - [Mark Horn's AstroNano theme](https://astro.build/themes/details/astronano/) ([repo](https://github.com/markhorn-dev/astro-nano?tab=readme-ov-file))
 - [Paco Coursey's personal website](https://paco.me/)
 
