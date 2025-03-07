@@ -197,7 +197,12 @@ To achieve the staggering effect here, we will use a more scalable approach, `sr
 				<li in:fade>
 					<a href="/{postType}/{post.slug}" class="hover:link">
 						<h2>{post.title}</h2>
-						<p class="text-sm text-secondary">{post.date}</p>
+						<p class="text-sm text-secondary">
+							{post.date}
+							{#if post.date_updated}
+								- updated {post.date_updated}
+							{/if}
+						</p>
 					</a>
 				</li>
 			{/if}

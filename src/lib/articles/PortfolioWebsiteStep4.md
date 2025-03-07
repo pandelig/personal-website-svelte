@@ -16,6 +16,7 @@ meta_description: "Learn how to build blog and projects pages with SvelteKit and
 7. [Step 7: Deploy on Cloudflare Workers](/blog/deploy-on-cloudflare-workers)
 
 In this step, we will create the `/blog` and `/projects` pages for our personal website. These pages will display a list of articles and projects, respectively, using metadata from markdown files while offering tag-based filtering. Our approach will be:
+
 - Set up backend logic for fetching content.
   - `src/routes/blog/+page.server.js`
   - `src/routes/projects/+page.server.js`
@@ -32,45 +33,50 @@ As a reminder, we use the term "post" to refer to both articles and projects.
 If you compare the [`/blog`](https://pandelig.com/blog) and [`/projects`](https://pandelig.com/projects) pages we aim to build, you'll notice that they share a lot of similarities. Both pages display a list of posts with titles, dates, and tags. We can leverage this similarity to create a reusable function that fetches post metadata.
 
 `src/routes/blog/+page.server.js`:
+
 ```js
 import { loadMetadataOfPosts } from '$lib/functions/loadMetadataOfPosts';
 
 export function load() {
-  return loadMetadataOfPosts('articles');
+	return loadMetadataOfPosts('articles');
 }
 ```
+
 `src/routes/projects/+page.server.js`:
+
 ```js
 import { loadMetadataOfPosts } from '$lib/functions/loadMetadataOfPosts';
 
 export function load() {
-  return loadMetadataOfPosts('projects');
+	return loadMetadataOfPosts('projects');
 }
 ```
+
 `src/lib/functions/loadMetadataOfPosts.js`:
+
 ```js
 export function loadMetadataOfPosts(type) {
-  let postModules;
+	let postModules;
 
-  if (type === 'articles') {
-    postModules = import.meta.glob('/src/lib/articles/*.md', { eager: true });
-  } else if (type === 'projects') {
-    postModules = import.meta.glob('/src/lib/projects/*.md', { eager: true });
-  } else {
-    throw new Error(`Unknown type: ${type}`);
-  }
+	if (type === 'articles') {
+		postModules = import.meta.glob('/src/lib/articles/*.md', { eager: true });
+	} else if (type === 'projects') {
+		postModules = import.meta.glob('/src/lib/projects/*.md', { eager: true });
+	} else {
+		throw new Error(`Unknown type: ${type}`);
+	}
 
-  const posts = Object.values(postModules).map(({ metadata }) => ({
-    ...metadata
-  }));
+	const posts = Object.values(postModules).map(({ metadata }) => ({
+		...metadata
+	}));
 
-  // Sort posts by date in descending order
-  posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+	// Sort posts by date in descending order
+	posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  // Extract unique tags for filtering
-  const tags = [...new Set(posts.flatMap(post => post.tags))];
+	// Extract unique tags for filtering
+	const tags = [...new Set(posts.flatMap((post) => post.tags))];
 
-  return { posts, tags };
+	return { posts, tags };
 }
 ```
 
@@ -82,19 +88,22 @@ export function loadMetadataOfPosts(type) {
 Now that we have post data, we need to display it. This time, the 2 files are identical.
 
 `src/routes/blog/+page.svelte`:
+
 ```svelte
 <script>
-	import PostList from "$lib/components/PostList.svelte";
+	import PostList from '$lib/components/PostList.svelte';
 
 	let { data } = $props();
 </script>
 
 <PostList {...data} />
 ```
+
 `src/routes/projects/+page.svelte`:
+
 ```svelte
 <script>
-	import PostList from "$lib/components/PostList.svelte";
+	import PostList from '$lib/components/PostList.svelte';
 
 	let { data } = $props();
 </script>
@@ -110,6 +119,7 @@ Now that we have post data, we need to display it. This time, the 2 files are id
 Both pages will use the `PostList.svelte` component to display posts. We will now be [creating our first component in SvelteKit](https://svelte.dev/tutorial/svelte/nested-components), [pass `$props` to it](https://svelte.dev/tutorial/svelte/declaring-props) [using the spread operator](https://svelte.dev/tutorial/svelte/spread-props). This functionality allows us to customize the displayed list, depending on whether it's used under `/blog` or `/projects`.
 
 `src/lib/components/PostList.svelte`:
+
 ```svelte
 <script>
 	import { page } from '$app/state';
@@ -126,7 +136,7 @@ Both pages will use the `PostList.svelte` component to display posts. We will no
 	}
 	let { posts, tags } = $props();
 
- 	const postType = page.url.pathname.slice(1);
+	const postType = page.url.pathname.slice(1);
 	let selectedTags = $state(
 		page.url.searchParams.get('tag') ? [page.url.searchParams.get('tag')] : []
 	);
@@ -146,7 +156,7 @@ Both pages will use the `PostList.svelte` component to display posts. We will no
 				onclick={() => selectTag(tag)}
 				class="px-2 {selectedTags.includes(tag)
 					? 'text-accent'
-					: 'text-secondary'} sm:hover:text-accent cursor-pointer"
+					: 'text-secondary'} cursor-pointer sm:hover:text-accent"
 			>
 				#{tag}
 			</button>
@@ -159,7 +169,12 @@ Both pages will use the `PostList.svelte` component to display posts. We will no
 			<li>
 				<a href="/{postType}/{post.slug}" class="hover:link">
 					<h2>{post.title}</h2>
-					<p class="text-sm text-secondary">{post.date}</p>
+					<p class="text-sm text-secondary">
+						{post.date}
+						{#if post.date_updated}
+							- updated {post.date_updated}
+						{/if}
+					</p>
 				</a>
 			</li>
 		{/each}

@@ -32,7 +32,7 @@ As a reminder, we use the term "post" to refer to both articles and projects.
 
 ## Fetch Post Data
 
-To load posts dynamically, we use a `+page.server.js` file in both the `/blog/[slug]/` and `/projects/[slug]/` routes. Since the files are nearly identical, we can create a reusable function to fetch the data.
+To load posts dynamically, we use a `+page.server.js` file in both the `/blog/[slug]/` and `/projects/[slug]/` routes. Since the files are nearly identical, we can again create a reusable function to fetch the data. By using brackets, Sveltekit allows us to [create dynamic routes](https://svelte.dev/tutorial/kit/params).
 
 `src/routes/blog/[slug]/+page.server.js`:
 
@@ -94,7 +94,14 @@ export function loadPost(type, slug) {
 
 To render markdown content, we are using the `mdsvex` plugin. As mentioned in [its docs](https://mdsvex.pngwn.io/docs#remarkplugins--rehypeplugins), mdsvex allows us to use [`remark`](https://github.com/remarkjs/remark/blob/main/doc/plugins.md#list-of-plugins) and [`rehype`](https://github.com/rehypejs/rehype/blob/main/doc/plugins.md#list-of-plugins) plugins to customize the markdown rendering process.
 
-We will be making use of 2 rehype plugins, `svelte.config.js`:
+We will be making use of 2 rehype plugins, install them:
+
+```bash
+npm install rehype-slug
+npm install rehype-external-links
+```
+
+Update `svelte.config.js`:
 
 ```js
 import adapter from '@sveltejs/adapter-cloudflare-workers';
@@ -193,7 +200,10 @@ Article and project pages use the same code to display their content. We create 
 </div>
 
 <div class="p-8 py-0 text-right">
-	<button onclick={scrollToTop} class="text-base text-secondary sm:hover:text-accent cursor-pointer">
+	<button
+		onclick={scrollToTop}
+		class="cursor-pointer text-base text-secondary sm:hover:text-accent"
+	>
 		Back to Top
 	</button>
 </div>
@@ -202,11 +212,11 @@ Article and project pages use the same code to display their content. We create 
 - We display the post's `date` and, if available, the `date_updated`.
 - Notice how the rendered tags associated with the post are clickable links that lead to `/blog` or `/projects` and filter posts by the selected tag.
 - The html `prose-*` classes are available from the [tailwind typography plugin](https://github.com/tailwindlabs/tailwindcss-typography).
-- The post's title gets its `id` dynamically from the metadata title. We saw how the other headings of our posts get their `id` and in the section below we will see how we make use of heading ids.
+- The post's title gets its `id` dynamically from the metadata title. We saw how the other headings of our posts get their ids (`rehype-slug`) and in the section below we will see how we make use of heading ids.
 - Renders the post's `content` using `{@html content}` to [inject raw HTML](https://svelte.dev/tutorial/svelte/html-tags).
 - A button that triggers the `scrollToTop` function when clicked, allowing users to scroll back to the top of the page.
 - We have [seen the `postType` functionality before](/blog/build-blog-and-projects-pages#create-post-list-component), as well as the [`page` usage](/blog/build-the-home-page#add-a-navbar) and [how to understand tailwind classes](/blog/set-up-sveltekit-website#optional-recommended-resources). The Svelte [`#each` block should also be familiar by now](/blog/build-the-home-page#create-the-home-page).
-- Observe how the posts look without the typography plugin by temporarily removing it from the `svelte.config.js` file. This helps understand its role in styling markdown content.
+- Observe how the posts look without the typography plugin by temporarily removing it from the `src/app.css` file. This helps understand its role in styling markdown content.
 
 ### Add Floating Table of Contents (TOC)
 
@@ -307,7 +317,7 @@ To enhance the user experience, we add a floating Table of Contents (TOC) that s
   - `text`: The heading's text content.
   - `level`: The heading type (h1, h2, or h3), which determines the indentation through `CONTENTS_INDENTS`.
   - `offset`: The heading's vertical position from the top, used in `handleScroll()` to determine the `activeHeading`.
-- The TOC is positioned absolutely on the right side of the content, only visible on extra-large screens (xl:block). Remember the usage of `relative` in the [parent container](/blog/build-the-home-page#add-a-navbar).
+- The TOC is positioned absolutely on the right side of the content, only visible on extra-large screens (`xl:block`). Remember the usage of `relative` in the [parent container](/blog/build-the-home-page#add-a-navbar).
 
 It would be beneficial here to spend some time understanding the code, how indentation is managed, how the colors of the TOC items change, what triggers the `$effect` block, the tailwind classes used etc.
 
@@ -320,9 +330,10 @@ The `src/app.css` file is updated to improve scrolling behavior and add code hig
 ```css
 @import url(../static/styles/prism-darcula.css);
 
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/* daisyUI related imports from step 2 */
 
 html {
 	scroll-behavior: smooth;
