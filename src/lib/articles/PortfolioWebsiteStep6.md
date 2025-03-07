@@ -7,13 +7,13 @@ title: "Personal Website with SvelteKit and TailwindCSS - Step 6: Add Transition
 meta_description: "Learn how to add smooth page transitions and improve SEO in your SvelteKit website with Pantelis Deligiannidis. Step-by-step guide covering fade transitions, staggered animations, and metadata optimization for better search engine visibility."
 ---
 
-1. [Step 1: Set Up the Project](/blog/set-up-sveltekit-website)
-2. [Step 2: Install and Configure DaisyUI](/blog/install-and-configure-daisyui)
-3. [Step 3: Build the Home Page](/blog/build-the-home-page)
-4. [Step 4: Build the Blog and Projects Pages](/blog/build-blog-and-projects-pages)
-5. [Step 5: Build the Post Content Page](/blog/build-post-content-page)
+1. [Step 1: Set Up the Project](/blog/step-1-set-up-sveltekit-website)
+2. [Step 2: Install and Configure DaisyUI](/blog/step-2-install-and-configure-daisyui)
+3. [Step 3: Build the Home Page](/blog/step-3-build-the-home-page)
+4. [Step 4: Build the Blog and Projects Pages](/blog/step-4-build-blog-and-projects-pages)
+5. [Step 5: Build the Post Content Page](/blog/step-5-build-post-content-page)
 6. (You are here) Step 6: Add Transitions and SEO
-7. [Step 7: Deploy on Cloudflare Workers](/blog/deploy-on-cloudflare-workers)
+7. [Step 7: Deploy on Cloudflare Workers](/blog/step-7-deploy-on-cloudflare-workers)
 
 In this step, we will enhance our SvelteKit website by adding transitions to various components and improving SEO by adding metadata tags. We will be updating the following files:
 
@@ -122,7 +122,7 @@ On the home page, we aim to achieve a staggering effect, meaning to fade in sect
 {/if}
 ```
 
-As [we discussed this in a previous step](/blog/build-post-content-page#add-floating-table-of-contents-toc), a change in a reactive variable triggers the `$effect` block. So when `showContent1` changes to `true`, it triggers a chain of changes to `showContent2`, `showContent3`, and `showContent4`.
+As [we discussed this in a previous step](/blog/step-5-build-post-content-page#add-floating-table-of-contents-toc), a change in a reactive variable triggers the `$effect` block. So when `showContent1` changes to `true`, it triggers a chain of changes to `showContent2`, `showContent3`, and `showContent4`.
 
 You may experiment using `elif` in the `$effect` block to see that since `showContent2` and `showContent3` are not unconditionally evaluated, they don't trigger the `$effect` block when they change. You may also experiment with different `setTimeout` values.
 
@@ -437,8 +437,8 @@ And for `src/lib/components/PostContent.svelte`:
 
 ## (Optional) Interesting Notes
 
-- Initially, instead of using `secondary` color to get the gray color [defined in my custom DaisyUI theme](/blog/install-and-configure-daisyui#optional-define-a-custom-theme), I used `opacity-50` to get the same effect. That was up until I saw the deployed website getting warnings about low contrast in [PageSpeed Insights](https://pagespeed.web.dev/).
-- On [Step 3: Build the Home Page](/blog/build-the-home-page), you might have wondered, why do we choose to place the article's title in the frontmatter key value pairs instead of _just after it_, as `# This is a title`. I hope by now it is clear, that the `"title"` frontmatter key serves us in many ways:
+- Initially, instead of using `secondary` color to get the gray color [defined in my custom DaisyUI theme](/blog/step-2-install-and-configure-daisyui#optional-define-a-custom-theme), I used `opacity-50` to get the same effect. That was up until I saw the deployed website getting warnings about low contrast in [PageSpeed Insights](https://pagespeed.web.dev/).
+- On [Step 3: Build the Home Page](/blog/step-3-build-the-home-page), you might have wondered, why do we choose to place the article's title in the frontmatter key value pairs instead of _just after it_, as `# This is a title`. I hope by now it is clear, that the `"title"` frontmatter key serves us in many ways:
   1. Displayed as the post title in the rendered post.
   2. Used for SEO metadata in the `svelte:head` of all posts.
   3. Used to list posts in the home page.
@@ -447,4 +447,4 @@ And for `src/lib/components/PostContent.svelte`:
 
 ## Wrapping Up Step 6
 
-Congratulations! You've come a long way, your website now has transitions and SEO-friendly metadata. In the next step, we will [deploy our website to Cloudflare Workers](/blog/deploy-on-cloudflare-workers).
+Congratulations! You've come a long way, your website now has transitions and SEO-friendly metadata. In the next step, we will [deploy our website to Cloudflare Workers](/blog/step-7-deploy-on-cloudflare-workers).

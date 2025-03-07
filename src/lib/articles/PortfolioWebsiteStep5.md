@@ -7,13 +7,13 @@ title: 'Personal Website with SvelteKit and TailwindCSS - Step 5: Build the Post
 meta_description: 'Learn how to build a dynamic post content page with SvelteKit and TailwindCSS in this detailed tutorial by Pantelis Deligiannidis. Includes floating table of contents, markdown support, and code syntax highlighting.'
 ---
 
-1. [Step 1: Set Up the Project](/blog/set-up-sveltekit-website)
-2. [Step 2: Install and Configure DaisyUI](/blog/install-and-configure-daisyui)
-3. [Step 3: Build the Home Page](/blog/build-the-home-page)
-4. [Step 4: Build the Blog and Projects Pages](/blog/build-blog-and-projects-pages)
+1. [Step 1: Set Up the Project](/blog/step-1-set-up-sveltekit-website)
+2. [Step 2: Install and Configure DaisyUI](/blog/step-2-install-and-configure-daisyui)
+3. [Step 3: Build the Home Page](/blog/step-3-build-the-home-page)
+4. [Step 4: Build the Blog and Projects Pages](/blog/step-4-build-blog-and-projects-pages)
 5. (You are here) Step 5: Build the Post Content Page
-6. [Step 6: Add Transitions and SEO](/blog/add-transitions-and-seo)
-7. [Step 7: Deploy on Cloudflare Workers](/blog/deploy-on-cloudflare-workers)
+6. [Step 6: Add Transitions and SEO](/blog/step-6-add-transitions-and-seo)
+7. [Step 7: Deploy on Cloudflare Workers](/blog/step-7-deploy-on-cloudflare-workers)
 
 In this step, we will build the Post Content Page, which is responsible for rendering individual blog posts and project descriptions. Our approach:
 
@@ -86,7 +86,7 @@ export function loadPost(type, slug) {
 }
 ```
 
-- Clearly, the code is quite similar to [what we needed for the Home page](/blog/build-the-home-page#fetch-articles-and-projects) and [for creating the post lists](/blog/build-blog-and-projects-pages#fetch-post-data).
+- Clearly, the code is quite similar to [what we needed for the Home page](/blog/step-3-build-the-home-page#fetch-articles-and-projects) and [for creating the post lists](/blog/step-4-build-blog-and-projects-pages#fetch-post-data).
 - We return a 404 error if the post doesn't exist.
 - We make use of `render()` to convert markdown into HTML before returning it. Try logging `post.default` and `renderedContent` to compare the before and after states for better understanding.
 
@@ -215,7 +215,7 @@ Article and project pages use the same code to display their content. We create 
 - The post's title gets its `id` dynamically from the metadata title. We saw how the other headings of our posts get their ids (`rehype-slug`) and in the section below we will see how we make use of heading ids.
 - Renders the post's `content` using `{@html content}` to [inject raw HTML](https://svelte.dev/tutorial/svelte/html-tags).
 - A button that triggers the `scrollToTop` function when clicked, allowing users to scroll back to the top of the page.
-- We have [seen the `postType` functionality before](/blog/build-blog-and-projects-pages#create-post-list-component), as well as the [`page` usage](/blog/build-the-home-page#add-a-navbar) and [how to understand tailwind classes](/blog/set-up-sveltekit-website#optional-recommended-resources). The Svelte [`#each` block should also be familiar by now](/blog/build-the-home-page#create-the-home-page).
+- We have [seen the `postType` functionality before](/blog/step-4-build-blog-and-projects-pages#create-post-list-component), as well as the [`page` usage](/blog/step-3-build-the-home-page#add-a-navbar) and [how to understand tailwind classes](/blog/step-1-set-up-sveltekit-website#optional-recommended-resources). The Svelte [`#each` block should also be familiar by now](/blog/step-3-build-the-home-page#create-the-home-page).
 - Observe how the posts look without the typography plugin by temporarily removing it from the `src/app.css` file. This helps understand its role in styling markdown content.
 
 ### Add Floating Table of Contents (TOC)
@@ -309,7 +309,7 @@ To enhance the user experience, we add a floating Table of Contents (TOC) that s
 - The component uses Svelte's `onMount` and `onDestroy` lifecycle functions to manage scroll event listeners.
 - `handleScroll` function updates the `activeHeading` based on the current scroll position, with special handling for when users reach the bottom of the page.
 - `CONTENTS_INDENTS` is an object that maps heading levels (h1, h2, h3) to Tailwind padding classes, creating a hierarchical indentation in the TOC.
-- `headings` and `activeHeading` variables are reactive, we have discussed this functionality before in ["Create Post List Component" of the previous step](/blog/build-blog-and-projects-pages#create-post-list-component)
+- `headings` and `activeHeading` variables are reactive, we have discussed this functionality before in ["Create Post List Component" of the previous step](/blog/step-4-build-blog-and-projects-pages#create-post-list-component)
 - We encounter [`$effect`](https://svelte.dev/tutorial/svelte/effects) for the first time. It is important to understand [what triggers it](https://svelte.dev/docs/svelte/$effect#Understanding-dependencies). In our case it runs when the component mounts or when metadata changes, collecting all h1, h2, and h3 headings from the post content.
   - When navigating from one article to another, [a page reload will not be triggered](https://svelte.dev/docs/kit/state-management#Component-and-page-state-is-preserved) by default but the `metadata` will change, triggering the `$effect` block.
 - For each heading, it stores:
@@ -317,7 +317,7 @@ To enhance the user experience, we add a floating Table of Contents (TOC) that s
   - `text`: The heading's text content.
   - `level`: The heading type (h1, h2, or h3), which determines the indentation through `CONTENTS_INDENTS`.
   - `offset`: The heading's vertical position from the top, used in `handleScroll()` to determine the `activeHeading`.
-- The TOC is positioned absolutely on the right side of the content, only visible on extra-large screens (`xl:block`). Remember the usage of `relative` in the [parent container](/blog/build-the-home-page#add-a-navbar).
+- The TOC is positioned absolutely on the right side of the content, only visible on extra-large screens (`xl:block`). Remember the usage of `relative` in the [parent container](/blog/step-3-build-the-home-page#add-a-navbar).
 
 It would be beneficial here to spend some time understanding the code, how indentation is managed, how the colors of the TOC items change, what triggers the `$effect` block, the tailwind classes used etc.
 
@@ -359,4 +359,4 @@ You can experiment with different `app.css` configurations while running `npm ru
 
 ## Wrapping Up Step 5
 
-Awesome work! You’ve successfully built the Post Content Page. In the next step, we’ll [add transitions and SEO enhancements](/blog/add-transitions-and-seo) to improve the user experience.
+Awesome work! You’ve successfully built the Post Content Page. In the next step, we’ll [add transitions and SEO enhancements](/blog/step-6-add-transitions-and-seo) to improve the user experience.

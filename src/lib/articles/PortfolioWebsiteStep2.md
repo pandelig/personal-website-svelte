@@ -7,15 +7,15 @@ title: 'Personal Website with SvelteKit and TailwindCSS - Step 2: Install and Co
 meta_description: 'Learn how to install and configure DaisyUI in your SvelteKit project with Pantelis Deligiannidis. A step-by-step guide covering theme selection, custom theming, and integration testing with practical examples.'
 ---
 
-1. [Step 1: Set Up the Project](/blog/set-up-sveltekit-website)
+1. [Step 1: Set Up the Project](/blog/step-1-set-up-sveltekit-website)
 2. (You are here) Step 2: Install and Configure DaisyUI
-3. [Step 3: Build the Home Page](/blog/build-the-home-page)
-4. [Step 4: Build the Blog and Projects Pages](/blog/build-blog-and-projects-pages)
-5. [Step 5: Build the Post Content Page](/blog/build-post-content-page)
-6. [Step 6: Added Transitions and SEO](/blog/add-transitions-and-seo)
-7. [Step 7: Deploy on Cloudflare Workers](/blog/deploy-on-cloudflare-workers)
+3. [Step 3: Build the Home Page](/blog/step-3-build-the-home-page)
+4. [Step 4: Build the Blog and Projects Pages](/blog/step-4-build-blog-and-projects-pages)
+5. [Step 5: Build the Post Content Page](/blog/step-5-build-post-content-page)
+6. [Step 6: Added Transitions and SEO](/blog/step-6-add-transitions-and-seo)
+7. [Step 7: Deploy on Cloudflare Workers](/blog/step-7-deploy-on-cloudflare-workers)
 
-In this step, we'll integrate DaisyUI, a component library for Tailwind CSS, into our SvelteKit project. As we start using Tailwind CSS and DaisyUI classes, you may always refer to the [Recommended Resources](/blog/set-up-sveltekit-website#optional-recommended-resources) to soon realize how easy it is to understand and remember the logic behind the class names.
+In this step, we'll integrate DaisyUI, a component library for Tailwind CSS, into our SvelteKit project. As we start using Tailwind CSS and DaisyUI classes, you may always refer to the [Recommended Resources](/blog/step-1-set-up-sveltekit-website#optional-recommended-resources) to soon realize how easy it is to understand and remember the logic behind the class names.
 
 ## Install DaisyUI
 
@@ -118,4 +118,4 @@ You should be able to see a styled button from DaisyUI in your browser.
 
 ## Wrapping Up Step 2
 
-Great job! You have successfully installed and configured DaisyUI in your SvelteKit project. Now you're ready for [Step 3: Build the Home Page](/blog/build-the-home-page).
+Great job! You have successfully installed and configured DaisyUI in your SvelteKit project. Now you're ready for [Step 3: Build the Home Page](/blog/step-3-build-the-home-page).

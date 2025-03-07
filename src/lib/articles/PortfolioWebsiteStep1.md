@@ -8,12 +8,12 @@ meta_description: "Learn how to build a personal website with Pantelis Deligiann
 ---
 
 1. (You are here) Step 1: Set Up the Project
-2. [Step 2: Install and Configure DaisyUI](/blog/install-and-configure-daisyui)
-3. [Step 3: Build the Home Page](/blog/build-the-home-page)
-4. [Step 4: Build the Blog and Projects Pages](/blog/build-blog-and-projects-pages)
-5. [Step 5: Build the Post Content Page](/blog/build-post-content-page)
-6. [Step 6: Add Transitions and SEO](/blog/add-transitions-and-seo)
-7. [Step 7: Deploy on Cloudflare Workers](/blog/deploy-on-cloudflare-workers)
+2. [Step 2: Install and Configure DaisyUI](/blog/step-2-install-and-configure-daisyui)
+3. [Step 3: Build the Home Page](/blog/step-3-build-the-home-page)
+4. [Step 4: Build the Blog and Projects Pages](/blog/step-4-build-blog-and-projects-pages)
+5. [Step 5: Build the Post Content Page](/blog/step-5-build-post-content-page)
+6. [Step 6: Add Transitions and SEO](/blog/step-6-add-transitions-and-seo)
+7. [Step 7: Deploy on Cloudflare Workers](/blog/step-7-deploy-on-cloudflare-workers)
 
 ## Why SvelteKit and TailwindCSS?
 
@@ -130,4 +130,4 @@ If everything is set up correctly, you should see your new SvelteKit app running
 
 Congratulations on completing the first step of building your portfolio website! You've successfully set up your development environment with SvelteKit and TailwindCSS.
 
-In the next step, we'll dive into [installing and configuring DaisyUI](/blog/install-and-configure-daisyui).
+In the next step, we'll dive into [installing and configuring DaisyUI](/blog/step-2-install-and-configure-daisyui).

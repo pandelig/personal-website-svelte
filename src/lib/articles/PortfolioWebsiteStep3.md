@@ -7,13 +7,13 @@ title: "Personal Website with SvelteKit and TailwindCSS - Step 3: Build the Home
 meta_description: "Learn how to build a dynamic home page for your personal website with Pantelis Deligiannidis. This detailed tutorial covers creating content structures, implementing server-side data fetching, and building a responsive UI with SvelteKit and TailwindCSS."
 ---
 
-1. [Step 1: Set Up the Project](/blog/set-up-sveltekit-website)
-2. [Step 2: Install and Configure DaisyUI](/blog/install-and-configure-daisyui)
+1. [Step 1: Set Up the Project](/blog/step-1-set-up-sveltekit-website)
+2. [Step 2: Install and Configure DaisyUI](/blog/step-2-install-and-configure-daisyui)
 3. (You are here) Step 3: Build the Home Page
-4. [Step 4: Build the Blog and Projects Pages](/blog/build-blog-and-projects-pages)
-5. [Step 5: Build the Post Content Page](/blog/build-post-content-page)
-6. [Step 6: Added Transitions and SEO](/blog/add-transitions-and-seo)
-7. [Step 7: Deploy on Cloudflare Workers](/blog/deploy-on-cloudflare-workers)
+4. [Step 4: Build the Blog and Projects Pages](/blog/step-4-build-blog-and-projects-pages)
+5. [Step 5: Build the Post Content Page](/blog/step-5-build-post-content-page)
+6. [Step 6: Added Transitions and SEO](/blog/step-6-add-transitions-and-seo)
+7. [Step 7: Deploy on Cloudflare Workers](/blog/step-7-deploy-on-cloudflare-workers)
 
 In this article we will create the home page of our SvelteKit website. The home page will include our name, social links, a short description, a section for recent articles, and another for recent projects.
 
@@ -30,7 +30,7 @@ To minimize back and forth editing, we follow a structured approach:
   - `src/routes/+page.svelte`
   - `src/routes/+layout.svelte`
 
-You will likely come across unknown html classes, you can refer to the Tailwind (TW) CSS and DaisyUI documentation as mentioned in the [Recommended Resources](/blog/set-up-sveltekit-website#optional-recommended-resources).
+You will likely come across unknown html classes, you can refer to the Tailwind (TW) CSS and DaisyUI documentation as mentioned in the [Recommended Resources](/blog/step-1-set-up-sveltekit-website#optional-recommended-resources).
 
 ## Create Dummy Articles and Projects
 
@@ -278,7 +278,7 @@ Alternatively, here's how to use them inline:
 </a>
 ```
 
-This is the option I went for, since it allows for easy color customization based on the secondary color we have set in [the previous step](/blog/install-and-configure-daisyui).
+This is the option I went for, since it allows for easy color customization based on the secondary color we have set in [the previous step](/blog/step-2-install-and-configure-daisyui).
 To get the SVG code, download the SVG file and open it in a text editor. Copy the contents and paste them in your `src/routes/+page.svelte` file. Notice how:
 
 - We removed the `<?xml version="1.0" ?>` tag, it's primarily used when the SVG is a standalone file to indicate that it's an XML document.
@@ -332,9 +332,9 @@ Now, let’s create a navigation bar. We want it present in every page of the we
 
 - You can read more about `$app/state` in [this part of the excellent SvelteKit interactive tutorial](https://svelte.dev/tutorial/kit/page-state).
   - It is used to adapt the navbar styles based on the current url pathname. Is also used in combination with the [Svelte `#if` statement](https://svelte.dev/tutorial/svelte/if-blocks) to conditionally render the "home" button.
-- Again, you may refer to the [Recommended Resources](/blog/set-up-sveltekit-website#optional-recommended-resources) for more information on the html classes. For example, the `sticky` and `text-base` are TW classes affecting the navbar positioning and text size while `text-primary` is a DaisyUI color class.
+- Again, you may refer to the [Recommended Resources](/blog/step-1-set-up-sveltekit-website#optional-recommended-resources) for more information on the html classes. For example, the `sticky` and `text-base` are TW classes affecting the navbar positioning and text size while `text-primary` is a DaisyUI color class.
 - Finally, we use the `relative` TW class to enable the usage of `absolute` positioning for the floating "Contents" you see on every post page, aiding with navigation within the post. [_"the element will act as a position reference for absolutely positioned children"._](https://tailwindcss.com/docs/position#relatively-positioning-elements)
 
 ## Wrapping Up Step 3
 
-Congratulations on making it this far! You have successfully created the home page of your personal website. You have learned how to structure your content, fetch it dynamically, and display it on the frontend. In the next step, we will [build the `/blog` and `/projects` pages](/blog/build-blog-and-projects-pages). Stay tuned!
+Congratulations on making it this far! You have successfully created the home page of your personal website. You have learned how to structure your content, fetch it dynamically, and display it on the frontend. In the next step, we will [build the `/blog` and `/projects` pages](/blog/step-4-build-blog-and-projects-pages). Stay tuned!

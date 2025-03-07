@@ -7,13 +7,13 @@ title: "Personal Website with SvelteKit and TailwindCSS - Step 4: Build the Blog
 meta_description: "Learn how to build blog and projects pages with SvelteKit and TailwindCSS in this detailed tutorial by Pantelis Deligiannidis. Create reusable components, implement tag filtering, and handle post metadata effectively."
 ---
 
-1. [Step 1: Set Up the Project](/blog/set-up-sveltekit-website)
-2. [Step 2: Install and Configure DaisyUI](/blog/install-and-configure-daisyui)
-3. [Step 3: Build the Home Page](/blog/build-the-home-page)
+1. [Step 1: Set Up the Project](/blog/step-1-set-up-sveltekit-website)
+2. [Step 2: Install and Configure DaisyUI](/blog/step-2-install-and-configure-daisyui)
+3. [Step 3: Build the Home Page](/blog/step-3-build-the-home-page)
 4. (You are here) Step 4: Build the Blog and Projects Pages
-5. [Step 5: Build the Post Content Page](/blog/build-post-content-page)
-6. [Step 6: Add Transitions and SEO](/blog/add-transitions-and-seo)
-7. [Step 7: Deploy on Cloudflare Workers](/blog/deploy-on-cloudflare-workers)
+5. [Step 5: Build the Post Content Page](/blog/step-5-build-post-content-page)
+6. [Step 6: Add Transitions and SEO](/blog/step-6-add-transitions-and-seo)
+7. [Step 7: Deploy on Cloudflare Workers](/blog/step-7-deploy-on-cloudflare-workers)
 
 In this step, we will create the `/blog` and `/projects` pages for our personal website. These pages will display a list of articles and projects, respectively, using metadata from markdown files while offering tag-based filtering. Our approach will be:
 
@@ -80,7 +80,7 @@ export function loadMetadataOfPosts(type) {
 }
 ```
 
-- The code is quite similar to [what we needed for the Home page](/blog/build-the-home-page#fetch-articles-and-projects).
+- The code is quite similar to [what we needed for the Home page](/blog/step-3-build-the-home-page#fetch-articles-and-projects).
 - Placing the function under `src/lib/functions` is a personal preference for code organization, same goes for `src/lib/components`, `src/lib/articles`, and `src/lib/projects`. You can structure your project differently, SvelteKit is not opinionated about this. [Read more about the `$lib` alias here](https://svelte.dev/tutorial/kit/lib).
 
 ## Display the Posts
@@ -193,4 +193,4 @@ Both pages will use the `PostList.svelte` component to display posts. We will no
 
 ## Wrapping Up Step 4
 
-You’ve now built the `/blog` and `/projects` pages! In Step 5, we’ll [create the Post Content Page](/blog/build-post-content-page), allowing users to read full articles and project descriptions.
+You’ve now built the `/blog` and `/projects` pages! In Step 5, we’ll [create the Post Content Page](/blog/step-5-build-post-content-page), allowing users to read full articles and project descriptions.
