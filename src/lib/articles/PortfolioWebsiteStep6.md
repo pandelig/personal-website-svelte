@@ -30,24 +30,26 @@ In this step, we will enhance our SvelteKit website by adding transitions to var
 
 ## Add Transitions
 
-We will be using Svelte's built in `fade` transition.
+We will be using Svelte's built-in `fade` transition.
 
 ### Layout File
 
 Regarding `src/routes/+layout.svelte`, we will make the `Home` button appear with a fade effect when navigating away from the home page:
+
 ```svelte
 <script>
-  import { fade } from 'svelte/transition';
-  // ...
+	import { fade } from 'svelte/transition';
+	// ...
 </script>
 
 // ...
 <a href="/" class="inline-block text-secondary hover:text-accent" in:fade> home </a>
-			<span in:fade> | </span>
+<span in:fade> | </span>
 // ...
 ```
 
-We simply added a new import and then used the `fade` transition on 2 elements after importing it.
+We simply added a new import and then used the `fade` transition on 2 elements.
+
 - `in`: The transition will run when the element is added to the DOM.
 - `out`: The transition will run when the element is removed from the DOM.
 - `transition`: The transition will run when the element is added or removed from the DOM.
@@ -58,11 +60,12 @@ We simply added a new import and then used the `fade` transition on 2 elements a
 On the home page, we aim to achieve a staggering effect, meaning to fade in sections one by one. This is one way to do it, soon we will see another way to achieve this effect that is more scalable.
 
 `src/routes/+page.svelte`:
+
 ```svelte
 <script>
-  import { fade } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 
-  // ...
+	// ...
 
 	let showContent1 = $state(false);
 	let showContent2 = $state(false);
@@ -90,9 +93,7 @@ On the home page, we aim to achieve a staggering effect, meaning to fade in sect
 {#if showContent1}
 	<div class="flex justify-between gap-4 p-8 pb-2 pt-28" in:fade>
 		<h1 class="text-lg font-semibold">John Doeloper</h1>
-		<div class="flex justify-center space-x-4">
-        // ...
-		</div>
+		<div class="flex justify-center space-x-4">// ...</div>
 	</div>
 {/if}
 
@@ -107,28 +108,31 @@ On the home page, we aim to achieve a staggering effect, meaning to fade in sect
 		<div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
 			<section>
 				<h2 class="text-lg font-semibold">Articles</h2>
-				// ...				<a href="/blog" class="link mt-4 inline-block pl-0">All Articles</a>
+				// ...
+				<a href="/blog" class="link mt-4 inline-block pl-0">All Articles</a>
 			</section>
 
 			<section>
 				<h2 class="text-lg font-semibold">Projects</h2>
-				// ...				<a href="/projects" class="link mt-4 inline-block pl-0">All Projects</a>
+				// ...
+				<a href="/projects" class="link mt-4 inline-block pl-0">All Projects</a>
 			</section>
 		</div>
 	</div>
 {/if}
 ```
 
-As we [we discussed this in a previous step](/blog/build-post-content-page#add-floating-table-of-contents-toc), a change in a reactive variable triggers the `$effect` block. So when `showContent1` changes to `true`, it triggers a chain of changes to `showContent2`, `showContent3`, and `showContent4`.
+As [we discussed this in a previous step](/blog/build-post-content-page#add-floating-table-of-contents-toc), a change in a reactive variable triggers the `$effect` block. So when `showContent1` changes to `true`, it triggers a chain of changes to `showContent2`, `showContent3`, and `showContent4`.
 
-You may experiment using `elif` in the `$effect` block to see that since `showContent2` and `showContent3` are not uncoditionally evaluated, they don't trigger the `$effect` block when they change. You may also experiment with different `setTimeout` values, keep in mind that the default duration of the `fade` transition is [400ms](https://svelte.dev/docs/svelte/transition#Custom-transition-functions).
+You may experiment using `elif` in the `$effect` block to see that since `showContent2` and `showContent3` are not uncoditionally evaluated, they don't trigger the `$effect` block when they change. You may also experiment with different `setTimeout` values.
 
 ### PostList Component
 
 To achieve the staggering effect here, we will use a more scalable approach, `src/lib/components/PostList.svelte`:
+
 ```svelte
 <script>
-  import { fade } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 	import { page } from '$app/state';
 
 	// Handle tag selection, called onclick
@@ -183,7 +187,7 @@ To achieve the staggering effect here, we will use a more scalable approach, `sr
 				onclick={() => selectTag(tag)}
 				class="px-2 {selectedTags.includes(tag)
 					? 'text-accent'
-					: 'text-secondary'} sm:hover:text-accent cursor-pointer"
+					: 'text-secondary'} cursor-pointer sm:hover:text-accent"
 			>
 				#{tag}
 			</button>
@@ -220,25 +224,35 @@ To achieve the staggering effect here, we will use a more scalable approach, `sr
 - We see for the first time the use of a nested `#if` block, inside an `#each` block.
 
 ### PostContent Component
+
 Similarly, we can fade in blog posts when viewing an article.
 
 #### Updated `PostContent.svelte`
+
 ```svelte
 <script>
-  import { fade } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 	import { onDestroy } from 'svelte';
-  // other imports
+	// other imports
 
-  // scrollToTop function from earlier
-  // handleScroll function from earlier
+	// scrollToTop function from earlier
+	// handleScroll function from earlier
 
-  // $props from earlier
-  const TOTAL_ELEMENTS_TO_TRANSITION = 5; // 1: dates & tags, 2: title, 3: content, 4: back to top button, 5: table of contents
+	// $props from earlier
+	const TOTAL_ELEMENTS_TO_TRANSITION = 5; // 1: dates & tags, 2: title, 3: content, 4: back to top button, 5: table of contents
+	const CONTENTS_INDENTS = {
+		h1: 'pl-0',
+		h2: 'pl-4',
+		h3: 'pl-8'
+	};
 
-  // ...
-  // activeHeading definition from earlier
+	const postType = page.url.pathname.split('/')[1];
+	let delay = 200;
 
-  	let showContent = $state(Array(TOTAL_ELEMENTS_TO_TRANSITION).fill(false));
+	let headings = $state([]);
+	let activeHeading = $state();
+
+	let showContent = $state(Array(TOTAL_ELEMENTS_TO_TRANSITION).fill(false));
 
 	for (let i = 0; i < TOTAL_ELEMENTS_TO_TRANSITION - 1; i++) {
 		setTimeout(() => {
@@ -278,9 +292,7 @@ Similarly, we can fade in blog posts when viewing an article.
 
 {#if showContent[TOTAL_ELEMENTS_TO_TRANSITION - 1]}
 	<div class="absolute -right-80 top-0 hidden h-full w-72 p-4 text-secondary xl:block" in:fade>
-		<div class="sticky top-24">
-  		// ...
-    </div>
+		<div class="sticky top-24">// ...</div>
 	</div>
 {/if}
 
@@ -323,7 +335,10 @@ Similarly, we can fade in blog posts when viewing an article.
 
 {#if showContent[3]}
 	<div class="p-8 py-0 text-right" in:fade>
-		<button onclick={scrollToTop} class="text-base text-secondary sm:hover:text-accent cursor-pointer">
+		<button
+			onclick={scrollToTop}
+			class="cursor-pointer text-base text-secondary sm:hover:text-accent"
+		>
 			Back to Top
 		</button>
 	</div>
@@ -363,17 +378,19 @@ In the `src/app.html` file we will add the metadata tags that are common to all 
 - First of all, we notice that the important `charset` and `viewport` meta tags are already present in the file.
 - The `favicon` is also set. This file is located in the `static` folder and you are free to replace it, it determines the icon that appears in the browser tab.
 - We added an `author` meta tag.
-- We added an `og:image` tag. This is an Open Graph (OG) tag, OG tags control how your website’s content is displayed when shared on social media platforms like facebook, twitter, linkedin, etc.
-  - Optionally, you can add more OG tags like `og:title`, `og:description`, `og:url`, etc. If you don't, they will default to the values of the corresponding meta tags that we will add in the remainder of this step.
-  - You can test how your website will look when shared on social media platforms using the [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/).
+- We added an `og:image` tag. This is an OG tag, OG tags control how your website’s content is displayed when shared on social media platforms like facebook, twitter, linkedin, etc.
+  - Optionally, you can add more OG tags like `og:title`, `og:description`, `og:url`, etc. If you don't, they will default to the values of the corresponding meta tags that we will add shortly.
+  - After deployment, you may test how your website will look when shared on social media platforms using the [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/).
 
 ### Home Page
 
 Add the following code immediately after the `script` tag in `src/routes/+page.svelte`:
+
 ```svelte
 <script>
-  // ...
+	// ...
 </script>
+
 <svelte:head>
 	<title>John Doeloper</title>
 	<meta
@@ -385,17 +402,17 @@ Add the following code immediately after the `script` tag in `src/routes/+page.s
 
 `svelte:head`: This is how Svelte allows for [inserting metadata tags in the `head` of the document](https://svelte.dev/docs/svelte/svelte-head).
 
-
 ### PostList Component
 
 Similarly for `src/lib/components/PostList.svelte`:
 
 ```svelte
 <script>
-  // ...
+	// ...
 </script>
+
 <svelte:head>
-	<title>{postType === 'blog' ? 'Blog' : 'Projects'} - Pantelis Deligiannidis</title>
+	<title>{postType === 'blog' ? 'Blog' : 'Projects'} - John Doeloper</title>
 	<meta
 		name="description"
 		content="Dive into a collection of {postType === 'blog'
@@ -411,8 +428,9 @@ And for `src/lib/components/PostContent.svelte`:
 
 ```svelte
 <script>
-  // ...
+	// ...
 </script>
+
 <svelte:head>
 	<title>{metadata.title}</title>
 	<meta name="description" content={metadata.meta_description} />
@@ -422,13 +440,13 @@ And for `src/lib/components/PostContent.svelte`:
 ## (Optional) Interesting Notes
 
 - Initially, instead of using `secondary` color to get the gray color [defined in my custom DaisyUI theme](/blog/install-and-configure-daisyui#optional-define-a-custom-theme), I used `opacity-50` to get the same effect. That was up until I saw the deployed website getting warnings about low contrast in [PageSpeed Insights](https://pagespeed.web.dev/).
-- On [Step 3: Build the Home Page](/blog/build-the-home-page), you might have wondered, why do we choose to place the article's title in the frontmatter key value pairs instead of *just after* it as `# This is a title`. I hope by now it is clear, that the `"title"` frontmatter key serves us in many ways:
-	1. Displayed as the post title in the rendered post.
-	2. Used for SEO metadata in the `svelte:head` of all posts.
-	3. Used to list posts in the home page.
-	4. Used to list posts in `/blog` and `/projects` pages.
-	5. The `$effect` block in `PostContent.svelte` relies on it to update the table of contents, when navigating from one post to another.
+- On [Step 3: Build the Home Page](/blog/build-the-home-page), you might have wondered, why do we choose to place the article's title in the frontmatter key value pairs instead of _just after it_, as `# This is a title`. I hope by now it is clear, that the `"title"` frontmatter key serves us in many ways:
+  1.  Displayed as the post title in the rendered post.
+  2.  Used for SEO metadata in the `svelte:head` of all posts.
+  3.  Used to list posts in the home page.
+  4.  Used to list posts in `/blog` and `/projects` pages.
+  5.  The `$effect` block in `PostContent.svelte` relies on it to update the table of contents, when navigating from one post to another.
 
-### Wrapping Up Step 6
+## Wrapping Up Step 6
 
-Congratulations! You've made a long way, your website now has transitions and SEO-friendly metadata. In the next step, we will [deploy our website to Cloudflare Workers](/blog/deploy-on-cloudflare-workers).
+Congratulations! You've come a long way, your website now has transitions and SEO-friendly metadata. In the next step, we will [deploy our website to Cloudflare Workers](/blog/deploy-on-cloudflare-workers).
