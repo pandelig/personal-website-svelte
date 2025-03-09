@@ -1,5 +1,5 @@
 ---
-slug: "portfolio-website"
+slug: "personal-website-with-sveltekit-and-tailwindcss"
 date: "05 Mar 2025"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind", "cloudflare-workers"]
