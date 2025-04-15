@@ -1,5 +1,5 @@
 ---
-slug: "step-4-build-blog-and-projects-pages"
+slug: "portfolio-website-step-4-build-blog-and-projects-pages"
 date: "02 Mar 2025"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
@@ -7,13 +7,13 @@ title: "Personal Website with SvelteKit and TailwindCSS - Step 4: Build the Blog
 meta_description: "Learn how to build blog and projects pages with SvelteKit and TailwindCSS in this detailed tutorial by Pantelis Deligiannidis. Create reusable components, implement tag filtering, and handle post metadata effectively."
 ---
 
-1. [Step 1: Set Up the Project](/blog/step-1-set-up-sveltekit-website)
-2. [Step 2: Install and Configure DaisyUI](/blog/step-2-install-and-configure-daisyui)
-3. [Step 3: Build the Home Page](/blog/step-3-build-the-home-page)
+1. [Step 1: Set Up the Project](/blog/portfolio-website-step-1-set-up-sveltekit-website)
+2. [Step 2: Install and Configure DaisyUI](/blog/portfolio-website-step-2-install-and-configure-daisyui)
+3. [Step 3: Build the Home Page](/blog/portfolio-website-step-3-build-the-home-page)
 4. (You are here) Step 4: Build the Blog and Projects Pages
-5. [Step 5: Build the Post Content Page](/blog/step-5-build-post-content-page)
-6. [Step 6: Add Transitions and SEO](/blog/step-6-add-transitions-and-seo)
-7. [Step 7: Deploy on Cloudflare Workers](/blog/step-7-deploy-on-cloudflare-workers)
+5. [Step 5: Build the Post Content Page](/blog/portfolio-website-step-5-build-post-content-page)
+6. [Step 6: Add Transitions and SEO](/blog/portfolio-website-step-6-add-transitions-and-seo)
+7. [Step 7: Deploy on Cloudflare Workers](/blog/portfolio-website-step-7-deploy-on-cloudflare-workers)
 
 In this step, we will create the `/blog` and `/projects` pages for our personal website. These pages will display a list of articles and projects, respectively, using metadata from markdown files while offering tag-based filtering. Our approach will be:
 
@@ -35,20 +35,20 @@ If you compare the [`/blog`](https://pandelig.com/blog) and [`/projects`](https:
 `src/routes/blog/+page.server.js`:
 
 ```js
-import { loadMetadataOfPosts } from '$lib/functions/loadMetadataOfPosts';
+import { loadMetadataOfPosts } from "$lib/functions/loadMetadataOfPosts";
 
 export function load() {
-	return loadMetadataOfPosts('articles');
+	return loadMetadataOfPosts("articles");
 }
 ```
 
 `src/routes/projects/+page.server.js`:
 
 ```js
-import { loadMetadataOfPosts } from '$lib/functions/loadMetadataOfPosts';
+import { loadMetadataOfPosts } from "$lib/functions/loadMetadataOfPosts";
 
 export function load() {
-	return loadMetadataOfPosts('projects');
+	return loadMetadataOfPosts("projects");
 }
 ```
 
@@ -58,10 +58,10 @@ export function load() {
 export function loadMetadataOfPosts(type) {
 	let postModules;
 
-	if (type === 'articles') {
-		postModules = import.meta.glob('/src/lib/articles/*.md', { eager: true });
-	} else if (type === 'projects') {
-		postModules = import.meta.glob('/src/lib/projects/*.md', { eager: true });
+	if (type === "articles") {
+		postModules = import.meta.glob("/src/lib/articles/*.md", { eager: true });
+	} else if (type === "projects") {
+		postModules = import.meta.glob("/src/lib/projects/*.md", { eager: true });
 	} else {
 		throw new Error(`Unknown type: ${type}`);
 	}
@@ -80,7 +80,7 @@ export function loadMetadataOfPosts(type) {
 }
 ```
 
-- The code is quite similar to [what we needed for the Home page](/blog/step-3-build-the-home-page#fetch-articles-and-projects).
+- The code is quite similar to [what we needed for the Home page](/blog/portfolio-website-step-3-build-the-home-page#fetch-articles-and-projects).
 - Placing the function under `src/lib/functions` is a personal preference for code organization, same goes for `src/lib/components`, `src/lib/articles`, and `src/lib/projects`. You can structure your project differently, SvelteKit is not opinionated about this. [Read more about the `$lib` alias here](https://svelte.dev/tutorial/kit/lib).
 
 ## Display the Posts
@@ -91,7 +91,7 @@ Now that we have post data, we need to display it. This time, the 2 files are id
 
 ```svelte
 <script>
-	import PostList from '$lib/components/PostList.svelte';
+	import PostList from "$lib/components/PostList.svelte";
 
 	let { data } = $props();
 </script>
@@ -103,7 +103,7 @@ Now that we have post data, we need to display it. This time, the 2 files are id
 
 ```svelte
 <script>
-	import PostList from '$lib/components/PostList.svelte';
+	import PostList from "$lib/components/PostList.svelte";
 
 	let { data } = $props();
 </script>
@@ -122,7 +122,7 @@ Both pages will use the `PostList.svelte` component to display posts. We will no
 
 ```svelte
 <script>
-	import { page } from '$app/state';
+	import { page } from "$app/state";
 
 	// Handle tag selection, called onclick
 	function selectTag(tag) {
@@ -138,7 +138,7 @@ Both pages will use the `PostList.svelte` component to display posts. We will no
 
 	const postType = page.url.pathname.slice(1);
 	let selectedTags = $state(
-		page.url.searchParams.get('tag') ? [page.url.searchParams.get('tag')] : []
+		page.url.searchParams.get("tag") ? [page.url.searchParams.get("tag")] : []
 	);
 
 	let filteredPosts = $derived(
@@ -147,7 +147,7 @@ Both pages will use the `PostList.svelte` component to display posts. We will no
 </script>
 
 <div class="p-8 pt-28">
-	<h1 class="text-lg font-semibold">{postType === 'blog' ? 'Blog' : 'Projects'}</h1>
+	<h1 class="text-lg font-semibold">{postType === "blog" ? "Blog" : "Projects"}</h1>
 
 	<!-- Tag Filter -->
 	<div class="flex flex-wrap p-2">
@@ -193,4 +193,4 @@ Both pages will use the `PostList.svelte` component to display posts. We will no
 
 ## Wrapping Up Step 4
 
-You’ve now built the `/blog` and `/projects` pages! In Step 5, we’ll [create the Post Content Page](/blog/step-5-build-post-content-page), allowing users to read full articles and project descriptions.
+You’ve now built the `/blog` and `/projects` pages! In Step 5, we’ll [create the Post Content Page](/blog/portfolio-website-step-5-build-post-content-page), allowing users to read full articles and project descriptions.

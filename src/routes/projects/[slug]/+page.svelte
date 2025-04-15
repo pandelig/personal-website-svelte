@@ -1,5 +1,5 @@
 <script>
-	import PostContent from '$lib/components/PostContent.svelte';
+	import PostContent from "$lib/components/PostContent.svelte";
 	let { data, form } = $props();
 
 	const postParameters = $derived({

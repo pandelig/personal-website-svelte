@@ -1,9 +1,9 @@
-import typography from '@tailwindcss/typography';
-import daisyui from 'daisyui';
+import typography from "@tailwindcss/typography";
+import daisyui from "daisyui";
 
-/** @type {import('tailwindcss').Config} */
+/** @type {import("tailwindcss").Config} */
 export default {
-	content: ['./src/**/*.{html,js,svelte,ts}'],
+	content: ["./src/**/*.{html,js,svelte,ts}"],
 
 	theme: {
 		extend: {}
@@ -12,15 +12,15 @@ export default {
 	plugins: [typography, daisyui],
 
 	daisyui: {
-		// themes: ['lofi'],
+		// themes: ["lofi"],
 		themes: [
 			{
 				mytheme: {
-					primary: '#000000',
-					secondary: '#78716c',
-					accent: '#000000',
-					neutral: '#ffffff',
-					'base-100': '#ffffff'
+					primary: "#000000",
+					secondary: "#78716c",
+					accent: "#000000",
+					neutral: "#ffffff",
+					"base-100": "#ffffff"
 				}
 			}
 		]

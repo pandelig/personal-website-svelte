@@ -22,13 +22,13 @@ It serves as my blog and portfolio.
 
 If you'd like to build a similar website and familiarize yourself with Svelte(Kit) and TailwindCSS, follow my step-by-step guide:
 
-1. [Step 1: Set Up the Project](/blog/step-1-set-up-sveltekit-website)
-2. [Step 2: Install and Configure DaisyUI](/blog/step-2-install-and-configure-daisyui)
-3. [Step 3: Build the Home Page](/blog/step-3-build-the-home-page)
-4. [Step 4: Build the Blog and Projects Pages](/blog/step-4-build-blog-and-projects-pages)
-5. [Step 5: Build the Post Content Page](/blog/step-5-build-post-content-page)
-6. [Step 6: Add Transitions and SEO](/blog/step-6-add-transitions-and-seo)
-7. [Step 7: Deploy on Cloudflare Workers](/blog/step-7-deploy-on-cloudflare-workers)
+1. [Step 1: Set Up the Project](/blog/portfolio-website-step-1-set-up-sveltekit-website)
+2. [Step 2: Install and Configure DaisyUI](/blog/portfolio-website-step-2-install-and-configure-daisyui)
+3. [Step 3: Build the Home Page](/blog/portfolio-website-step-3-build-the-home-page)
+4. [Step 4: Build the Blog and Projects Pages](/blog/portfolio-website-step-4-build-blog-and-projects-pages)
+5. [Step 5: Build the Post Content Page](/blog/portfolio-website-step-5-build-post-content-page)
+6. [Step 6: Add Transitions and SEO](/blog/portfolio-website-step-6-add-transitions-and-seo)
+7. [Step 7: Deploy on Cloudflare Workers](/blog/portfolio-website-step-7-deploy-on-cloudflare-workers)
 
 ## Features
 

@@ -1,7 +1,7 @@
 <!-- @component Displays a filterable list of posts (blog or project articles) with tags and animated transitions -->
 <script>
-	import { fade } from 'svelte/transition';
-	import { page } from '$app/state';
+	import { fade } from "svelte/transition";
+	import { page } from "$app/state";
 
 	// Handle tag selection, called onclick
 	function selectTag(tag) {
@@ -30,7 +30,7 @@
 
 	let showContent = $state(Array(posts.length).fill(false));
 	let selectedTags = $state(
-		page.url.searchParams.get('tag') ? [page.url.searchParams.get('tag')] : []
+		page.url.searchParams.get("tag") ? [page.url.searchParams.get("tag")] : []
 	);
 
 	let filteredPosts = $derived(
@@ -46,7 +46,7 @@
 </script>
 
 <svelte:head>
-	<title>{postType === 'blog' ? 'Blog' : 'Projects'} - Pantelis Deligiannidis</title>
+	<title>{postType === "blog" ? "Blog" : "Projects"} - Pantelis Deligiannidis</title>
 	<meta
 		name="description"
 		content="Discover {postType === 'blog'
@@ -56,7 +56,7 @@
 </svelte:head>
 
 <div class="p-8 pt-28">
-	<h1 class="text-lg font-semibold" in:fade>{postType === 'blog' ? 'Blog' : 'Projects'}</h1>
+	<h1 class="text-lg font-semibold" in:fade>{postType === "blog" ? "Blog" : "Projects"}</h1>
 
 	<!-- Tag Filter -->
 	<div class="flex flex-wrap p-2" in:fade>

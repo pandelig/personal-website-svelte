@@ -1,5 +1,5 @@
 ---
-slug: "step-7-deploy-on-cloudflare-workers"
+slug: "portfolio-website-step-7-deploy-on-cloudflare-workers"
 date: "05 Mar 2025"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "cloudflare-workers"]
@@ -7,12 +7,12 @@ title: "Personal Website with SvelteKit and TailwindCSS - Step 7: Deploy on Clou
 meta_description: "Learn how to deploy your SvelteKit website on Cloudflare Workers with Pantelis Deligiannidis. Step-by-step guide covering account setup, domain configuration, and deployment using wrangler CLI."
 ---
 
-1. [Step 1: Set Up the Project](/blog/step-1-set-up-sveltekit-website)
-2. [Step 2: Install and Configure DaisyUI](/blog/step-2-install-and-configure-daisyui)
-3. [Step 3: Build the Home Page](/blog/step-3-build-the-home-page)
-4. [Step 4: Build the Blog and Projects Pages](/blog/step-4-build-blog-and-projects-pages)
-5. [Step 5: Build the Post Content Page](/blog/step-5-build-post-content-page)
-6. [Step 6: Add Transitions and SEO](/blog/step-6-add-transitions-and-seo)
+1. [Step 1: Set Up the Project](/blog/portfolio-website-step-1-set-up-sveltekit-website)
+2. [Step 2: Install and Configure DaisyUI](/blog/portfolio-website-step-2-install-and-configure-daisyui)
+3. [Step 3: Build the Home Page](/blog/portfolio-website-step-3-build-the-home-page)
+4. [Step 4: Build the Blog and Projects Pages](/blog/portfolio-website-step-4-build-blog-and-projects-pages)
+5. [Step 5: Build the Post Content Page](/blog/portfolio-website-step-5-build-post-content-page)
+6. [Step 6: Add Transitions and SEO](/blog/portfolio-website-step-6-add-transitions-and-seo)
 7. (You are here) Step 7: Deploy on Cloudflare Workers
 
 In this step, we will deploy our SvelteKit website on Cloudflare Workers. Why Cloudflare? It seemed to me, they offer a slightly more generous free tier compared to other providers, and the deployment process was pretty straightforward.
@@ -126,6 +126,8 @@ Svelte(kit) offers [a way to add docstrings](https://svelte.dev/docs/svelte/faq#
 ```
 
 ## Next Steps
+
+[Repository with final code](https://github.com/pandelig/personal-website-svelte/tree/tutorial)
 
 Congratulations! You have successfully developed and deployed your SvelteKit website on Cloudflare! What's next?
 

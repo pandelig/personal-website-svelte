@@ -1,19 +1,19 @@
 ---
-slug: 'step-5-build-post-content-page'
-date: '03 Mar 2025'
-date_updated: ''
-tags: ['tutorial', 'full-stack', 'sveltekit', 'tailwind']
-title: 'Personal Website with SvelteKit and TailwindCSS - Step 5: Build the Post Content Page'
-meta_description: 'Learn how to build a dynamic post content page with SvelteKit and TailwindCSS in this detailed tutorial by Pantelis Deligiannidis. Includes floating table of contents, markdown support, and code syntax highlighting.'
+slug: "portfolio-website-step-5-build-post-content-page"
+date: "03 Mar 2025"
+date_updated: ""
+tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
+title: "Personal Website with SvelteKit and TailwindCSS - Step 5: Build the Post Content Page"
+meta_description: "Learn how to build a dynamic post content page with SvelteKit and TailwindCSS in this detailed tutorial by Pantelis Deligiannidis. Includes floating table of contents, markdown support, and code syntax highlighting."
 ---
 
-1. [Step 1: Set Up the Project](/blog/step-1-set-up-sveltekit-website)
-2. [Step 2: Install and Configure DaisyUI](/blog/step-2-install-and-configure-daisyui)
-3. [Step 3: Build the Home Page](/blog/step-3-build-the-home-page)
-4. [Step 4: Build the Blog and Projects Pages](/blog/step-4-build-blog-and-projects-pages)
+1. [Step 1: Set Up the Project](/blog/portfolio-website-step-1-set-up-sveltekit-website)
+2. [Step 2: Install and Configure DaisyUI](/blog/portfolio-website-step-2-install-and-configure-daisyui)
+3. [Step 3: Build the Home Page](/blog/portfolio-website-step-3-build-the-home-page)
+4. [Step 4: Build the Blog and Projects Pages](/blog/portfolio-website-step-4-build-blog-and-projects-pages)
 5. (You are here) Step 5: Build the Post Content Page
-6. [Step 6: Add Transitions and SEO](/blog/step-6-add-transitions-and-seo)
-7. [Step 7: Deploy on Cloudflare Workers](/blog/step-7-deploy-on-cloudflare-workers)
+6. [Step 6: Add Transitions and SEO](/blog/portfolio-website-step-6-add-transitions-and-seo)
+7. [Step 7: Deploy on Cloudflare Workers](/blog/portfolio-website-step-7-deploy-on-cloudflare-workers)
 
 In this step, we will build the Post Content Page, which is responsible for rendering individual blog posts and project descriptions. Our approach:
 
@@ -37,36 +37,36 @@ To load posts dynamically, we use a `+page.server.js` file in both the `/blog/[s
 `src/routes/blog/[slug]/+page.server.js`:
 
 ```js
-import { loadPost } from '$lib/functions/loadPost';
+import { loadPost } from "$lib/functions/loadPost";
 
 export function load({ params }) {
-	return loadPost('articles', params.slug);
+	return loadPost("articles", params.slug);
 }
 ```
 
 `src/routes/projects/[slug]/+page.server.js`:
 
 ```js
-import { loadPost } from '$lib/functions/loadPost';
+import { loadPost } from "$lib/functions/loadPost";
 
 export function load({ params }) {
-	return loadPost('projects', params.slug);
+	return loadPost("projects", params.slug);
 }
 ```
 
 `src/lib/functions/loadPost.js`:
 
 ```js
-import { error } from '@sveltejs/kit';
-import { render } from 'svelte/server';
+import { error } from "@sveltejs/kit";
+import { render } from "svelte/server";
 
 export function loadPost(type, slug) {
 	let postModules;
 
-	if (type === 'articles') {
-		postModules = import.meta.glob('/src/lib/articles/*.md', { eager: true });
-	} else if (type === 'projects') {
-		postModules = import.meta.glob('/src/lib/projects/*.md', { eager: true });
+	if (type === "articles") {
+		postModules = import.meta.glob("/src/lib/articles/*.md", { eager: true });
+	} else if (type === "projects") {
+		postModules = import.meta.glob("/src/lib/projects/*.md", { eager: true });
 	} else {
 		throw error(500, `Unknown post type: ${type}`);
 	}
@@ -86,7 +86,7 @@ export function loadPost(type, slug) {
 }
 ```
 
-- Clearly, the code is quite similar to [what we needed for the Home page](/blog/step-3-build-the-home-page#fetch-articles-and-projects) and [for creating the post lists](/blog/step-4-build-blog-and-projects-pages#fetch-post-data).
+- Clearly, the code is quite similar to [what we needed for the Home page](/blog/portfolio-website-step-3-build-the-home-page#fetch-articles-and-projects) and [for creating the post lists](/blog/portfolio-website-step-4-build-blog-and-projects-pages#fetch-post-data).
 - We return a 404 error if the post doesn't exist.
 - We make use of `render()` to convert markdown into HTML before returning it. Try logging `post.default` and `renderedContent` to compare the before and after states for better understanding.
 
@@ -104,38 +104,38 @@ npm install rehype-external-links
 Update `svelte.config.js`:
 
 ```js
-import adapter from '@sveltejs/adapter-cloudflare-workers';
-import { mdsvex } from 'mdsvex';
-import rehypeSlug from 'rehype-slug';
-import rehypeExternalLinks from 'rehype-external-links';
+import adapter from "@sveltejs/adapter-cloudflare-workers";
+import { mdsvex } from "mdsvex";
+import rehypeSlug from "rehype-slug";
+import rehypeExternalLinks from "rehype-external-links";
 
-/** @type {import('@sveltejs/kit').Config} */
+/** @type {import("@sveltejs/kit").Config} */
 const config = {
 	kit: {
 		adapter: adapter()
 	},
 	preprocess: mdsvex({
-		extensions: ['.svx', '.md'],
+		extensions: [".svx", ".md"],
 		rehypePlugins: [
 			rehypeSlug,
 			[
 				rehypeExternalLinks,
 				{
-					target: '_blank',
-					rel: ['noopener'], // ['nofollow', 'noopener', 'noreferrer']
-					content: { type: 'text', value: '↗' }
+					target: "_blank",
+					rel: ["noopener"], // ["nofollow", "noopener", "noreferrer"]
+					content: { type: "text", value: "↗" }
 				}
 			]
 		]
 	}),
-	extensions: ['.svelte', '.svx', '.md']
+	extensions: [".svelte", ".svx", ".md"]
 };
 
 export default config;
 ```
 
 - `rehype-slug`: add ids to headings.
-- `rehype-external-links`: add `target="_blank"` and `rel="noopener"` to external links. The `content` option adds an icon after external links, `type` can also be `'element'` or `'comment'`, for `value` this adds an unbreakable space: `'\u00A0↗'`, a simple space before the emoji seems to be getting removed.
+- `rehype-external-links`: add `target="_blank"` and `rel="noopener"` to external links. The `content` option adds an icon after external links, `type` can also be `"element"` or `"comment"`, for `value` this adds an unbreakable space: `"\u00A0↗"`, a simple space before the emoji seems to be getting removed.
 
 ## Display Post Content
 
@@ -147,7 +147,7 @@ Article and project pages use the same code to display their content. We create 
 
 ```svelte
 <script>
-	import PostContent from '$lib/components/PostContent.svelte';
+	import PostContent from "$lib/components/PostContent.svelte";
 	let { data } = $props();
 
 	const postParameters = $derived({
@@ -162,7 +162,7 @@ Article and project pages use the same code to display their content. We create 
 
 ```svelte
 <script>
-	import { page } from '$app/state';
+	import { page } from "$app/state";
 
 	function scrollToTop() {
 		window.scrollTo({ top: 0 });
@@ -170,7 +170,7 @@ Article and project pages use the same code to display their content. We create 
 
 	let { metadata, content } = $props();
 
-	const postType = page.url.pathname.split('/')[1];
+	const postType = page.url.pathname.split("/")[1];
 </script>
 
 <div class="p-8">
@@ -191,7 +191,7 @@ Article and project pages use the same code to display their content. We create 
 			{/each}
 		</div>
 
-		<h1 id={metadata.title.toLowerCase().replace(/\s+/g, '-')}>{metadata.title}</h1>
+		<h1 id={metadata.title.toLowerCase().replace(/\s+/g, "-")}>{metadata.title}</h1>
 
 		<div>
 			{@html content}
@@ -215,7 +215,7 @@ Article and project pages use the same code to display their content. We create 
 - The post's title gets its `id` dynamically from the metadata title. We saw how the other headings of our posts get their ids (`rehype-slug`) and in the section below we will see how we make use of heading ids.
 - Renders the post's `content` using `{@html content}` to [inject raw HTML](https://svelte.dev/tutorial/svelte/html-tags).
 - A button that triggers the `scrollToTop` function when clicked, allowing users to scroll back to the top of the page.
-- We have [seen the `postType` functionality before](/blog/step-4-build-blog-and-projects-pages#create-post-list-component), as well as the [`page` usage](/blog/step-3-build-the-home-page#add-a-navbar) and [how to understand tailwind classes](/blog/step-1-set-up-sveltekit-website#optional-recommended-resources). The Svelte [`#each` block should also be familiar by now](/blog/step-3-build-the-home-page#create-the-home-page).
+- We have [seen the `postType` functionality before](/blog/portfolio-website-step-4-build-blog-and-projects-pages#create-post-list-component), as well as the [`page` usage](/blog/portfolio-website-step-3-build-the-home-page#add-a-navbar) and [how to understand tailwind classes](/blog/portfolio-website-step-1-set-up-sveltekit-website#optional-recommended-resources). The Svelte [`#each` block should also be familiar by now](/blog/portfolio-website-step-3-build-the-home-page#create-the-home-page).
 - Observe how the posts look without the typography plugin by temporarily removing it from the `src/app.css` file. This helps understand its role in styling markdown content.
 
 ### Add Floating Table of Contents (TOC)
@@ -226,7 +226,7 @@ To enhance the user experience, we add a floating Table of Contents (TOC) that s
 
 ```svelte
 <script>
-    import { onMount, onDestroy } from 'svelte';
+    import { onMount, onDestroy } from "svelte";
     // other imports from earlier
 
     // scrollToTop function from earlier
@@ -248,12 +248,12 @@ To enhance the user experience, we add a floating Table of Contents (TOC) that s
     let { metadata, content } = $props();
 
     const CONTENTS_INDENTS = {
-       	h1: 'pl-0',
-       	h2: 'pl-4',
-       	h3: 'pl-8'
+       	h1: "pl-0",
+       	h2: "pl-4",
+       	h3: "pl-8"
     };
 
-    const postType = page.url.pathname.split('/')[1];
+    const postType = page.url.pathname.split("/")[1];
 
     let headings = $state([]);
     let activeHeading = $state();
@@ -263,7 +263,7 @@ To enhance the user experience, we add a floating Table of Contents (TOC) that s
             headings.length === 0 ||
             (headings.length > 0 && headings[0].text !== metadata.title)
        	) {
-            headings = Array.from(document.querySelectorAll('.prose h1, .prose h2, .prose h3')).map(
+            headings = Array.from(document.querySelectorAll(".prose h1, .prose h2, .prose h3")).map(
                	(h) => ({
                 id: h.id,
                 text: h.innerText,
@@ -275,12 +275,12 @@ To enhance the user experience, we add a floating Table of Contents (TOC) that s
     });
 
     onMount(() => {
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener("scroll", handleScroll);
     });
 
     onDestroy(() => {
         return () => {
-            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener("scroll", handleScroll);
         };
     });
 </script>
@@ -309,7 +309,7 @@ To enhance the user experience, we add a floating Table of Contents (TOC) that s
 - The component uses Svelte's `onMount` and `onDestroy` lifecycle functions to manage scroll event listeners.
 - `handleScroll` function updates the `activeHeading` based on the current scroll position, with special handling for when users reach the bottom of the page.
 - `CONTENTS_INDENTS` is an object that maps heading levels (h1, h2, h3) to Tailwind padding classes, creating a hierarchical indentation in the TOC.
-- `headings` and `activeHeading` variables are reactive, we have discussed this functionality before in ["Create Post List Component" of the previous step](/blog/step-4-build-blog-and-projects-pages#create-post-list-component)
+- `headings` and `activeHeading` variables are reactive, we have discussed this functionality before in ["Create Post List Component" of the previous step](/blog/portfolio-website-step-4-build-blog-and-projects-pages#create-post-list-component)
 - We encounter [`$effect`](https://svelte.dev/tutorial/svelte/effects) for the first time. It is important to understand [what triggers it](https://svelte.dev/docs/svelte/$effect#Understanding-dependencies). In our case it runs when the component mounts or when metadata changes, collecting all h1, h2, and h3 headings from the post content.
   - When navigating from one article to another, [a page reload will not be triggered](https://svelte.dev/docs/kit/state-management#Component-and-page-state-is-preserved) by default but the `metadata` will change, triggering the `$effect` block.
 - For each heading, it stores:
@@ -317,7 +317,7 @@ To enhance the user experience, we add a floating Table of Contents (TOC) that s
   - `text`: The heading's text content.
   - `level`: The heading type (h1, h2, or h3), which determines the indentation through `CONTENTS_INDENTS`.
   - `offset`: The heading's vertical position from the top, used in `handleScroll()` to determine the `activeHeading`.
-- The TOC is positioned absolutely on the right side of the content, only visible on extra-large screens (`xl:block`). Remember the usage of `relative` in the [parent container](/blog/step-3-build-the-home-page#add-a-navbar).
+- The TOC is positioned absolutely on the right side of the content, only visible on extra-large screens (`xl:block`). Remember the usage of `relative` in the [parent container](/blog/portfolio-website-step-3-build-the-home-page#add-a-navbar).
 
 It would be beneficial here to spend some time understanding the code, how indentation is managed, how the colors of the TOC items change, what triggers the `$effect` block, the tailwind classes used etc.
 
@@ -330,8 +330,8 @@ The `src/app.css` file is updated to improve scrolling behavior and add code hig
 ```css
 @import url(../static/styles/prism-darcula.css);
 
-@import 'tailwindcss';
-@plugin '@tailwindcss/typography';
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /* daisyUI related imports from step 2 */
 
@@ -359,4 +359,4 @@ You can experiment with different `app.css` configurations while running `npm ru
 
 ## Wrapping Up Step 5
 
-Awesome work! You’ve successfully built the Post Content Page. In the next step, we’ll [add transitions and SEO enhancements](/blog/step-6-add-transitions-and-seo) to improve the user experience.
+Awesome work! You’ve successfully built the Post Content Page. In the next step, we’ll [add transitions and SEO enhancements](/blog/portfolio-website-step-6-add-transitions-and-seo) to improve the user experience.

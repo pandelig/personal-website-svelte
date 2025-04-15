@@ -1,13 +1,13 @@
-import { error } from '@sveltejs/kit';
-import { render } from 'svelte/server';
+import { error } from "@sveltejs/kit";
+import { render } from "svelte/server";
 
 export function loadPost(type, slug) {
     let postModules;
 
-    if (type === 'articles') {
-        postModules = import.meta.glob('/src/lib/articles/*.md', { eager: true });
-    } else if (type === 'projects') {
-        postModules = import.meta.glob('/src/lib/projects/*.md', { eager: true });
+    if (type === "articles") {
+        postModules = import.meta.glob("/src/lib/articles/*.md", { eager: true });
+    } else if (type === "projects") {
+        postModules = import.meta.glob("/src/lib/projects/*.md", { eager: true });
     } else {
         throw error(500, `Unknown post type: ${type}`);
     }

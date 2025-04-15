@@ -1,7 +1,7 @@
 <script>
-	import '../app.css';
-	import { page } from '$app/state';
-	import { fade } from 'svelte/transition';
+	import "../app.css";
+	import { page } from "$app/state";
+	import { fade } from "svelte/transition";
 
 	let { children } = $props();
 </script>
@@ -10,7 +10,7 @@
 	class="sticky top-0 z-10 mx-auto max-w-screen-sm bg-base-100/90 p-8 py-4 text-base text-secondary"
 >
 	<div class="flex justify-end gap-2">
-		{#if page.url.pathname !== '/'}
+		{#if page.url.pathname !== "/"}
 			<a href="/" class="inline-block text-secondary hover:text-accent" in:fade> home </a>
 			<span in:fade> | </span>
 		{/if}

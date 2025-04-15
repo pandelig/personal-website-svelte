@@ -1,21 +1,21 @@
 ---
-slug: 'step-2-install-and-configure-daisyui'
-date: '28 Feb 2025'
-date_updated: ''
-tags: ['tutorial', 'full-stack', 'sveltekit', 'tailwind']
-title: 'Personal Website with SvelteKit and TailwindCSS - Step 2: Install and Configure DaisyUI'
-meta_description: 'Learn how to install and configure DaisyUI in your SvelteKit project with Pantelis Deligiannidis. A step-by-step guide covering theme selection, custom theming, and integration testing with practical examples.'
+slug: "portfolio-website-step-2-install-and-configure-daisyui"
+date: "28 Feb 2025"
+date_updated: ""
+tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
+title: "Personal Website with SvelteKit and TailwindCSS - Step 2: Install and Configure DaisyUI"
+meta_description: "Learn how to install and configure DaisyUI in your SvelteKit project with Pantelis Deligiannidis. A step-by-step guide covering theme selection, custom theming, and integration testing with practical examples."
 ---
 
-1. [Step 1: Set Up the Project](/blog/step-1-set-up-sveltekit-website)
+1. [Step 1: Set Up the Project](/blog/portfolio-website-step-1-set-up-sveltekit-website)
 2. (You are here) Step 2: Install and Configure DaisyUI
-3. [Step 3: Build the Home Page](/blog/step-3-build-the-home-page)
-4. [Step 4: Build the Blog and Projects Pages](/blog/step-4-build-blog-and-projects-pages)
-5. [Step 5: Build the Post Content Page](/blog/step-5-build-post-content-page)
-6. [Step 6: Added Transitions and SEO](/blog/step-6-add-transitions-and-seo)
-7. [Step 7: Deploy on Cloudflare Workers](/blog/step-7-deploy-on-cloudflare-workers)
+3. [Step 3: Build the Home Page](/blog/portfolio-website-step-3-build-the-home-page)
+4. [Step 4: Build the Blog and Projects Pages](/blog/portfolio-website-step-4-build-blog-and-projects-pages)
+5. [Step 5: Build the Post Content Page](/blog/portfolio-website-step-5-build-post-content-page)
+6. [Step 6: Added Transitions and SEO](/blog/portfolio-website-step-6-add-transitions-and-seo)
+7. [Step 7: Deploy on Cloudflare Workers](/blog/portfolio-website-step-7-deploy-on-cloudflare-workers)
 
-In this step, we'll integrate DaisyUI, a component library for Tailwind CSS, into our SvelteKit project. As we start using Tailwind CSS and DaisyUI classes, you may always refer to the [Recommended Resources](/blog/step-1-set-up-sveltekit-website#optional-recommended-resources) to soon realize how easy it is to understand and remember the logic behind the class names.
+In this step, we'll integrate DaisyUI, a component library for Tailwind CSS, into our SvelteKit project. As we start using Tailwind CSS and DaisyUI classes, you may always refer to the [Recommended Resources](/blog/portfolio-website-step-1-set-up-sveltekit-website#optional-recommended-resources) to soon realize how easy it is to understand and remember the logic behind the class names.
 
 ## Install DaisyUI
 
@@ -28,8 +28,8 @@ npm i -D daisyui@latest
 Add daisyUI to `src/app.css`:
 
 ```css
-@import 'tailwindcss';
-@plugin '@tailwindcss/typography';
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @plugin "daisyui";
 ```
@@ -43,15 +43,15 @@ DaisyUI provides many built-in themes that you can use. You can view [all availa
 You can [define your own theme](https://daisyui.com/theme-generator/). For example, `src/app.css`:
 
 ```css
-@import 'tailwindcss';
-@plugin '@tailwindcss/typography';
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @plugin "daisyui";
 @plugin "daisyui/theme" {
-	name: 'lofi';
+	name: "lofi";
 	default: true;
 	prefersdark: false;
-	color-scheme: 'light';
+	color-scheme: "light";
 	--color-base-100: oklch(100% 0 0);
 	--color-base-200: oklch(97% 0 0);
 	--color-base-300: oklch(94% 0 0);
@@ -86,7 +86,7 @@ You can [define your own theme](https://daisyui.com/theme-generator/). For examp
 This is the configuration I went for.
 
 - Make sure to click the `CSS` button in the Theme Generator when you are done configuring your theme, it will give you the CSS code.
-- We will be using `'base-100'` as the background color for our website.
+- We will be using `"base-100"` as the background color for our website.
 - If you have trouble making the daisyUI theme work, make sure your browser is up to date, `oklch` support was introduced in the major browsers around 2023.
 
 ## Test DaisyUI Integration
@@ -118,4 +118,4 @@ You should be able to see a styled button from DaisyUI in your browser.
 
 ## Wrapping Up Step 2
 
-Great job! You have successfully installed and configured DaisyUI in your SvelteKit project. Now you're ready for [Step 3: Build the Home Page](/blog/step-3-build-the-home-page).
+Great job! You have successfully installed and configured DaisyUI in your SvelteKit project. Now you're ready for [Step 3: Build the Home Page](/blog/portfolio-website-step-3-build-the-home-page).

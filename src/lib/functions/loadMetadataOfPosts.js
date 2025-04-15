@@ -1,10 +1,10 @@
 export function loadMetadataOfPosts(type) {
     let postModules;
 
-    if (type === 'articles') {
-        postModules = import.meta.glob('/src/lib/articles/*.md', { eager: true });
-    } else if (type === 'projects') {
-        postModules = import.meta.glob('/src/lib/projects/*.md', { eager: true });
+    if (type === "articles") {
+        postModules = import.meta.glob("/src/lib/articles/*.md", { eager: true });
+    } else if (type === "projects") {
+        postModules = import.meta.glob("/src/lib/projects/*.md", { eager: true });
     } else {
         throw new Error(`Unknown type: ${type}`);
     }

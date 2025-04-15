@@ -1,9 +1,9 @@
 <!-- @component Displays a post (blog or project article) with interactive tags, a back to top button, table of contents, and a contact form -->
 <script>
-	import { fade } from 'svelte/transition';
-	import { onDestroy } from 'svelte';
-	import { page } from '$app/state';
-	import ContactForm from '$lib/components/ContactForm.svelte';
+	import { fade } from "svelte/transition";
+	import { onDestroy } from "svelte";
+	import { page } from "$app/state";
+	import ContactForm from "$lib/components/ContactForm.svelte";
 
 	function scrollToTop() {
 		window.scrollTo({ top: 0 });
@@ -23,20 +23,32 @@
 		}
 	}
 
+	// Function to generate a clean ID (slug)
+	function generateSlug(title) {
+		if (!title) return ""; // Handle empty titles
+
+		return title
+			.toLowerCase() // 1. Convert to lowercase
+			.replace(/[^a-z0-9\s-]/g, "") // 2. Remove unwanted characters (keep letters, numbers, spaces, hyphens)
+			.replace(/\s+/g, "-") // 3. Replace sequences of spaces with a single hyphen
+			.replace(/-+/g, "-") // 4. Replace sequences of hyphens with a single hyphen
+			.replace(/^-+|-+$/g, ""); // 5. Remove leading or trailing hyphens
+	}
+
 	let { metadata, content, formResponse } = $props();
 
 	const TOTAL_ELEMENTS_TO_TRANSITION = 6; // 1: dates & tags, 2: title, 3: content, 4: back to top button, 5: contact form, 6: table of contents
 	const CONTENTS_INDENTS = {
-		h1: 'pl-0',
-		h2: 'pl-4',
-		h3: 'pl-8'
+		h1: "pl-0",
+		h2: "pl-4",
+		h3: "pl-8"
 	};
-	const postType = page.url.pathname.split('/')[1];
-	const contactFormTitle = postType === 'blog' ? 'Share Your Thoughts' : 'Project Feedback';
+	const postType = page.url.pathname.split("/")[1];
+	const contactFormTitle = postType === "blog" ? "Share Your Thoughts" : "Project Feedback";
 	const contactFormDescription =
-		postType === 'blog'
-			? 'Did this article help you? Got suggestions or feedback? Let me know!'
-			: 'Did you find this project helpful or interesting? Share your thoughts!';
+		postType === "blog"
+			? "Did this article help you? Got suggestions or feedback? Let me know!"
+			: "Did you find this project helpful or interesting? Share your thoughts!";
 	const formParameters = $derived({
 		title: contactFormTitle,
 		description: contactFormDescription,
@@ -60,7 +72,7 @@
 			(showContent[TOTAL_ELEMENTS_TO_TRANSITION - 2] && headings.length === 0) ||
 			(headings.length > 0 && headings[0].text !== metadata.title)
 		) {
-			headings = Array.from(document.querySelectorAll('.prose h1, .prose h2, .prose h3')).map(
+			headings = Array.from(document.querySelectorAll(".prose h1, .prose h2, .prose h3")).map(
 				(h) => ({
 					id: h.id,
 					text: h.innerText,
@@ -72,14 +84,14 @@
 
 			if (showContent[TOTAL_ELEMENTS_TO_TRANSITION - 1] === false) {
 				showContent[TOTAL_ELEMENTS_TO_TRANSITION - 1] = true;
-				window.addEventListener('scroll', handleScroll);
+				window.addEventListener("scroll", handleScroll);
 			}
 		}
 	});
 
 	onDestroy(() => {
 		return () => {
-			window.removeEventListener('scroll', handleScroll);
+			window.removeEventListener("scroll", handleScroll);
 		};
 	});
 </script>
@@ -136,7 +148,7 @@
 		{/if}
 
 		{#if showContent[1]}
-			<h1 id={metadata.title.toLowerCase().replace(/\s+/g, '-')} in:fade>{metadata.title}</h1>
+			<h1 id={generateSlug(metadata.title)} in:fade>{metadata.title}</h1>
 		{/if}
 
 		{#if showContent[2]}

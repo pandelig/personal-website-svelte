@@ -1,5 +1,5 @@
 ---
-slug: "step-6-add-transitions-and-seo"
+slug: "portfolio-website-step-6-add-transitions-and-seo"
 date: "04 Mar 2025"
 date_updated: ""
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
@@ -7,13 +7,13 @@ title: "Personal Website with SvelteKit and TailwindCSS - Step 6: Add Transition
 meta_description: "Learn how to add smooth page transitions and improve SEO in your SvelteKit website with Pantelis Deligiannidis. Step-by-step guide covering fade transitions, staggered animations, and metadata optimization for better search engine visibility."
 ---
 
-1. [Step 1: Set Up the Project](/blog/step-1-set-up-sveltekit-website)
-2. [Step 2: Install and Configure DaisyUI](/blog/step-2-install-and-configure-daisyui)
-3. [Step 3: Build the Home Page](/blog/step-3-build-the-home-page)
-4. [Step 4: Build the Blog and Projects Pages](/blog/step-4-build-blog-and-projects-pages)
-5. [Step 5: Build the Post Content Page](/blog/step-5-build-post-content-page)
+1. [Step 1: Set Up the Project](/blog/portfolio-website-step-1-set-up-sveltekit-website)
+2. [Step 2: Install and Configure DaisyUI](/blog/portfolio-website-step-2-install-and-configure-daisyui)
+3. [Step 3: Build the Home Page](/blog/portfolio-website-step-3-build-the-home-page)
+4. [Step 4: Build the Blog and Projects Pages](/blog/portfolio-website-step-4-build-blog-and-projects-pages)
+5. [Step 5: Build the Post Content Page](/blog/portfolio-website-step-5-build-post-content-page)
 6. (You are here) Step 6: Add Transitions and SEO
-7. [Step 7: Deploy on Cloudflare Workers](/blog/step-7-deploy-on-cloudflare-workers)
+7. [Step 7: Deploy on Cloudflare Workers](/blog/portfolio-website-step-7-deploy-on-cloudflare-workers)
 
 In this step, we will enhance our SvelteKit website by adding transitions to various components and improving SEO by adding metadata tags. We will be updating the following files:
 
@@ -38,7 +38,7 @@ Regarding `src/routes/+layout.svelte`, we will make the `Home` button appear wit
 
 ```svelte
 <script>
-	import { fade } from 'svelte/transition';
+	import { fade } from "svelte/transition";
 	// ...
 </script>
 
@@ -63,7 +63,7 @@ On the home page, we aim to achieve a staggering effect, meaning to fade in sect
 
 ```svelte
 <script>
-	import { fade } from 'svelte/transition';
+	import { fade } from "svelte/transition";
 
 	// ...
 
@@ -122,7 +122,7 @@ On the home page, we aim to achieve a staggering effect, meaning to fade in sect
 {/if}
 ```
 
-As [we discussed this in a previous step](/blog/step-5-build-post-content-page#add-floating-table-of-contents-toc), a change in a reactive variable triggers the `$effect` block. So when `showContent1` changes to `true`, it triggers a chain of changes to `showContent2`, `showContent3`, and `showContent4`.
+As [we discussed this in a previous step](/blog/portfolio-website-step-5-build-post-content-page#add-floating-table-of-contents-toc), a change in a reactive variable triggers the `$effect` block. So when `showContent1` changes to `true`, it triggers a chain of changes to `showContent2`, `showContent3`, and `showContent4`.
 
 You may experiment using `elif` in the `$effect` block to see that since `showContent2` and `showContent3` are not unconditionally evaluated, they don't trigger the `$effect` block when they change. You may also experiment with different `setTimeout` values.
 
@@ -132,8 +132,8 @@ To achieve the staggering effect here, we will use a more scalable approach, `sr
 
 ```svelte
 <script>
-	import { fade } from 'svelte/transition';
-	import { page } from '$app/state';
+	import { fade } from "svelte/transition";
+	import { page } from "$app/state";
 
 	// Handle tag selection, called onclick
 	function selectTag(tag) {
@@ -162,7 +162,7 @@ To achieve the staggering effect here, we will use a more scalable approach, `sr
 
 	let showContent = $state(Array(posts.length).fill(false));
 	let selectedTags = $state(
-		page.url.searchParams.get('tag') ? [page.url.searchParams.get('tag')] : []
+		page.url.searchParams.get("tag") ? [page.url.searchParams.get("tag")] : []
 	);
 
 	let filteredPosts = $derived(
@@ -178,7 +178,7 @@ To achieve the staggering effect here, we will use a more scalable approach, `sr
 </script>
 
 <div class="p-8 pt-28">
-	<h1 class="text-lg font-semibold" in:fade>{postType === 'blog' ? 'Blog' : 'Projects'}</h1>
+	<h1 class="text-lg font-semibold" in:fade>{postType === "blog" ? "Blog" : "Projects"}</h1>
 
 	<!-- Tag Filter -->
 	<div class="flex flex-wrap p-2" in:fade>
@@ -229,8 +229,8 @@ Similarly, we can fade in blog posts when viewing an article, `src/lib/component
 
 ```svelte
 <script>
-	import { fade } from 'svelte/transition';
-	import { onDestroy } from 'svelte';
+	import { fade } from "svelte/transition";
+	import { onDestroy } from "svelte";
 	// other imports
 
 	// scrollToTop function from earlier
@@ -239,12 +239,12 @@ Similarly, we can fade in blog posts when viewing an article, `src/lib/component
 	// $props from earlier
 	const TOTAL_ELEMENTS_TO_TRANSITION = 5; // 1: dates & tags, 2: title, 3: content, 4: back to top button, 5: table of contents
 	const CONTENTS_INDENTS = {
-		h1: 'pl-0',
-		h2: 'pl-4',
-		h3: 'pl-8'
+		h1: "pl-0",
+		h2: "pl-4",
+		h3: "pl-8"
 	};
 
-	const postType = page.url.pathname.split('/')[1];
+	const postType = page.url.pathname.split("/")[1];
 	let delay = 200;
 
 	let headings = $state([]);
@@ -264,7 +264,7 @@ Similarly, we can fade in blog posts when viewing an article, `src/lib/component
 			(showContent[TOTAL_ELEMENTS_TO_TRANSITION - 2] && headings.length === 0) ||
 			(headings.length > 0 && headings[0].text !== metadata.title)
 		) {
-			headings = Array.from(document.querySelectorAll('.prose h1, .prose h2, .prose h3')).map(
+			headings = Array.from(document.querySelectorAll(".prose h1, .prose h2, .prose h3")).map(
 				(h) => ({
 					id: h.id,
 					text: h.innerText,
@@ -276,14 +276,14 @@ Similarly, we can fade in blog posts when viewing an article, `src/lib/component
 
 			if (showContent[TOTAL_ELEMENTS_TO_TRANSITION - 1] === false) {
 				showContent[TOTAL_ELEMENTS_TO_TRANSITION - 1] = true;
-				window.addEventListener('scroll', handleScroll);
+				window.addEventListener("scroll", handleScroll);
 			}
 		}
 	});
 
 	onDestroy(() => {
 		return () => {
-			window.removeEventListener('scroll', handleScroll);
+			window.removeEventListener("scroll", handleScroll);
 		};
 	});
 </script>
@@ -320,7 +320,7 @@ Similarly, we can fade in blog posts when viewing an article, `src/lib/component
 		{/if}
 
 		{#if showContent[1]}
-			<h1 id={metadata.title.toLowerCase().replace(/\s+/g, '-')} in:fade>{metadata.title}</h1>
+			<h1 id={metadata.title.toLowerCase().replace(/\s+/g, "-")} in:fade>{metadata.title}</h1>
 		{/if}
 
 		{#if showContent[2]}
@@ -410,7 +410,7 @@ Similarly for `src/lib/components/PostList.svelte`:
 </script>
 
 <svelte:head>
-	<title>{postType === 'blog' ? 'Blog' : 'Projects'} - John Doeloper</title>
+	<title>{postType === "blog" ? "Blog" : "Projects"} - John Doeloper</title>
 	<meta
 		name="description"
 		content="Dive into a collection of {postType === 'blog'
@@ -437,8 +437,8 @@ And for `src/lib/components/PostContent.svelte`:
 
 ## (Optional) Interesting Notes
 
-- Initially, instead of using `secondary` color to get the gray color [defined in my custom DaisyUI theme](/blog/step-2-install-and-configure-daisyui#optional-define-a-custom-theme), I used `opacity-50` to get the same effect. That was up until I saw the deployed website getting warnings about low contrast in [PageSpeed Insights](https://pagespeed.web.dev/).
-- On [Step 3: Build the Home Page](/blog/step-3-build-the-home-page), you might have wondered, why do we choose to place the article's title in the frontmatter key value pairs instead of _just after it_, as `# This is a title`. I hope by now it is clear, that the `"title"` frontmatter key serves us in many ways:
+- Initially, instead of using `secondary` color to get the gray color [defined in my custom DaisyUI theme](/blog/portfolio-website-step-2-install-and-configure-daisyui#optional-define-a-custom-theme), I used `opacity-50` to get the same effect. That was up until I saw the deployed website getting warnings about low contrast in [PageSpeed Insights](https://pagespeed.web.dev/).
+- On [Step 3: Build the Home Page](/blog/portfolio-website-step-3-build-the-home-page), you might have wondered, why do we choose to place the article's title in the frontmatter key value pairs instead of _just after it_, as `# This is a title`. I hope by now it is clear, that the `"title"` frontmatter key serves us in many ways:
   1. Displayed as the post title in the rendered post.
   2. Used for SEO metadata in the `svelte:head` of all posts.
   3. Used to list posts in the home page.
@@ -447,4 +447,4 @@ And for `src/lib/components/PostContent.svelte`:
 
 ## Wrapping Up Step 6
 
-Congratulations! You've come a long way, your website now has transitions and SEO-friendly metadata. In the next step, we will [deploy our website to Cloudflare Workers](/blog/step-7-deploy-on-cloudflare-workers).
+Congratulations! You've come a long way, your website now has transitions and SEO-friendly metadata. In the next step, we will [deploy our website to Cloudflare Workers](/blog/portfolio-website-step-7-deploy-on-cloudflare-workers).

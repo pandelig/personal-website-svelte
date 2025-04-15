@@ -1,8 +1,8 @@
-import { handleContactForm } from '$lib/functions/handleContactForm.js';
+import { handleContactForm } from "$lib/functions/handleContactForm.js";
 
 export function load() {
-	const articleModules = import.meta.glob('/src/lib/articles/*.md', { eager: true });
-	const projectModules = import.meta.glob('/src/lib/projects/*.md', { eager: true });
+	const articleModules = import.meta.glob("/src/lib/articles/*.md", { eager: true });
+	const projectModules = import.meta.glob("/src/lib/projects/*.md", { eager: true });
 
 	// Load and sort articles
 	const articles = Object.values(articleModules)

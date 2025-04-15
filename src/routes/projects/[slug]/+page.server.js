@@ -1,8 +1,8 @@
-import { loadPost } from '$lib/functions/loadPost';
-import { handleContactForm } from '$lib/functions/handleContactForm.js';
+import { loadPost } from "$lib/functions/loadPost";
+import { handleContactForm } from "$lib/functions/handleContactForm.js";
 
 export function load({ params }) {
-    return loadPost('projects', params.slug);
+    return loadPost("projects", params.slug);
 }
 
 export const actions = {

@@ -1,11 +1,11 @@
 <script>
-	import { fade } from 'svelte/transition';
-	import ContactForm from '$lib/components/ContactForm.svelte';
+	import { fade } from "svelte/transition";
+	import ContactForm from "$lib/components/ContactForm.svelte";
 
 	let { data, form } = $props();
 
 	const formParameters = $derived({
-		title: 'Get in Touch',
+		title: "Get in Touch",
 		description: "Have questions, ideas, or just want to say hi? Don't hesitate to reach out!",
 		formResponse: form
 	});

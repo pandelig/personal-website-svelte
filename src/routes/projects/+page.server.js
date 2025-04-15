@@ -1,5 +1,5 @@
-import { loadMetadataOfPosts } from '$lib/functions/loadMetadataOfPosts';
+import { loadMetadataOfPosts } from "$lib/functions/loadMetadataOfPosts";
 
 export function load() {
-    return loadMetadataOfPosts('projects');
+    return loadMetadataOfPosts("projects");
 }

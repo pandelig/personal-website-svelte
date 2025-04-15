@@ -1,14 +1,14 @@
 <!-- @component A customizable contact form component with name, email, and message fields that supports form submission feedback -->
 <script>
-	import { fade } from 'svelte/transition';
-	import { enhance } from '$app/forms';
-	import { page } from '$app/state';
-	import { onMount } from 'svelte';
+	import { fade } from "svelte/transition";
+	import { enhance } from "$app/forms";
+	import { page } from "$app/state";
+	import { onMount } from "svelte";
 
-	let { title, description, buttonText = 'Send', formResponse } = $props();
+	let { title, description, buttonText = "Send", formResponse } = $props();
 
 	onMount(() => {
-		document.getElementById('spam').value = 'human';
+		document.getElementById("spam").value = "human";
 	});
 </script>
 
@@ -45,7 +45,7 @@
 	{#if formResponse?.message}
 		<div class="mt-4 text-center" in:fade>
 			{formResponse.message}
-			{formResponse.success ? '😎' : '😥'}
+			{formResponse.success ? "😎" : "😥"}
 		</div>
 	{/if}
 </form>
