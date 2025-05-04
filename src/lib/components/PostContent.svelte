@@ -135,11 +135,11 @@
 		class="prose prose-headings:font-semibold prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg prose-h4:text-base"
 	>
 		{#if showContent[0]}
-			<div class="flex flex-wrap" in:fade>
+			<div class="flex flex-wrap p-2" in:fade>
 				{#each metadata.tags as tag}
 					<a
 						href={`/${postType}?tag=${tag}`}
-						class="not-prose p-2 text-secondary hover:text-accent"
+						class="not-prose px-2 text-secondary hover:text-accent"
 					>
 						#{tag}
 					</a>

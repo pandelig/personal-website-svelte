@@ -17,7 +17,7 @@ export function loadPost(type, slug) {
     );
 
     if (!post) {
-        throw error(404, `${type.slice(0, -1)} not found. The following slug doesn't exist: ${slug}`);
+        throw error(404, `${type.slice(0, -1)} not found.`);
     }
 
     const renderedContent = render(post.default);

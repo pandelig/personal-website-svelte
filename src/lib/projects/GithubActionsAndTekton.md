@@ -9,7 +9,7 @@ meta_description: "Learn CI/CD with GitHub Actions and Tekton. Tutorials by Pant
 
 [GitHub Repository](https://github.com/pandelig/github-actions-tekton-demo)
 
-This repository accompanies a series of blog posts that introduce CI/CD using GitHub Actions and Tekton.
+This repository accompanies my series of blog posts that introduce CI/CD using GitHub Actions and Tekton.
 
 ## Tutorial Series
 

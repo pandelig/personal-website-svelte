@@ -188,12 +188,12 @@ Explanation of Core Concepts:
 3. Observe the workflow run:
       * Go to the repository on GitHub.
       * Click on the "Actions" tab.
-      ![GitHub Actions Tab](/imgs/github_actions_tab.webp)
+      ![GitHub actions tab.](/imgs/github_actions_tab.webp)
       * You should see the "Simple CI Workflow" workflow listed. It will likely have a yellow indicator while running and turn green upon successful completion (or red if it fails).
-      ![Simple CI Workflow Running](/imgs/simple_ci_workflow_running.webp)
-      ![Simple CI Workflow Completed](/imgs/simple_ci_workflow_completed.webp)
+      ![Simple CI workflow running.](/imgs/simple_ci_workflow_running.webp)
+      ![Simple CI workflow completed.](/imgs/simple_ci_workflow_completed.webp)
       * Click on the workflow run name to see the details of the `build-and-lint` job and the output of each step.
-      ![Simple CI Workflow Details](/imgs/simple_ci_workflow_details.webp)
+      ![Simple CI workflow details.](/imgs/simple_ci_workflow_details.webp)
         Click on the `Run Python Script` step to see the output of our python script `Hello, GitHub Actions!`!
 
 ## (Optional) Explore Further

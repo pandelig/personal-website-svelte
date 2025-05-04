@@ -12,7 +12,7 @@ meta_description: "Step-by-step guide by Pantelis Deligiannidis to creating your
 
 In the previous article we explored GitHub Actions and built a simple CI Workflow. However, you might need a more flexible, vendor-neutral, and Kubernetes-native CI/CD solution. Enter Tekton.
 
-In this article, we'll take the same simple Python project from Part 1 and build a similar linting pipeline using Tekton. We'll explore its core concepts and see how its approach differs from GitHub Actions.
+In this article, we'll take the same simple Python project from Step 1 and build a similar linting pipeline using Tekton. We'll explore its core concepts and see how its approach differs from GitHub Actions.
 
 ## Prerequisites
 
@@ -99,7 +99,8 @@ We need two main tasks: fetching the source code and linting it.
 1. If you haven't already, clone the repository we created in the [previous step](/blog/github-actions-tekton-step-1-your-first-github-actions-workflow#set-up-a-simple-project).
 2. Create a `tekton` directory, resulting in the following structure:
 
-```text
+```bash
+.
 ├── .github
 │   └── workflows
 │       └── ci-workflow.yml

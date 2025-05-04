@@ -9,7 +9,7 @@ meta_description: "Our team won gold at the AI & Data Awards 2025 for 'Reality E
 
 Recently, my team and I had the incredible opportunity to travel from Thessaloniki to Athens to attend the [AI & Data Awards 2025](https://aidataawards.boussiasevents.gr/) at [Technopolis](https://www.athens-technopolis.gr/index.php/el/). The occasion: Our project ([Medoid AI](https://www.linkedin.com/company/medoid-ai/) and [K2view](https://www.linkedin.com/company/k2view/)), "Reality Engine, a next-generation synthetic data generation platform", had been nominated. The result: We won gold🥇 in the category "Best Use of AI/Data for Development and Testing"!
 
-![AI & Data Awards 2025](/imgs/ai_data_awards_2025.webp)
+![AI & Data Awards 2025 team photo.](/imgs/ai_data_awards_2025.webp)
 
 "Reality Engine" is a project that leverages tabular language models to generate realistic synthetic data, respecting the structure, distributions, and various metrics of the source database. It’s a complex system, and it’s still under active development, but this award is a testament to the hard work and dedication of our entire team.
 
