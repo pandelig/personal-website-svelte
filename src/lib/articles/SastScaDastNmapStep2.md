@@ -18,7 +18,7 @@ In this second step of our series, we'll focus on using a powerful and popular D
 
 ## Run the Flask App
 
-We will start the Flask application container after creating a network for it, so that [OWASP ZAP will be able to see it](https://www.zaproxy.org/docs/docker/about/#scanning-an-app-running-in-another-docker-container) by being in the same network:
+We will start the Flask application container after creating a network for it, so that [OWASP ZAP will be able to see it](https://www.zaproxy.org/docs/docker/about/#scanning-an-app-running-in-another-docker-container) by being under the same network:
 
 ```bash
 docker network create zap-network
@@ -199,11 +199,11 @@ Similarly to the GUI version of ZAP, more information about each issue is availa
 
 ## (Optional) Explore Further
 
-* Fix the Found Vulnerabilities: The most important step after identifying vulnerabilities is to fix them! OWASP ZAP provides detailed information for each alert, take the time to review these recommendations and modify the `app.py` code to address the issues.
+* Fix the found vulnerabilities: The most important step after identifying vulnerabilities is to fix them! OWASP ZAP provides detailed information for each alert, take the time to review these recommendations and modify the `app.py` code to address the issues.
 * Configuring ZAP: Learn how to configure ZAP for specific needs, including authenticated scans (if your application requires login), custom scripts, and different scan policies for more in-depth testing. The [OWASP ZAP Documentation](https://www.zaproxy.org/docs/) is an excellent resource.
-* Research other DAST Tools: While ZAP is popular and open-source, many other DAST tools exist, both open-source and commercial. Research tools like [Burp Suite](https://portswigger.net/burp), [Nikto](https://github.com/sullo/nikto), and commercial solutions. Each has its strengths and weaknesses.
+* Research other DAST tools: While ZAP is popular and open-source, many other DAST tools exist, both open-source and commercial. Research tools like [Burp Suite](https://portswigger.net/burp), [Nikto](https://github.com/sullo/nikto), and commercial solutions. Each has its strengths and weaknesses.
 * Interactive Application Security Testing (IAST): Learn about IAST tools. These tools combine elements of SAST and DAST by analyzing code execution from within the running application, offering insights that traditional SAST or DAST might miss.
-* Network Scanning with Nmap: Before attacking an application, attackers often scan the network to discover open ports and running services – the potential entry points. Tools like [Nmap](https://nmap.org/) are fundamental for this reconnaissance phase, helping you understand the network-level attack surface of your systems.
+* Network scanning with Nmap: Before attacking an application, attackers often scan the network to discover open ports and running services – the potential entry points. Tools like [Nmap](https://nmap.org/) are fundamental for this reconnaissance phase, helping you understand the network-level attack surface of your systems.
 
 What security topic would you like to dive into next? IAST, Nmap, or perhaps something else in the realm of DevSecOps? Let me know!
 
