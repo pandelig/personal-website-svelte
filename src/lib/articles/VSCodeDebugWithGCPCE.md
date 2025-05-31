@@ -11,7 +11,7 @@ Debugging is an essential part of the software development lifecycle. While loca
 
 This article will guide you step-by-step on how to leverage VS Code's debugging features to debug a simple Python script running directly on a GCP CE instance. We will cover establishing an SSH connection and configuring VS Code for remote debugging.
 
-(Optional) Additionally, we will explore how to set up a development environment inside a Docker container on the GCP CE instance using VS Code's Dev Containers extension. This provides an isolated and reproducible environment for development and debugging.
+Additionally, we will explore how to set up a development environment inside a Docker container on the GCP CE instance using VS Code's Dev Containers extension. This provides an isolated and reproducible environment for development and debugging.
 
 ![Architecture of debugging a GCP CE with VS Code.](/imgs/gcp_ce_remote_debugging_with_vscode_architecture.webp)
 
@@ -53,8 +53,7 @@ Have a tab open at the [GCP Console](https://cloud.google.com/).
 
 Now, let's get a simple Python script onto the newly created instance.
 
-1. Connect to the GCP CE instance via SSH using `gcloud`:
-    Using the local terminal session you opened earlier for authentication run:
+1. Connect to the GCP CE instance via SSH using `gcloud`. In the local terminal session you opened earlier for authentication, run:
 
     ```bash
     gcloud compute ssh my-debug-vm --zone YOUR_ZONE
@@ -96,7 +95,7 @@ Now, let's get a simple Python script onto the newly created instance.
         print(f"Final calculated value: {final_product}")
     ```
 
-    Save and exit the editor (`Ctrl+X`, `Y`, `Enter` for nano).
+    Save and exit the editor (`Ctrl+X` -> `Y` -> `Enter` for nano).
 
 ## Configure VS Code for Remote SSH Debugging
 
@@ -105,7 +104,7 @@ This is where the magic happens! We'll use the "Remote - SSH" extension to conne
 1. Open VS Code on your local machine.
 2. Click the green remote indicator icon (`><`) in the bottom-left corner of the VS Code window, or press `F1` and type "Remote-SSH: Connect to Host...".
 3. Select "Add New SSH Host...".
-4. Enter the SSH connection command: VS Code will prompt you to enter the SSH connection command. You can use the `gcloud` command you used earlier, but simplified for direct SSH. Replace `YOUR_EXTERNAL_IP` with your instance's actual external IP.
+4. Enter the SSH connection command: VS Code will prompt you to enter the SSH connection command. We will use a direct SSH command. Replace `YOUR_EXTERNAL_IP` with your instance's actual external IP.
 
     ```bash
     ssh -i ~/.ssh/google_compute_engine USERNAME@YOUR_EXTERNAL_IP
@@ -121,11 +120,11 @@ This is where the magic happens! We'll use the "Remote - SSH" extension to conne
 8. Install the Python extension by going to the "Extensions" view, searching for "Python" and installing the "Python" extension, this should also install the "Python Debugger" extension.
     ![Searching for python VS Code extensions.](/imgs/install_python_vscode_extensions_on_gcp_ce.webp)
 
-Notice that you have complete control on creating folders and files on the GCP CE instance through VS Code.
+Notice that you have complete control on creating folders and files in the GCP CE instance through VS Code.
 
 ## Debug the Python Script
 
-Now that VS Code is connected and the Python extension is installed remotely, we can debug.
+Now that VS Code is connected and the Python extension is installed, we can debug.
 
 1. In the VS Code Explorer, open `my_script.py`.
 2. Click in the gutter next to a line number (e.g., line 2: `result = a + b`) to set a red breakpoint.
@@ -157,7 +156,7 @@ Connect to the GCP CE instance via SSH again (using `gcloud compute ssh` or thro
 
 2. [Install Docker](https://docs.docker.com/engine/install/debian/#install-using-the-repository) make sure you also follow the [Linux postinstall](https://docs.docker.com/engine/install/linux-postinstall) steps under "Manage Docker as a non-root user", so that we are able to run `docker` without `sudo`.
 
-    You must log out and log back in to your SSH session for this change to take effect. Close your current SSH session and reconnect (either via `gcloud compute ssh` or disconnect/reconnect in VS Code).
+    You must log out and log back in to your SSH session for this change to take effect. Close your current SSH session and reconnect.
 
     If you still get the `permission denied` error while connected through VS Code, open the Command Palette (`F1`) and select "Remote-SSH: Kill VS Code Server on Host..." or "Remote-SSH: Kill Current VS Code Server", depending on whether you use the local VS Code window or the one connected to the GCP CE instance.
 3. Verify Docker installation:
@@ -211,7 +210,7 @@ The script will now run and pause within the Docker container on the GCP CE inst
 * Customizing Dev Containers: Explore `devcontainer.json` options to install specific tools, forward ports, set environment variables, and more, all within your containerized development environment.
 * VS Code Tasks: For more complex setups, you can define `tasks.json` in `.vscode` to automate steps like starting / stopping Docker containers, building images, etc.
 
-Let me know if you would like to see something in a future article!
+Let me know if you would like to see something like that in a future article!
 
 ## Final Words
 
