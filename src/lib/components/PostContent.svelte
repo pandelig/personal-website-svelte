@@ -72,20 +72,35 @@
 			(showContent[TOTAL_ELEMENTS_TO_TRANSITION - 2] && headings.length === 0) ||
 			(headings.length > 0 && headings[0].text !== metadata.title)
 		) {
-			headings = Array.from(document.querySelectorAll(".prose h1, .prose h2, .prose h3")).map(
-				(h) => ({
-					id: h.id,
-					text: h.innerText,
-					level: h.tagName.toLowerCase(),
-					offset: h.offsetTop
-				})
+			// Ensure all images within the content are loaded before retrieving the headings' offsets (`offset: h.offsetTop`)
+			const imageLoadPromises = Array.from(document.querySelectorAll(".prose img")).map(
+				(img) => {
+					if (img.complete) {
+						return Promise.resolve(); // Already loaded
+					}
+					return new Promise((resolve) => {
+						img.onload = () => resolve();
+						img.onerror = () => resolve(); // Handle errors gracefully
+					});
+				}
 			);
-			handleScroll();
+			
+			Promise.all(imageLoadPromises).then(() => {
+				headings = Array.from(document.querySelectorAll(".prose h1, .prose h2, .prose h3")).map(
+					(h) => ({
+						id: h.id,
+						text: h.innerText,
+						level: h.tagName.toLowerCase(),
+						offset: h.offsetTop
+					})
+				);
+				handleScroll();
 
-			if (showContent[TOTAL_ELEMENTS_TO_TRANSITION - 1] === false) {
-				showContent[TOTAL_ELEMENTS_TO_TRANSITION - 1] = true;
-				window.addEventListener("scroll", handleScroll);
-			}
+				if (showContent[TOTAL_ELEMENTS_TO_TRANSITION - 1] === false) {
+					showContent[TOTAL_ELEMENTS_TO_TRANSITION - 1] = true;
+					window.addEventListener("scroll", handleScroll);
+				}
+			});
 		}
 	});
 

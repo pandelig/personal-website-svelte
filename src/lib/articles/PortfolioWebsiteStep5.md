@@ -1,7 +1,7 @@
 ---
 slug: "portfolio-website-step-5-build-post-content-page"
 date: "03 Mar 2025"
-date_updated: ""
+date_updated: "01 Jun 2025"
 tags: ["tutorial", "full-stack", "sveltekit", "tailwind"]
 title: "Personal Website with SvelteKit and TailwindCSS - Step 5: Build the Post Content Page"
 meta_description: "Learn how to build a dynamic post content page with SvelteKit and TailwindCSS in this detailed tutorial by Pantelis Deligiannidis. Includes floating table of contents, markdown support, and code syntax highlighting."
@@ -312,6 +312,7 @@ To enhance the user experience, we add a floating Table of Contents (TOC) that s
 - `headings` and `activeHeading` variables are reactive, we have discussed this functionality before in ["Create Post List Component" of the previous step](/blog/portfolio-website-step-4-build-blog-and-projects-pages#create-post-list-component)
 - We encounter [`$effect`](https://svelte.dev/tutorial/svelte/effects) for the first time. It is important to understand [what triggers it](https://svelte.dev/docs/svelte/$effect#Understanding-dependencies). In our case it runs when the component mounts or when metadata changes, collecting all h1, h2, and h3 headings from the post content.
   - When navigating from one article to another, [a page reload will not be triggered](https://svelte.dev/docs/kit/state-management#Component-and-page-state-is-preserved) by default but the `metadata` will change, triggering the `$effect` block.
+  - *Update 01 Jun 2025:* The code inside `$effect` has been slightly modified, to avoid retrieving the headings' offsets before all images have loaded. [See the new code here](https://github.com/pandelig/personal-website-svelte/blob/main/src/lib/components/PostContent.svelte).
 - For each heading, it stores:
   - `id`: The heading's ID, which is used to determine the `activeHeading`.
   - `text`: The heading's text content.
