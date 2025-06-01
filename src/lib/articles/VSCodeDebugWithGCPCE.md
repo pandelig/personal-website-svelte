@@ -167,7 +167,7 @@ Connect to the GCP CE instance via SSH again (using `gcloud compute ssh` or thro
 
     You should see a message confirming Docker is working.
 
-### Prepare the Project for Dev Containers
+### Configure Dev Containers
 
 1. In your remote VS Code window (connected via SSH to `my-debug-vm`), ensure you have the folder `/home/USERNAME/my_debug_project` open.
 
