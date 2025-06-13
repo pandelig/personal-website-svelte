@@ -1,5 +1,5 @@
 ---
-slug: "remote-debugging-on-gcp-ce-with-vscode"
+slug: "getting-started-with-aws-core-concepts-and-iam"
 date: "13 Jun 2025"
 date_updated: ""
 tags: ["tutorial", "aws", "security"]
