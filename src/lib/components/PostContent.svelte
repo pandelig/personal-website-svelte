@@ -9,6 +9,13 @@
 		window.scrollTo({ top: 0 });
 	}
 
+	function scrollToHash(hash) {
+		const targetElement = document.getElementById(hash);
+		if (targetElement) {
+			targetElement.scrollIntoView();
+		}
+	}
+
 	/** Updates active heading based on current scroll position in the document */
 	function handleScroll() {
 		const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
@@ -23,7 +30,7 @@
 		}
 	}
 
-	// Function to generate a clean ID (slug)
+	/** Function to generate a clean ID (slug) */
 	function generateSlug(title) {
 		if (!title) return ""; // Handle empty titles
 
@@ -100,8 +107,24 @@
 					showContent[TOTAL_ELEMENTS_TO_TRANSITION - 1] = true;
 					window.addEventListener("scroll", handleScroll);
 				}
+
+                const hash = page.url.hash.slice(1);
+				// If navigating to a new page with a hash, scroll to it
+				if (hash) {
+					setTimeout(() => {
+						scrollToHash(hash);
+					}, 100); // Small delay to ensure DOM is fully rendered
+				}
 			});
 		}
+	});
+
+	// Handle hash changes from browser history navigation
+	$effect(() => {
+		const hash = page.url.hash.slice(1); 
+        if (hash) {
+			scrollToHash(hash);
+        }
 	});
 
 	onDestroy(() => {
