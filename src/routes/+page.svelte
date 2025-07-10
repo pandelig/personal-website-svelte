@@ -37,7 +37,7 @@
 	<title>Pantelis Deligiannidis</title>
 	<meta
 		name="description"
-		content="Welcome to the personal website of Pantelis Deligiannidis, a Software Engineer with experience in full stack Web Development and DevOps. Explore articles and projects on Web Development, DevOps, Cloud Computing, Linux, and more"
+		content="Welcome to the personal website of Pantelis Deligiannidis, a Software Engineer specializing in python-based systems, experience in DevOps, cloud computing, full-stack development, linux and more."
 	/>
 </svelte:head>
 
@@ -127,8 +127,7 @@
 
 {#if showContent2}
 	<p class="mb-8 px-8" in:fade>
-		Software Engineer with experience in full stack web development and DevOps, exploring tech,
-		education, and occasionally random ideas.
+		Software Engineer specializing in python-based systems, experience in DevOps, cloud computing, full-stack development, linux and more. Exploring tech, education, and occasionally random ideas.
 	</p>
 {/if}
 

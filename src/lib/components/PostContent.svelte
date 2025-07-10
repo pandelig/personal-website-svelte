@@ -82,16 +82,16 @@
 			// Ensure all images within the content are loaded before retrieving the headings' offsets (`offset: h.offsetTop`)
 			const imageLoadPromises = Array.from(document.querySelectorAll(".prose img")).map(
 				(img) => {
-					if (img.complete) {
-						return Promise.resolve(); // Already loaded
-					}
-					return new Promise((resolve) => {
-						img.onload = () => resolve();
-						img.onerror = () => resolve(); // Handle errors gracefully
-					});
+				if (img.complete) {
+					return Promise.resolve(); // Already loaded
+				}
+				return new Promise((resolve) => {
+					img.onload = () => resolve();
+					img.onerror = () => resolve(); // Handle errors gracefully
+				});
 				}
 			);
-			
+
 			Promise.all(imageLoadPromises).then(() => {
 				headings = Array.from(document.querySelectorAll(".prose h1, .prose h2, .prose h3")).map(
 					(h) => ({
@@ -108,7 +108,7 @@
 					window.addEventListener("scroll", handleScroll);
 				}
 
-                const hash = page.url.hash.slice(1);
+				const hash = page.url.hash.slice(1);
 				// If navigating to a new page with a hash, scroll to it
 				if (hash) {
 					setTimeout(() => {
@@ -121,10 +121,10 @@
 
 	// Handle hash changes from browser history navigation
 	$effect(() => {
-		const hash = page.url.hash.slice(1); 
-        if (hash) {
+		const hash = page.url.hash.slice(1);
+		if (hash) {
 			scrollToHash(hash);
-        }
+		}
 	});
 
 	onDestroy(() => {
@@ -147,7 +147,7 @@
 			<ul>
 				{#each headings as heading}
 					<li
-						class="mt-1 {CONTENTS_INDENTS[heading.level]} hover:text-accent {heading.id ===
+						class="mt-0 {CONTENTS_INDENTS[heading.level]} hover:text-accent {heading.id ===
 						activeHeading
 							? 'text-accent'
 							: 'text-secondary'}"
