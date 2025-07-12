@@ -30,7 +30,7 @@ If you'd like to build a similar website and familiarize yourself with Svelte(Ki
 - **Tag Filtering** – Posts (blog articles and projects) can be filtered by tags.
 - **Markdown Support** – Posts are simple `.md` files.
 
-## Installation & Running Locally
+## Install and Run Locally
 
 Clone the repository, install dependencies, and start the development server:
 
