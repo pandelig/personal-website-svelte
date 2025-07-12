@@ -70,14 +70,14 @@ Many and scary 👻:
 ## Core Tekton Concepts
 
 1. `Pipeline`: Defines the overall structure of your CI/CD process. It orchestrates multiple `Tasks`, specifying their execution order, conditions, and how they share data using `Workspaces`.
-      * *Further Learning:* [Tekton Pipelines](https://tekton.dev/docs/pipelines/pipelines/)
+      * *Explore further:* [Tekton Pipelines](https://tekton.dev/docs/pipelines/pipelines/)
 2. `Task`: The fundamental building block. A `Task` defines a sequence of `Steps` that run inside containers within a Kubernetes Pod.
-      * *Further Learning:* [Tekton Tasks](https://tekton.dev/docs/pipelines/tasks/)
+      * *Explore further:* [Tekton Tasks](https://tekton.dev/docs/pipelines/tasks/)
 3. `Step`: Similar to a GitHub Actions step, it's a specific command or script run within a container defined in a `Task`. Each step uses a specific container image.
 4. `Workspace`: This is crucial. It defines how different `Tasks` within a `Pipeline` share data (like source code). Tekton maps `Workspaces` to actual Kubernetes storage mechanisms (like `PersistentVolumeClaim`, `emptyDir`, `ConfigMap`) when a `Pipeline` runs.
-      * *Further Learning:* [Tekton Workspaces](https://tekton.dev/docs/pipelines/workspaces/)
+      * *Explore further:* [Tekton Workspaces](https://tekton.dev/docs/pipelines/workspaces/)
 5. `PipelineRun` / `TaskRun`: These are the actual execution instances. A `PipelineRun` executes a specific `Pipeline`, binding `Workspaces` to actual volumes and providing necessary parameters. A `TaskRun` executes a specific `Task` with defined inputs.
-      * *Further Learning:* [Tekton PipelineRuns](https://tekton.dev/docs/pipelines/pipelineruns/), [Tekton TaskRuns](https://tekton.dev/docs/pipelines/taskruns/)
+      * *Explore further:* [Tekton PipelineRuns](https://tekton.dev/docs/pipelines/pipelineruns/), [Tekton TaskRuns](https://tekton.dev/docs/pipelines/taskruns/)
 
 ### (Optional) GitHub Actions vs. Tekton Terminology
 
@@ -378,8 +378,8 @@ spec:
 
 ## (Optional) Explore Further
 
-* Cloning Private Repositories: Learn how to configure access to private Git repositories within Tekton by creating Kubernetes Secrets for authentication (SSH keys or tokens) and referencing them in your `PipelineRun` and `git-clone` task. *Further Learning:* [Configuring authentication for Git](https://tekton.dev/docs/pipelines/auth/#configuring-authentication-for-git).
-* Tekton Triggers: Explore how to automatically trigger your `PipelineRun` based on events like Git pushes or API calls. This functionality is not built-in and requires installing Tekton Triggers separately *Further Learning:* [Triggers and EventListeners](https://tekton.dev/docs/triggers/).
+* Cloning Private Repositories: Learn how to configure access to private Git repositories within Tekton by creating Kubernetes Secrets for authentication (SSH keys or tokens) and referencing them in your `PipelineRun` and `git-clone` task. [Configuring authentication for Git](https://tekton.dev/docs/pipelines/auth/#configuring-authentication-for-git).
+* Tekton Triggers: Explore how to automatically trigger your `PipelineRun` based on events like Git pushes or API calls. This functionality is not built-in and requires installing Tekton Triggers separately. [Triggers and EventListeners](https://tekton.dev/docs/triggers/).
 * Official Tutorials: Work through more examples in the [official Tekton documentation](https://tekton.dev/docs/getting-started/).
 * More Complex Pipelines: Build pipelines with parallel tasks, conditional execution, and artifact management.
 

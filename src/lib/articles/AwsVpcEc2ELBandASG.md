@@ -263,7 +263,7 @@ Running Flask directly with `app.run()` is not suitable for production. We'll us
     WantedBy=multi-user.target
     ```
 
-    This service file tells systemd how to run our Gunicorn server and ensures it restarts automatically if it crashes. *Further Reading:* [Setting up a `systemd` service](https://documentation.suse.com/smart/systems-management/html/systemd-setting-up-service/index.html)
+    This service file tells systemd how to run our Gunicorn server and ensures it restarts automatically if it crashes. *Explore further:* [Setting up a `systemd` service](https://documentation.suse.com/smart/systems-management/html/systemd-setting-up-service/index.html)
 
 4. **Start and enable the Gunicorn service:**
 
@@ -300,7 +300,7 @@ Running Flask directly with `app.run()` is not suitable for production. We'll us
 
     `server_name _;`: This tells Nginx to respond to any hostname. While we could enter the running EC2 instance's public ip address instead of the `_` wildcard, the hardcoded ip would cause the auto-scaling later on to not work. The ip addresses change as instances are created / destroyed.
 
-    *Further Reading:* [an excellent introduction to Gunicorn and Nginx](https://www.fullstackpython.com/wsgi-servers.html), [a deeper dive into Nginx syntax](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/).
+    *Explore further:* [An excellent introduction to Gunicorn and Nginx](https://www.fullstackpython.com/wsgi-servers.html), [a deeper dive into Nginx syntax](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/).
 
 6. **Enable the Nginx configuration and restart Nginx:**
 

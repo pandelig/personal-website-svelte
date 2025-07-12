@@ -158,15 +158,15 @@ Explanation of Core Concepts:
       * `push`: Triggered when we push code. We specified it only runs for pushes to the `main` branch.
       * `pull_request`: Triggered when a pull request is opened or updated targeting the `main` branch.
       * `workflow_dispatch`: Allows us to manually trigger the workflow from the GitHub UI.
-      * *Further Learning:* [Events that trigger workflows (GitHub Docs)](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
+      * *Explore further:* [Events that trigger workflows (GitHub Docs)](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
 3. `jobs`: Workflows are made up of one or more jobs, which run in parallel unless specified otherwise (`needs`).
       * `build-and-lint`: This is the unique ID for the job.
       * `runs-on`: Specifies the type of virtual machine (runner) to execute the job on (e.g., `ubuntu-latest`, `windows-latest`, `macos-latest`). GitHub provides hosted runners, or we can configure self-hosted runners.
-      * *Further Learning:* [Workflow Syntax - Jobs (GitHub Docs)](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#jobs)
+      * *Explore further:* [Workflow Syntax - Jobs (GitHub Docs)](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#jobs)
 4. `steps`: A job contains a *sequence* of tasks called steps. Steps can run commands (`run`) or use pre-built Actions (`uses`).
       * `name`: (Optional) A descriptive name for the step shown in the UI.
       * `uses`: Specifies an Action to use. Actions are reusable pieces of code. `actions/checkout@v4` and `actions/setup-python@v4` are official actions provided by GitHub, fetched from the GitHub Marketplace. The `@v4` specifies the version.
-          * *Further Learning:* [GitHub Marketplace](https://github.com/marketplace?type=actions) & [Understanding GitHub Actions (GitHub Docs)](https://docs.github.com/en/actions/about-github-actions/understanding-github-actions?learn=getting_started&learnProduct=actions)
+          * *Explore further:* [GitHub Marketplace](https://github.com/marketplace?type=actions) & [Understanding GitHub Actions (GitHub Docs)](https://docs.github.com/en/actions/about-github-actions/understanding-github-actions?learn=getting_started&learnProduct=actions)
       * `with`: Used to provide input parameters required by an action, like `python-version` for `setup-python`.
       * `run`: Executes command-line programs using the operating system's shell. We can run single-line or multi-line scripts, using `|`.
 
@@ -200,7 +200,7 @@ Explanation of Core Concepts:
 
 * Add More Steps: Include steps for building a package, running more complex tests (using `pytest`, for example), or even deploying to a simple hosting service (like GitHub Pages if it were a web project).
 * Explore More Events: Trigger the workflow on issue creation or on a schedule.
-* Use Secrets: Store sensitive data like API keys securely using GitHub Secrets and reference them in your workflow. *Further Learning:* [Using secrets in GitHub Actions (GitHub Docs)](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions)
+* Use Secrets: Store sensitive data like API keys securely using GitHub Secrets and reference them in your workflow. [Using secrets in GitHub Actions (GitHub Docs)](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions)
 
 ## Wrapping up Step 1
 
