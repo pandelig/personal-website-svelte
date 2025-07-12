@@ -13,13 +13,13 @@ It serves as my blog and portfolio.
 
 If you'd like to build a similar website and familiarize yourself with Svelte(Kit) and TailwindCSS, follow my step-by-step guide:
 
-1. [Step 1: Set Up the Project](https://pandelig.com/blog/step-1-set-up-sveltekit-website)
-2. [Step 2: Install and Configure DaisyUI](https://pandelig.com/blog/step-2-install-and-configure-daisyui)
-3. [Step 3: Build the Home Page](https://pandelig.com/blog/step-3-build-the-home-page)
-4. [Step 4: Build the Blog and Projects Pages](https://pandelig.com/blog/step-4-build-blog-and-projects-pages)
-5. [Step 5: Build the Post Content Page](https://pandelig.com/blog/step-5-build-post-content-page)
-6. [Step 6: Add Transitions and SEO](https://pandelig.com/blog/step-6-add-transitions-and-seo)
-7. [Step 7: Deploy on Cloudflare Workers](https://pandelig.com/blog/step-7-deploy-on-cloudflare-workers)
+1. [Step 1: Set Up the Project](https://pandelig.com/blog/portfolio-website-step-1-set-up-sveltekit-website)
+2. [Step 2: Install and Configure DaisyUI](https://pandelig.com/blog/portfolio-website-step-2-install-and-configure-daisyui)
+3. [Step 3: Build the Home Page](https://pandelig.com/blog/portfolio-website-step-3-build-the-home-page)
+4. [Step 4: Build the Blog and Projects Pages](https://pandelig.com/blog/portfolio-website-step-4-build-blog-and-projects-pages)
+5. [Step 5: Build the Post Content Page](https://pandelig.com/blog/portfolio-website-step-5-build-post-content-page)
+6. [Step 6: Add Transitions and SEO](https://pandelig.com/blog/portfolio-website-step-6-add-transitions-and-seo)
+7. [Step 7: Deploy on Cloudflare Workers](https://pandelig.com/blog/portfolio-website-step-7-deploy-on-cloudflare-workers)
 
 ## Features
 
@@ -30,7 +30,7 @@ If you'd like to build a similar website and familiarize yourself with Svelte(Ki
 - **Tag Filtering** – Posts (blog articles and projects) can be filtered by tags.
 - **Markdown Support** – Posts are simple `.md` files.
 
-## Installation & Running Locally
+## Install and Run Locally
 
 Clone the repository, install dependencies, and start the development server:
 
@@ -46,6 +46,7 @@ You can find all the `npm` commands in `package.json`.
 ## Acknowledgments
 
 The theme of this website was inspired by:
+
 - [Mark Horn's AstroNano theme](https://astro.build/themes/details/astronano/) ([repo](https://github.com/markhorn-dev/astro-nano?tab=readme-ov-file))
 - [Paco Coursey's personal website](https://paco.me/)
 
