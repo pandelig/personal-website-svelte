@@ -453,7 +453,7 @@ Although not explicitly shown for simplicity, these EC2 instances are managed by
 
 To avoid unnecessary charges, delete the Auto Scaling Group, Application Load Balancer, EC2 instances, Security Groups, Network Interfaces and finally the VPC you created. Ensure all resources associated with `my-flask-app` are removed!
 
-## **(Optional) Explore Further**
+## (Optional) Explore Further
 
 * **Production-Ready Architecture with Private Subnets:** To enhance security and mimic a production setup, redeploy the EC2 instances into a private subnet. Configure a NAT Gateway in a public subnet to enable internet access (e.g. `apt update`) for these private instances, as they won't be directly exposed to the internet.
 * **Custom Domains with Route 53:** Map your ALB's DNS name to a custom domain name using Amazon Route 53 for a more professional URL.
@@ -461,7 +461,7 @@ To avoid unnecessary charges, delete the Auto Scaling Group, Application Load Ba
 * **Database Integration (RDS):** Connect your Flask application to a relational database like PostgreSQL or MySQL using Amazon RDS in a private subnet. This would further enhance the scalability and persistence of your data.
 * **Logging and Monitoring with CloudWatch:** Set up detailed CloudWatch logs for your EC2 instances and Nginx, and create custom metrics and alarms for your Flask application.
 
-## **Final Words**
+## Final Words
 
 Congratulations! You've just built a robust and scalable web application infrastructure on AWS, starting from fundamental networking concepts in VPC, deploying the application on EC2, and then enhancing it with Elastic Load Balancing and Auto Scaling.
 
