@@ -4,7 +4,7 @@ date: "14 Apr 2025"
 date_updated: ""
 tags: ["tutorial", "ci/cd", "github-actions", "tekton"]
 title: "CI/CD Getting Started with GitHub Actions and Tekton - Step 1: Your First GitHub Actions Workflow"
-meta_description: "GitHub Actions tutorial by Pantelis Deligiannidis. Set up a workflow for Python, understand events, jobs, steps, actions & Marketplace. Ideal for beginners."
+meta_description: "GitHub Actions tutorial by Pantelis Deligiannidis. Set up a workflow for Python, understand events, jobs, steps, actions and Marketplace. Ideal for beginners."
 ---
 
 1. (You are here) Step 1: Your First GitHub Actions Workflow
@@ -166,7 +166,7 @@ Explanation of Core Concepts:
 4. `steps`: A job contains a *sequence* of tasks called steps. Steps can run commands (`run`) or use pre-built Actions (`uses`).
       * `name`: (Optional) A descriptive name for the step shown in the UI.
       * `uses`: Specifies an Action to use. Actions are reusable pieces of code. `actions/checkout@v4` and `actions/setup-python@v4` are official actions provided by GitHub, fetched from the GitHub Marketplace. The `@v4` specifies the version.
-          * *Explore further:* [GitHub Marketplace](https://github.com/marketplace?type=actions) & [Understanding GitHub Actions (GitHub Docs)](https://docs.github.com/en/actions/about-github-actions/understanding-github-actions?learn=getting_started&learnProduct=actions)
+          * *Explore further:* [GitHub Marketplace](https://github.com/marketplace?type=actions) and [Understanding GitHub Actions (GitHub Docs)](https://docs.github.com/en/actions/about-github-actions/understanding-github-actions?learn=getting_started&learnProduct=actions)
       * `with`: Used to provide input parameters required by an action, like `python-version` for `setup-python`.
       * `run`: Executes command-line programs using the operating system's shell. We can run single-line or multi-line scripts, using `|`.
 

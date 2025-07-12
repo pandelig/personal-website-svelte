@@ -4,7 +4,7 @@ date: "04 May 2025"
 date_updated: ""
 tags: ["tutorial", "security", "docker", "owasp-zap", "ci/cd", "github-actions", "flask"]
 title: "Security in DevOps - Step 2: Uncovering Runtime Vulnerabilities with DAST"
-meta_description: "Learn Dynamic Application Security Testing (DAST) with OWASP ZAP via Docker & GitHub Actions. Pantelis Deligiannidis guides you to find runtime vulnerabilities in a Flask app. Part 2 of Security in DevOps."
+meta_description: "Learn Dynamic Application Security Testing (DAST) with OWASP ZAP via Docker and GitHub Actions. Pantelis Deligiannidis guides you to find runtime vulnerabilities in a Flask app. Part 2 of Security in DevOps."
 ---
 
 1. [Step 1: Fortifying the Foundation with SAST and SCA](/blog/security-in-devops-step-1-fortifying-the-foundation-with-sast-and-sca)

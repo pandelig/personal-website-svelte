@@ -15,7 +15,7 @@ We'll walk through the essential steps to configure your first AWS environment s
 
 Navigating AWS often feels like learning a new language, with a plethora of abbreviations thrown your way. Here are some of the most common ones you'll encounter:
 
-**Compute & Serverless**
+**Compute and Serverless**
 
 * EC2 (Elastic Compute Cloud): A virtual server that you can launch, configure, and scale in the cloud to run applications.
 * Lambda: A serverless compute service that runs code in response to events without provisioning or managing servers.
@@ -44,7 +44,7 @@ Navigating AWS often feels like learning a new language, with a plethora of abbr
 * RDS (Relational Database Service): A managed relational database service supporting various popular database engines like MySQL and PostgreSQL.
 * DynamoDB: A fully managed, serverless NoSQL key-value and document database service designed for high-performance applications at any scale.
 
-**Management & Governance**
+**Management and Governance**
 
 * IAM (Identity and Access Management): A service that securely controls access to AWS resources by managing users, groups, roles, and permissions.
 * CloudWatch: A monitoring and observability service that collects data and provides insights to monitor applications and optimize resource utilization.

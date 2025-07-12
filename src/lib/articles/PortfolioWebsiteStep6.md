@@ -237,7 +237,7 @@ Similarly, we can fade in blog posts when viewing an article, `src/lib/component
 	// handleScroll function from earlier
 
 	// $props from earlier
-	const TOTAL_ELEMENTS_TO_TRANSITION = 5; // 1: dates & tags, 2: title, 3: content, 4: back to top button, 5: table of contents
+	const TOTAL_ELEMENTS_TO_TRANSITION = 5; // 1: dates and tags, 2: title, 3: content, 4: back to top button, 5: table of contents
 	const CONTENTS_INDENTS = {
 		h1: "pl-0",
 		h2: "pl-4",
