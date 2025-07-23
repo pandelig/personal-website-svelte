@@ -2,7 +2,7 @@
 slug: "getting-started-with-aws-core-concepts-and-iam"
 date: "13 Jun 2025"
 date_updated: ""
-tags: ["tutorial", "aws", "security"]
+tags: ["tutorial", "aws", "security", "serverless"]
 title: "Getting Started with AWS: Essential IAM Setup for a Secure Cloud Foundation"
 meta_description: "Learn how to secure your AWS account from day one with this comprehensive guide to AWS IAM from Pantelis Deligiannidis. Master essential best practices for managing users, groups, roles, and permissions to build a strong cloud security foundation."
 ---

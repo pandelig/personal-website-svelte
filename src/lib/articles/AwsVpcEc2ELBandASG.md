@@ -17,7 +17,7 @@ Whether you're new to cloud networking or looking to solidify your understanding
 
 Before we begin, ensure you have the following:
 
-1. **An active AWS Account:** With sufficient permissions to create VPCs, EC2 instances, Security Groups, and (optionally) Load Balancers and Auto Scaling Groups. It is recommended to avoid using the root user and to [use an admin user instead](/blog/getting-started-with-aws-core-concepts-and-iam#create-a-user-and-a-group).
+1. An [AWS Account](https://aws.amazon.com/): With sufficient permissions to create VPCs, EC2 instances, Security Groups, and (optionally) Load Balancers and Auto Scaling Groups. It is recommended to avoid using the root user and to [use an admin user instead](/blog/getting-started-with-aws-core-concepts-and-iam#create-a-user-and-a-group).
 2. Familiarity with [basic AWS terminology](/blog/getting-started-with-aws-core-concepts-and-iam#optional-abbreviations) is recommended.
 3. Basic understanding of Linux commands, SSH and Flask is also recommended.
 
@@ -46,7 +46,7 @@ Here is a simple example graph that brings these components together:
 While AWS provides a default VPC in each region, creating a custom VPC gives you complete control over your network topology.
 
 1. **Navigate to the VPC Dashboard:**
-    * Log in to the AWS Management Console.
+    * Log in to the [AWS Management Console](https://console.aws.amazon.com/).
     * Search for "VPC" in the search bar and select the service.
     * In the VPC dashboard, click "Create VPC".
 
@@ -100,7 +100,7 @@ We'll launch our EC2 instance in the public subnet so it can receive direct inte
 
 2. **Choose a Name and an Amazon Machine Image (AMI):**
     * Name: `my-flask-app-ec2`
-    * Select `Ubuntu Server 24.04 LTS (HVM), SSD Volume Type`. Free tier eligible.
+    * Select `Ubuntu Server 24.04 LTS (HVM), SSD Volume Type`. [Free tier](/blog/getting-started-with-aws-core-concepts-and-iam#aws-free-tier) eligible.
 
 3. **Choose an Instance Type:**
     * Select `t3.micro`. Free tier eligible.
