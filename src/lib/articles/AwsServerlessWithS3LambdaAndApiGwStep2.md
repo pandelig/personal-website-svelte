@@ -4,7 +4,7 @@ date: "23 Jul 2025"
 date_updated: ""
 tags: ["tutorial", "aws", "terraform", "serverless"]
 title: "Serverless Backend on AWS - Step 2: Leveraging the power of IaC with Terraform"
-meta_description: ""
+meta_description: "Unlock the power of Infrastructure as Code! In this tutorial, Pantelis Deligiannidis guides you through building a complete AWS serverless backend (S3, Lambda, API Gateway) from scratch using Terraform, ensuring consistent and automated deployments."
 ---
 
 1. [Step 1: Lambda, S3, and API Gateway](/blog/serverless-backend-on-aws-step-1-s3-lambda-and-api-gateway)
