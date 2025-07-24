@@ -161,7 +161,7 @@ Explanation of Core Concepts:
       * *Explore further:* [Events that trigger workflows (GitHub Docs)](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows)
 3. `jobs`: Workflows are made up of one or more jobs, which run in parallel unless specified otherwise (`needs`).
       * `build-and-lint`: This is the unique ID for the job.
-      * `runs-on`: Specifies the type of virtual machine (runner) to execute the job on (e.g., `ubuntu-latest`, `windows-latest`, `macos-latest`). GitHub provides hosted runners, or we can configure self-hosted runners.
+      * `runs-on`: Specifies the type of virtual machine (runner) to execute the job on (e.g. `ubuntu-latest`, `windows-latest`, `macos-latest`). GitHub provides hosted runners, or we can configure self-hosted runners.
       * *Explore further:* [Workflow Syntax - Jobs (GitHub Docs)](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#jobs)
 4. `steps`: A job contains a *sequence* of tasks called steps. Steps can run commands (`run`) or use pre-built Actions (`uses`).
       * `name`: (Optional) A descriptive name for the step shown in the UI.

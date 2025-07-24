@@ -90,7 +90,7 @@ Many and scary 👻:
 | Runner | Kubernetes Pod | The execution environment where steps run. Tekton uses K8s Pods by default. |
 | Artifacts                     | Workspace / PersistentVolumeClaim | Files produced by jobs/tasks. |
 | Workflow Run | PipelineRun / TaskRun | An instance of a Workflow/Pipeline/Task execution.                          |
-| Event Trigger (`on:`)| Trigger / EventListener | Separate component in Tekton for reacting to events (e.g., Git pushes).     |
+| Event Trigger (`on:`)| Trigger / EventListener | Separate component in Tekton for reacting to events (e.g. Git pushes).     |
 
 ## Define the Tekton Tasks
 

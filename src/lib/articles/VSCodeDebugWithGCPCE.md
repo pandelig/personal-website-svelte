@@ -37,7 +37,7 @@ Have a tab open at the [GCP Console](https://cloud.google.com/).
     * Open a terminal locally and run: `gcloud auth login`
     * To set your project, run: `gcloud config set project YOUR_PROJECT_ID`. To see your project's ID on the GCP Console, reveal the menu from the top-left and click on "Cloud overview" -> "Dashboard". For me, it is `remote-debugging-with-vscode`.
 3. Create a new Compute Engine instance:
-    * On the GCP Console, from the left side menu, navigate to "Compute Engine" > "VM instances".
+    * On the GCP Console, from the left side menu, navigate to "Compute Engine" -> "VM instances".
     * If you see the following, click "Enable" and wait for it to complete:
     ![Enable GCP Compute Engine API.](/imgs/enable_gcp_ce_api.webp)
     * Click "Create instance".
@@ -127,7 +127,7 @@ Notice that you have complete control on creating folders and files in the GCP C
 Now that VS Code is connected and the Python extension is installed, we can debug.
 
 1. In the VS Code Explorer, open `my_script.py`.
-2. Click in the gutter next to a line number (e.g., line 2: `result = a + b`) to set a red breakpoint.
+2. Click in the gutter next to a line number (e.g. line 2: `result = a + b`) to set a red breakpoint.
 3. Start debugging:
       * Go to the "Run and Debug" view (`Ctrl+Shift+D`).
       * Click the "Run and Debug" button.
@@ -198,7 +198,7 @@ Now, let's open our project inside the newly configured dev container.
 Now that you're inside the dev container, debugging is straightforward.
 
 1. Open `my_script.py` in the VS Code Explorer.
-2. Set a breakpoint (e.g., on line 2: `result = a + b`).
+2. Set a breakpoint (e.g. on line 2: `result = a + b`).
 3. Go to the Run and Debug view (`Ctrl+Shift+D`).
 4. Click the "Run and Debug" button.
 5. VS Code will detect it's a Python file and suggest "Python File" as the debug configuration. Select it.

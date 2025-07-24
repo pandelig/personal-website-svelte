@@ -288,7 +288,7 @@ Amazon API Gateway is a fully managed service that makes it easy to create, publ
 
 If everything is set up correctly, you should see:
 
-* ![Greeting is working.](/imgs/aws_greeting_is_working.webp)
+![Greeting is working.](/imgs/aws_greeting_is_working.webp)
 
 Beautiful! If you see the error message instead, verify that you enabled CORS for the "/greeting" resource of the API Gateway and that the URL you used in the `index.html` file ends in `/greeting`.
 

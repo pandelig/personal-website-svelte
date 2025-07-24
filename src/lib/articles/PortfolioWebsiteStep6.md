@@ -53,7 +53,7 @@ We simply added a new import and then used the `fade` transition on 2 elements.
 - `in`: The transition will run when the element is added to the DOM.
 - `out`: The transition will run when the element is removed from the DOM.
 - `transition`: The transition will run when the element is added or removed from the DOM.
-- You may also [pass parameters to the transition](https://svelte.dev/docs/svelte/transition#Transition-parameters), such as duration, easing, and delay, e.g., `in:fade={{ duration: 500 }}`.
+- You may also [pass parameters to the transition](https://svelte.dev/docs/svelte/transition#Transition-parameters), such as duration, easing, and delay, e.g. `in:fade={{ duration: 500 }}`.
 
 ### Home Page
 

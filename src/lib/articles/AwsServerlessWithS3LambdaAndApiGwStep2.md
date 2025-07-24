@@ -231,9 +231,9 @@ resource "aws_lambda_function" "my_serverless_greeting_function" {
 
 This section defines the AWS Lambda function and its associated permissions.
 
-* `aws_iam_role.lambda_execution_role`: This resource creates an [IAM Role](/blog/getting-started-with-aws-core-concepts-and-iam#use-iam-roles-for-aws-services) specifically for our Lambda function. The `assume_role_policy` grants Lambda the permission to assume this role.
-* `aws_iam_role_policy_attachment.lambda_policy_attachment`: This resource attaches the standard `AWSLambdaBasicExecutionRole` managed policy to the IAM role created above. This policy provides the necessary permissions for the Lambda function to execute and, crucially, to push its logs to Amazon CloudWatch Logs.
-* `aws_lambda_function.my_serverless_greeting_function`: This is the resource that defines our actual Lambda function. Notice how the `role` here expects an [ARN](/blog/serverless-backend-on-aws-step-1-s3-lambda-and-api-gateway#optional-understand-arn), unlike the policy attachment that expected a name. The `filename` and `source_code_hash` attributes tell Terraform where to find the Lambda's code and help it detect changes for updates. The IAM role (implicitly because of `role =`) and policy (explicitly because of `depends_on`) are established before the Lambda function attempts to use them.
+* `aws_iam_role`: This resource creates an [IAM Role](/blog/getting-started-with-aws-core-concepts-and-iam#use-iam-roles-for-aws-services) specifically for our Lambda function. The `assume_role_policy` grants Lambda the permission to assume this role.
+* `aws_iam_role_policy_attachment`: This resource attaches the standard `AWSLambdaBasicExecutionRole` managed policy to the IAM role created above. This policy provides the necessary permissions for the Lambda function to execute and, crucially, to push its logs to Amazon CloudWatch Logs.
+* `aws_lambda_function`: This is the resource that defines our actual Lambda function. Notice how the `role` here expects an [ARN](/blog/serverless-backend-on-aws-step-1-s3-lambda-and-api-gateway#optional-understand-arn), unlike the policy attachment that expected a name. The `filename` and `source_code_hash` attributes tell Terraform where to find the Lambda's code and help it detect changes for updates. The IAM role (implicitly because of `role =`) and policy (explicitly because of `depends_on`) are established before the Lambda function attempts to use them.
 
 *Explore Further:* [IAM Role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role), [IAM Role Policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) and [Lambda Function](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function).
 
@@ -598,7 +598,7 @@ Just like in [Step 1](/blog/serverless-backend-on-aws-step-1-s3-lambda-and-api-g
 
 If everything is set up correctly, you should see the greeting message delivered by the Lambda function, now fully provisioned and managed by Terraform!
 
-* ![Greeting is working.](/imgs/aws_greeting_is_working_terraform.webp)
+![Greeting is working.](/imgs/aws_greeting_is_working_terraform.webp)
 
 How awesome is that! The Cloudwatch Log Group has been successfully created as well.
 
