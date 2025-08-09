@@ -18,7 +18,7 @@ In this article, we'll take the same simple Python project from Step 1 and build
 
 Many and scary 👻:
 
-* Kubernetes (K8s) Cluster: We will be using [Minikube](https://minikube.sigs.k8s.io/docs/start/) locally, other options include [Kind](https://kind.sigs.k8s.io/docs/user/quick-start/) and cloud provider clusters (GKE, EKS, AKS, etc.).
+* Kubernetes (K8s) Cluster: We will be using [Minikube](https://minikube.sigs.k8s.io/docs/start/?arch=%2Flinux%2Fx86-64%2Fstable%2Fdebian+package) locally, other options include [Kind](https://kind.sigs.k8s.io/docs/user/quick-start/) and cloud provider clusters (GKE, EKS, AKS, etc.).
 * `kubectl`: The Kubernetes command-line tool. You may skip this step if you plan to follow along with Minikube. [Installation Guide](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
 * Tekton Pipelines: [Installation Guide](https://tekton.dev/docs/pipelines/install/).
 * Tekton Dashboard: [Installation Guide](https://github.com/tektoncd/dashboard/blob/main/docs/install.md#installing-tekton-dashboard-on-kubernetes).
@@ -38,7 +38,7 @@ Many and scary 👻:
 2. Get `kubectl` through minikube and set an alias:
 
     ```bash
-    minikube kubectl -- get po -A
+    minikube kubectl -- get po -A # `po` is shorthand for `pods`
     alias kubectl="minikube kubectl --"
     minikube dashboard # Spend a couple of seconds to check it out
     ```
