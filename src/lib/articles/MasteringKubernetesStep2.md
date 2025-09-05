@@ -374,7 +374,7 @@ It's worth noting that if we inspect the ELB's SG:
 
 ![EKS Flask app ELB's SG.](/imgs/eks_flask_app_elb_sg.webp)
 
-And the we go to the nodegroup's SG:
+And then we go to the nodegroup's SG:
 
 ![Nodegroup's SG rules after ELB creation.](/imgs/nodegroup_sg_rules_after_elb_creation.webp)
 
