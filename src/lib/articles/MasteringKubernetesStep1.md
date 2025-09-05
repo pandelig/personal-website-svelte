@@ -1,6 +1,6 @@
 ---
 slug: "mastering-kubernetes-step-1-the-core-architecture"
-date: "09 Aug 2025"
+date: "04 Sep 2025"
 date_updated: ""
 tags: ["tutorial", "kubernetes", "docker", "flask"]
 title: "Mastering Kubernetes - Step 1: The Core Architecture"
@@ -8,8 +8,7 @@ meta_description: "In this comprehensive guide, Pantelis Deligiannidis provides 
 ---
 
 1. (You are here) Step 1: The Core Architecture
-<!-- TODO: add the other articles here -->
-<!-- TODO: update the date, in the metadata -->
+2. [Step 2: Deploying to AWS EKS](/blog/mastering-kubernetes-step-2-deploying-to-aws-eks)
 
 Welcome to the first installment of my "Mastering Kubernetes" series! In today's dynamic cloud landscape, **Kubernetes (K8s)** has emerged as the de facto standard for orchestrating containerized applications. If you've ever struggled with deploying, scaling, or managing applications across multiple servers, Kubernetes is the answer you've been looking for. It automates much of the manual work involved in deploying, managing, and scaling containerized applications.
 
@@ -17,17 +16,17 @@ This article aims to be your most comprehensive guide to understanding Kubernete
 
 ## Prerequisites
 
-* [Docker](https://docs.docker.com/engine/install/). We'll need Docker to build container images and for Minikube to run its virtual machine. *Explore further:* [Docker Tutorial](https://www.docker.com/101-tutorial/).
+- [Docker](https://docs.docker.com/engine/install/). We'll need Docker to build container images and for Minikube to run its virtual machine. *Explore further:* [Docker Tutorial](https://www.docker.com/101-tutorial/).
 
 ## Why Kubernetes
 
 Imagine you have a web application. As traffic grows, you need more instances of your application. What if one instance fails? How do you update your application without downtime? How do you ensure it always has enough resources? Kubernetes addresses these complex challenges by providing:
 
-* **Automated Rollouts & Rollbacks:** Seamlessly update your application with new versions and easily revert if something goes wrong.
-* **Self-Healing:** Automatically restarts failed containers, replaces unhealthy ones, and reschedules containers on healthy nodes.
-* **Service Discovery & Load Balancing:** Automatically exposes your application services and distributes network traffic to maintain stability.
-* **Resource Management:** Efficiently allocates CPU and memory resources across your applications.
-* **Horizontal Scaling:** Easily scale your application up or down based on demand.
+- **Automated Rollouts & Rollbacks:** Seamlessly update your application with new versions and easily revert if something goes wrong.
+- **Self-Healing:** Automatically restarts failed containers, replaces unhealthy ones, and reschedules containers on healthy nodes.
+- **Service Discovery & Load Balancing:** Automatically exposes your application services and distributes network traffic to maintain stability.
+- **Resource Management:** Efficiently allocates CPU and memory resources across your applications.
+- **Horizontal Scaling:** Easily scale your application up or down based on demand.
 
 In essence, Kubernetes provides an operating system for your distributed applications, abstracting away the underlying infrastructure complexities.
 
@@ -45,67 +44,69 @@ Looks scary 👻, but let's take a closer look.
 
 These components make global decisions about the cluster, e.g. scheduling, and detect and respond to cluster events, e.g. starting up new pods when a deployment's `replicas` field is unsatisfied.
 
-* `kube-apiserver`:
+- `kube-apiserver`:
 
-  * Role: The front-end for the Kubernetes control plane. It exposes the Kubernetes API. All communication between cluster components, internal and external, goes through the API server. This is the only component that directly interacts with the **`etcd`** data store.
-  * How it works: When we use the [`kubectl` command](/blog/mastering-kubernetes-step-1-the-core-architecture#kubectl-commands) to deploy a new application, our command first hits the `kube-apiserver`.
-  * *Explore Further:* [kube-apiserver](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/)
+  - Role: The front-end for the Kubernetes control plane. It exposes the Kubernetes API. All communication between cluster components, internal and external, goes through the API server. This is the only component that directly interacts with the **`etcd`** data store.
+  - How it works: When we use the [`kubectl` command](/blog/mastering-kubernetes-step-1-the-core-architecture#kubectl-commands) to deploy a new application, our command first hits the `kube-apiserver`.
+  - *Explore Further:* [kube-apiserver](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/)
 
-* `etcd`:
+- `etcd`:
 
-  * Role: A consistent and highly available key-value store used as Kubernetes' backing store for all cluster data. All cluster state and configuration information is stored here.
-  * How it works: When `kube-apiserver` receives a request to create a pod, it records this desired state in `etcd`.
-  * *Explore Further:* [etcd](https://etcd.io/)
+  - Role: A consistent and highly available key-value store used as Kubernetes' backing store for all cluster data. All cluster state and configuration information is stored here.
+  - How it works: When `kube-apiserver` receives a request to create a pod, it records this desired state in `etcd`.
+  - *Explore Further:* [etcd](https://etcd.io/)
 
-* `kube-scheduler`:
+- `kube-scheduler`:
 
-  * Role: Watches for newly created pods that have no assigned node, and selects a node for them to run on. It considers factors like resource requirements and more.
-  * How it works: After `etcd` stores the new pod information, the `kube-scheduler` sees this unassigned pod and determines the best node for it, then updates the pod's information in `etcd`, via `kube-apiserver`, with the selected node.
-  * *Explore Further:* [kube-scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/)
+  - Role: Watches for newly created pods that have no assigned node, and selects a node for them to run on. It considers factors like resource requirements and more.
+  - How it works: After `etcd` stores the new pod information, the `kube-scheduler` sees this unassigned pod and determines the best node for it, then updates the pod's information in `etcd`, via `kube-apiserver`, with the selected node.
+  - *Explore Further:* [kube-scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/)
 
-* `kube-controller-manager`:
+- `kube-controller-manager`:
 
-  * Role: Runs controller processes. A controller continuously watches the state of the cluster and makes changes to drive the current state towards the desired state.
-  * How it works: For instance, if a deployment requests 3 replicas of a pod, the deployment controller (part of `kube-controller-manager`) ensures that 3 pods are running. If one fails, it instructs `kube-apiserver` to create a new one.
-  * *Explore Further:* [kube-controller-manager](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/)
+  - Role: Runs controller processes. A controller continuously watches the state of the cluster and makes changes to drive the current state towards the desired state.
+  - How it works: For instance, if a deployment requests 3 replicas of a pod, the deployment controller (part of `kube-controller-manager`) ensures that 3 pods are running. If one fails, it instructs `kube-apiserver` to create a new one.
+  - *Explore Further:* [kube-controller-manager](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/)
 
-* `cloud-controller-manager`:
+- `cloud-controller-manager`:
 
-  * Role: Embeds cloud-specific control logic. It lets us link the cluster into a cloud provider's API, separating components that interact with the cloud platform from components that only interact with the cluster.
-  * How it works: For example, when we create a Kubernetes service of type `LoadBalancer`, the `cloud-controller-manager` interacts with the cloud provider's API, e.g. [AWS ELB](/blog/getting-started-with-aws-core-concepts-and-iam#optional-abbreviations), to provision a load balancer for the service.
-  * *Explore Further:* [cloud-controller-manager](https://kubernetes.io/docs/concepts/architecture/cloud-controller/)
+  - Role: Embeds cloud-specific control logic. It lets us link the cluster into a cloud provider's API, separating components that interact with the cloud platform from components that only interact with the cluster.
+  - How it works: For example, when we create a Kubernetes service of type `LoadBalancer`, the `cloud-controller-manager` interacts with the cloud provider's API, e.g. [AWS ELB](/blog/getting-started-with-aws-core-concepts-and-iam#optional-abbreviations), to provision a load balancer for the service.
+  - *Explore Further:* [cloud-controller-manager](https://kubernetes.io/docs/concepts/architecture/cloud-controller/)
 
-* `coredns`:
+- `coredns`:
 
-  * Role: Provides DNS services for the entire cluster. It translates service names, e.g. `flask-app-service`, into internal cluster IP addresses.
-  * How it works: When a pod needs to communicate with another service, it sends a DNS query to `coredns`. `coredns` responds with the IP address of the service, allowing `kube-proxy` to route the traffic correctly.
+  - Role: Provides DNS services for the entire cluster. It translates service names, e.g. `flask-app-service`, into internal cluster IP addresses.
+  - How it works: When a pod needs to communicate with another service, it sends a DNS query to `coredns`. `coredns` responds with the IP address of the service, allowing `kube-proxy` to route the traffic correctly.
+  - *Explore Further:* [coredns](https://coredns.io/manual/toc/#what-is-coredns)
 
-* `storage-provisioner`:
+- `storage-provisioner`:
 
-  * Role: Automates the creation of storage volumes.
-  * How it works: When a pod that requests a [PVC](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) is created, the `storage-provisioner` detects this request and dynamically creates a new volume in the underlying storage system, e.g. Minikube's local storage, and binds it to the pod.
+  - Role: Automates the creation of storage volumes.
+  - How it works: When a pod that requests a [PVC](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) is created, the `storage-provisioner` detects this request and dynamically creates a new volume in the underlying storage system, e.g. Minikube's local storage, and binds it to the pod.
+  - *Explore Further:* [storage-provisioner](https://kubernetes.io/docs/concepts/storage/storage-classes/#provisioner)
 
 ### Worker Node Components
 
 These components run on each node, maintaining running pods and providing the Kubernetes runtime environment.
 
-* `kubelet`:
+- `kubelet`:
 
-  * Role: An agent that runs on each node in the cluster. It ensures that containers are running in a pod. It registers the node with `kube-apiserver`, reports its status, and ensures pods defined in the manifest (YAML file) are running and healthy.
-  * How it works: The `kubelet` constantly watches the `kube-apiserver` for new pods assigned to its node. When it sees one, it uses the container runtime, e.g. Docker, to start the containers specified in the pod's manifest.
-  * *Explore Further:* [kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/)
+  - Role: An agent that runs on each node in the cluster. It ensures that containers are running in a pod. It registers the node with `kube-apiserver`, reports its status, and ensures pods defined in the manifest (YAML file) are running and healthy.
+  - How it works: The `kubelet` constantly watches the `kube-apiserver` for new pods assigned to its node. When it sees one, it uses the container runtime, e.g. Docker, to start the containers specified in the pod's manifest.
+  - *Explore Further:* [kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/)
 
-* `kube-proxy`:
+- `kube-proxy`:
 
-  * Role: A network proxy that runs on each node. It maintains network rules on nodes, allowing network communication to our pods from inside or outside of the cluster. It handles forwarding requests to the correct pods behind a service.
-  * How it works: `kube-proxy` observes `kube-apiserver` changes to services and endpoints and updates the local `iptables` rules to ensure network traffic reaches the correct pods.
-  * *Explore Further:* [kube-proxy](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/)
+  - Role: A network proxy that runs on each node. It maintains network rules on nodes, allowing network communication to our pods from inside or outside of the cluster. It handles forwarding requests to the correct pods behind a service.
+  - How it works: `kube-proxy` observes `kube-apiserver` changes to services and endpoints and updates the local `iptables` rules to ensure network traffic reaches the correct pods.
+  - *Explore Further:* [kube-proxy](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/)
 
-* Container Runtime:
+- Container Runtime:
 
-  * Role: The software that is responsible for running containers. Kubernetes supports container runtimes such as Containerd and Docker.
-  * How it works: The `kubelet` interacts with the container runtime to pull container images, run containers, and manage their lifecycle.
-  * *Explore Further:* [Container Runtimes](https://kubernetes.io/docs/setup/production-environment/container-runtimes/)
+  - Role: The software that is responsible for running containers. Kubernetes supports container runtimes such as Containerd and Docker.
+  - How it works: The `kubelet` interacts with the container runtime to pull container images, run containers, and manage their lifecycle.
+  - *Explore Further:* [Container Runtimes](https://kubernetes.io/docs/setup/production-environment/container-runtimes/)
 
 ## The Workflow
 
@@ -138,10 +139,10 @@ Remember you can get help for a command using the `--help` / `-h` flag, e.g. `ku
 
 **Declarative vs. Imperative:**
 
-* Declarative commands, e.g. `apply -f`, are the recommended approach for managing resources. They define the desired state in a file and allow Kubernetes to figure out how to get there. This is the foundation of [Infrastructure as Code (IaC)](/blog/serverless-backend-on-aws-step-2-iac-with-terraform#why-iac-and-terraform).
-* Imperative commands, e.g. `create`, `delete`, directly execute a command to create or modify a resource. They are great for one-off tasks and learning, but less suitable for production environments where we need a reproducible state.
+- Declarative commands, e.g. `apply -f`, are the recommended approach for managing resources. They define the desired state in a file and allow Kubernetes to figure out how to get there. This is the foundation of [Infrastructure as Code (IaC)](/blog/serverless-backend-on-aws-step-2-iac-with-terraform#why-iac-and-terraform).
+- Imperative commands, e.g. `create`, `delete`, directly execute a command to create or modify a resource. They are great for one-off tasks and learning, but less suitable for production environments where we need a reproducible state.
 
-## Hands-on: Deploy a Flask App
+## Deploy a Flask App
 
 Let's put this theory into practice by deploying a basic "Hello World" Flask application to a local Kubernetes cluster using **Minikube**, a tool that runs a single-node Kubernetes cluster locally.
 
@@ -249,10 +250,12 @@ Create a file named `deployment.yaml`:
 ```yaml
 apiVersion: apps/v1 # Specifies the Kubernetes API version.
 kind: Deployment    # Defines the type of resource we're creating
+
 metadata:
   name: flask-app-deployment
   labels:
     app: flask-app
+
 spec:
   replicas: 2   # The desired number of pod instances, they may or may not run on the same node
   selector:     # How the deployment finds which pods it manages
@@ -274,15 +277,17 @@ spec:
           value: "Kubernetes User"
 ```
 
-To see what `kind` correspond to what resource, run `kubectl api-resources` which we mentioned [earlier](/blog/mastering-kubernetes-step-1-the-core-architecture#kubectl-commands).
+To see what `kind` corresponds to what resource, run `kubectl api-resources` which we mentioned [earlier](/blog/mastering-kubernetes-step-1-the-core-architecture#kubectl-commands).
 
 Next, create a file named `service.yaml`:
 
 ```yaml
 apiVersion: v1
 kind: Service
+
 metadata:
   name: flask-app-service
+
 spec:
   selector:         # No `matchLabels` used here, different API syntax for `Service`
     app: flask-app  # Selects pods with this label
@@ -330,8 +335,8 @@ Congratulations! You've successfully deployed a containerized Flask application 
 
 ## (Optional) Explore Further
 
-* Kubernetes Concepts: Dive deeper into the [official Kubernetes documentation](https://kubernetes.io/docs/concepts/) to learn about other crucial concepts.
-* `kubectl` Cheatsheet: Familiarize yourself with [more commands](https://kubernetes.io/docs/reference/kubectl/cheatsheet/) and set up autocompletion.
+- **Kubernetes Concepts:** Dive deeper into the [official Kubernetes documentation](https://kubernetes.io/docs/concepts/) to learn about other crucial concepts.
+- **`kubectl` Cheatsheet:** Familiarize yourself with [more commands](https://kubernetes.io/docs/reference/kubectl/cheatsheet/) and set up autocompletion.
 
 ## Wrapping Up Step 1
 
@@ -339,4 +344,4 @@ In this first Step of the series, we embarked on a detailed journey through the 
 
 The hands-on demonstration of deploying a Flask application on Minikube solidified these theoretical concepts, giving you practical experience with defining deployments and services.
 
-In the next Step, we'll take our Kubernetes journey to the cloud, exploring **Amazon Elastic Kubernetes Service (EKS)**. Stay tuned!
+In the [next Step](/blog/mastering-kubernetes-step-2-deploying-to-aws-eks), we'll take our Kubernetes journey to the cloud, exploring **Amazon Elastic Kubernetes Service (EKS)**. Stay tuned!

@@ -436,10 +436,10 @@ SonarQube Quality Gate behavior may change by going to the Organization the proj
 
 ## (Optional) Explore Further
 
-- Fix the Vulnerabilities: Once you've completed this tutorial series, come back to this article and try to fix the vulnerabilities. Re-run the SAST and SCA scans (both locally and in your GitHub Actions workflow) to verify that the issues are resolved. For SCA / `pip-audit` / `requirements.txt`, the [solution is quite simple](https://github.com/pandelig/sast-sca-dast-demo/blob/e3db1df1d1dfc325f70e336d40e80f617e8fc32a/vulnerable_flask_app/requirements.txt).
-- Advanced `pip-audit` usage: Look into the various command-line options for `pip-audit`, including different reporting formats or integrating with specific vulnerability sources.
-- Master SonarQube: SonarQube is a powerful platform with many features beyond basic scanning. The [SonarQube documentation](https://docs.sonarsource.com/) is a great resource.
-- Dive Deeper into SAST: Research other popular SAST tools like [CodeQL](https://codeql.github.com/), [Checkmarx](https://www.checkmarx.com/), or [Fortify](https://www.opentext.com/products/static-application-security-testing). Understand their differences, supported languages, and rule sets.
+- **Fix the Vulnerabilities:** Once you've completed this tutorial series, come back to this article and try to fix the vulnerabilities. Re-run the SAST and SCA scans (both locally and in your GitHub Actions workflow) to verify that the issues are resolved. For SCA / `pip-audit` / `requirements.txt`, the [solution is quite simple](https://github.com/pandelig/sast-sca-dast-demo/blob/e3db1df1d1dfc325f70e336d40e80f617e8fc32a/vulnerable_flask_app/requirements.txt).
+- **Advanced `pip-audit` usage:** Look into the various command-line options for `pip-audit`, including different reporting formats or integrating with specific vulnerability sources.
+- **Master SonarQube:** SonarQube is a powerful platform with many features beyond basic scanning. The [SonarQube documentation](https://docs.sonarsource.com/) is a great resource.
+- **Dive Deeper into SAST:** Research other popular SAST tools like [CodeQL](https://codeql.github.com/), [Checkmarx](https://www.checkmarx.com/), or [Fortify](https://www.opentext.com/products/static-application-security-testing). Understand their differences, supported languages, and rule sets.
 - Learn about vulnerability databases like the [National Vulnerability Database (NVD)](https://nvd.nist.gov/) and [Open Source Vulnerabilities (OSV)](https://osv.dev/).
 
 ## Wrapping Up Step 1

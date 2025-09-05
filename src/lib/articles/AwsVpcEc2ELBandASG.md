@@ -17,9 +17,9 @@ Whether you're new to cloud networking or looking to solidify your understanding
 
 Before we begin, ensure you have the following:
 
-1. An [AWS Account](https://aws.amazon.com/): With sufficient permissions to create VPCs, EC2 instances, Security Groups, and (optionally) Load Balancers and Auto Scaling Groups. It is recommended to avoid using the root user and to [use an admin user instead](/blog/getting-started-with-aws-core-concepts-and-iam#create-a-user-and-a-group).
-2. Familiarity with [basic AWS terminology](/blog/getting-started-with-aws-core-concepts-and-iam#optional-abbreviations) is recommended.
-3. Basic understanding of Linux commands, SSH and Flask is also recommended.
+- An [AWS Account](https://aws.amazon.com/): With sufficient permissions to create VPCs, EC2 instances, Security Groups, and (optionally) Load Balancers and Auto Scaling Groups. It is recommended to avoid using the root user and to [use an admin user instead](/blog/getting-started-with-aws-core-concepts-and-iam#create-a-user-and-a-group).
+- Familiarity with [basic AWS terminology](/blog/getting-started-with-aws-core-concepts-and-iam#optional-abbreviations) is recommended.
+- Basic understanding of Linux commands, SSH and Flask is also recommended.
 
 ## What is a VPC
 
@@ -27,15 +27,15 @@ The Amazon VPC is the cornerstone of networking in AWS. It allows you to provisi
 
 Let's break down the key components of a VPC:
 
-* **VPC:** Your isolated network environment. When you create a VPC, you specify a range of IP addresses for it in the form of a Classless Inter-Domain Routing (CIDR) block (e.g. `10.0.0.0/16`). [What is a CIDR?](https://aws.amazon.com/what-is/cidr/)
-* **Subnets:** A VPC can be divided into one or more subnets. Subnets enable you to segment your network within the VPC and provide different levels of security and accessibility. We'll typically use:
-  * **Public Subnets:** Resources in a public subnet can send outbound traffic directly to the internet via an Internet Gateway. They are suitable for web servers, load balancers, and other internet-facing resources.
-  * **Private Subnets:** Resources in a private subnet cannot directly reach the internet. They are ideal for databases, application servers, and other backend components that don't need direct internet access.
-* **Internet Gateway (IGW):** A horizontally scaled, redundant, and highly available VPC component that allows communication between your VPC and the internet. A VPC can only have one IGW.
-* **NAT Gateway (Network Address Translation):** A service that enables instances in a private subnet to connect to the internet or other AWS services (e.g. for software updates) while preventing the internet from initiating a connection to those instances.
-* **Route Tables:** These govern network traffic flow within your VPC and to external networks. Every subnet must have an associated route table. AWS automatically creates a "main route table" for new VPCs, including a "local route" for intra-VPC communication.
-* **Network Access Control Lists (NACLs):** Optional firewalls at the subnet level that are stateless, meaning you must explicitly define both inbound and outbound rules for any protocol. By default, they allow all traffic, but you can configure them with both allow and deny rules.
-* **Security Groups:** Mandatory firewalls at the EC2 instance level. By default, they block all inbound traffic and allow all outbound traffic, so you only use allow rules to open specific ports (e.g. HTTP on 80). Unlike Network ACLs, Security Groups are stateful. This means they automatically allow response traffic for initiated connections, without needing separate outbound rules.
+- **VPC:** Your isolated network environment. When you create a VPC, you specify a range of IP addresses for it in the form of a Classless Inter-Domain Routing (CIDR) block (e.g. `10.0.0.0/16`). [What is a CIDR?](https://aws.amazon.com/what-is/cidr/)
+- **Subnets:** A VPC can be divided into one or more subnets. Subnets enable you to segment your network within the VPC and provide different levels of security and accessibility. We'll typically use:
+  - **Public Subnets:** Resources in a public subnet can send outbound traffic directly to the internet via an Internet Gateway. They are suitable for web servers, load balancers, and other internet-facing resources.
+  - **Private Subnets:** Resources in a private subnet cannot directly reach the internet. They are ideal for databases, application servers, and other backend components that don't need direct internet access.
+- **Internet Gateway (IGW):** A horizontally scaled, redundant, and highly available VPC component that allows communication between your VPC and the internet. A VPC can only have one IGW.
+- **NAT Gateway (Network Address Translation):** A service that enables instances in a private subnet to connect to the internet or other AWS services (e.g. for software updates) while preventing the internet from initiating a connection to those instances.
+- **Route Tables:** These govern network traffic flow within your VPC and to external networks. Every subnet must have an associated route table. AWS automatically creates a "main route table" for new VPCs, including a "local route" for intra-VPC communication.
+- **Network Access Control Lists (NACLs):** Optional firewalls at the subnet level that are stateless, meaning you must explicitly define both inbound and outbound rules for any protocol. By default, they allow all traffic, but you can configure them with both allow and deny rules.
+- **Security Groups:** Mandatory firewalls at the EC2 instance level. By default, they block all inbound traffic and allow all outbound traffic, so you only use allow rules to open specific ports (e.g. HTTP on 80). Unlike Network ACLs, Security Groups are stateful. This means they automatically allow response traffic for initiated connections, without needing separate outbound rules.
 
 Here is a simple example graph that brings these components together:
 
@@ -46,21 +46,21 @@ Here is a simple example graph that brings these components together:
 While AWS provides a default VPC in each region, creating a custom VPC gives you complete control over your network topology.
 
 1. **Navigate to the VPC Dashboard:**
-    * Log in to the [AWS Management Console](https://console.aws.amazon.com/).
-    * Search for "VPC" in the search bar and select the service.
-    * In the VPC dashboard, click "Create VPC".
+    - Log in to the [AWS Management Console](https://console.aws.amazon.com/).
+    - Search for "VPC" in the search bar and select the service.
+    - In the VPC dashboard, click "Create VPC".
 
 2. **Configure Your VPC:**
-    * Choose "VPC and more", this way we can create additional VPC resources.
-    * Leave "Auto-generate" selected.
-    * VPC name: `my-flask-app`
-    * IPv4 CIDR block: `10.0.0.0/16`
-    * Number of [Availability Zones (AZs)](/blog/getting-started-with-aws-core-concepts-and-iam#aws-global-infrastructure): `2`
-    * Number of public subnets: `2`
-    * Number of private subnets: `0`
-    * NAT gateways ($): `None`
-    * VPC endpoints: `None`
-    * Leave the remaining options as default for now.
+    - Choose "VPC and more", this way we can create additional VPC resources.
+    - Leave "Auto-generate" selected.
+    - VPC name: `my-flask-app`
+    - IPv4 CIDR block: `10.0.0.0/16`
+    - Number of [Availability Zones (AZs)](/blog/getting-started-with-aws-core-concepts-and-iam#aws-global-infrastructure): `2`
+    - Number of public subnets: `2`
+    - Number of private subnets: `0`
+    - NAT gateways ($): `None`
+    - VPC endpoints: `None`
+    - Leave the remaining options as default for now.
 
 Confirm that you see something similar to the following graph and click "Create VPC":
 
@@ -73,18 +73,18 @@ AWS will now provision your VPC, subnets, route tables, and IGW. This process mi
 A Security Group acts as a virtual firewall, controlling traffic to and from your EC2 instance.
 
 1. **Navigate to Security Groups:**
-    * In the VPC dashboard, under "Security" in the left navigation pane, click "Security Groups".
-    * Click "Create security group".
+    - In the VPC dashboard, under "Security" in the left navigation pane, click "Security Groups".
+    - Click "Create security group".
 
 2. **Configure the Security Group:**
-    * Security group name: `my-flask-app-sg`
-    * Description: `Security group for Flask web application`
-    * VPC: Select `my-flask-app-vpc`, the VPC you just created.
-    * Inbound rules:
-        * Click "Add rule" -> Type: `SSH`, Source: `My IP`, or `Anywhere-IPv4` if you need broader access, but `My IP` is more secure.
-        * Click "Add rule" -> Type: `HTTP`, Source: `Anywhere-IPv4` to allow web access from anywhere.
-        * Click "Add rule" -> Type: `Custom TCP`, Port range: `5000`, Source: `Anywhere-IPv4` if you run Flask on port 5000, although later we'll use Nginx.
-    * Outbound rules: Leave as default, allow all outbound traffic.
+    - Security group name: `my-flask-app-sg`
+    - Description: `Security group for Flask web application`
+    - VPC: Select `my-flask-app-vpc`, the VPC you just created.
+    - Inbound rules:
+        - Click "Add rule" -> Type: `SSH`, Source: `My IP`, or `Anywhere-IPv4` if you need broader access, but `My IP` is more secure.
+        - Click "Add rule" -> Type: `HTTP`, Source: `Anywhere-IPv4` to allow web access from anywhere.
+        - Click "Add rule" -> Type: `Custom TCP`, Port range: `5000`, Source: `Anywhere-IPv4` if you run Flask on port 5000, although later we'll use Nginx.
+    - Outbound rules: Leave as default, allow all outbound traffic.
 
 After clicking "Create security group", you should see something similar to this:
 
@@ -95,32 +95,32 @@ After clicking "Create security group", you should see something similar to this
 We'll launch our EC2 instance in the public subnet so it can receive direct internet traffic via the Internet Gateway.
 
 1. **Navigate to EC2 Dashboard:**
-    * Search for "EC2" in the AWS Management Console and select the service.
-    * Click "Launch instance".
+    - Search for "EC2" in the AWS Management Console and select the service.
+    - Click "Launch instance".
 
 2. **Choose a Name and an Amazon Machine Image (AMI):**
-    * Name: `my-flask-app-ec2`
-    * Select `Ubuntu Server 24.04 LTS (HVM), SSD Volume Type`. [Free tier](/blog/getting-started-with-aws-core-concepts-and-iam#aws-free-tier) eligible.
+    - Name: `my-flask-app-ec2`
+    - Select `Ubuntu Server 24.04 LTS (HVM), SSD Volume Type`. [Free tier](/blog/getting-started-with-aws-core-concepts-and-iam#aws-free-tier) eligible.
 
 3. **Choose an Instance Type:**
-    * Select `t3.micro`. Free tier eligible.
+    - Select `t3.micro`. Free tier eligible.
 
 4. **Create a Key Pair:**
-    * Click "Create new key pair": Give it a name, e.g. `my-flask-app-key`, select [`ED25519`](https://www.geeksforgeeks.org/devops/rsa-vs-ed25519-which-key-pair-is-right-for-your-security-needs/) and download the ".pem" file. **Keep this file secure, as it's your only way to SSH into the instance.**
+    - Click "Create new key pair": Give it a name, e.g. `my-flask-app-key`, select [`ED25519`](https://www.geeksforgeeks.org/devops/rsa-vs-ed25519-which-key-pair-is-right-for-your-security-needs/) and download the ".pem" file. **Keep this file secure, as it's your only way to SSH into the instance.**
 
 5. **Configure Network Settings:**
-    * Network: Select `my-flask-app-vpc`.
-    * Subnet: Select one public subnet.
-    * Auto-assign Public IP: `Enable`. This is crucial for direct internet access.
-    * Select "Select an existing security group".
-    * Choose `my-flask-app-sg`.
+    - Network: Select `my-flask-app-vpc`.
+    - Subnet: Select one public subnet.
+    - Auto-assign Public IP: `Enable`. This is crucial for direct internet access.
+    - Select "Select an existing security group".
+    - Choose `my-flask-app-sg`.
 
 6. **Configure Storage:**
-    * Keep the default 8 GiB gp3 volume.
+    - Keep the default 8 GiB gp3 volume.
 
 7. **Review and Launch:**
-    * Review your configuration.
-    * Click "Launch instance".
+    - Review your configuration.
+    - Click "Launch instance".
 
 Wait a few minutes for your instance to enter the "running" state. Note its Public IPv4 address.
 
@@ -365,8 +365,8 @@ Launch templates are a newer way to specify the instance configuration for Auto 
 6. Instance type: `t3.micro`
 7. Key pair (login): Select the existing `my-flask-app-key` key pair.
 8. Network settings:
-    * Security groups: Select the `my-flask-app-sg`.
-    * Auto-assign Public IP: `Enable`. The setting should be visible in the "Advanced network configuration". You may have to click "Add network interface" first.
+    - Security groups: Select the `my-flask-app-sg`.
+    - Auto-assign Public IP: `Enable`. The setting should be visible in the "Advanced network configuration". You may have to click "Add network interface" first.
 9. Leave other settings as default.
 10. Click "Create launch template".
 
@@ -381,22 +381,22 @@ Launch templates are a newer way to specify the instance configuration for Auto 
 7. VPC: Select `my-flask-app-vpc`.
 8. Mappings: Select both your public subnets (e.g. `10.0.0.0/20` in `eu-north-1a` and `10.0.16.0/20` in `eu-north-1b`). This provides high availability across AZs.
 9. Security groups: Create a new security group for the ALB:
-    * Security group name: `alb-sg`
-    * Description: `Security group for Flask App ALB`
-    * VPC: `my-flask-app-vpc`
-    * Inbound rules:
-        * Type: `HTTP`, Source: `0.0.0.0/0`
-    * Click "Create security group" and then select `alb-sg` for your ALB.
+    - Security group name: `alb-sg`
+    - Description: `Security group for Flask App ALB`
+    - VPC: `my-flask-app-vpc`
+    - Inbound rules:
+        - Type: `HTTP`, Source: `0.0.0.0/0`
+    - Click "Create security group" and then select `alb-sg` for your ALB.
 10. Listeners and routing:
-    * Protocol: `HTTP`, Port: `80`.
-    * Create target group: Click "Create target group".
-        * Target group name: `my-flask-app-tg`
-        * Target type: `Instances`
-        * Protocol: `HTTP`, Port: `80`, as Nginx is listening on port 80.
-        * IP address type: `IPv4`
-        * VPC: `my-flask-app-vpc`
-        * Health checks: Path `/`
-        * Click "Create target group".
+    - Protocol: `HTTP`, Port: `80`.
+    - Create target group: Click "Create target group".
+        - Target group name: `my-flask-app-tg`
+        - Target type: `Instances`
+        - Protocol: `HTTP`, Port: `80`, as Nginx is listening on port 80.
+        - IP address type: `IPv4`
+        - VPC: `my-flask-app-vpc`
+        - Health checks: Path `/`
+        - Click "Create target group".
 11. Return to the Load Balancer creation page, click the refresh icon next to "Choose a target group", and select `my-flask-app-tg`.
 
 Make sure the "Summary" looks similar to this and click "Create load balancer":
@@ -413,26 +413,26 @@ Wait for the ALB to become `active`, note its DNS name.
 4. Launch template: Select `my-flask-app-lt`.
 5. Click "Next".
 6. Network:
-    * VPC: Select `my-flask-app-vpc`.
-    * Subnets: Select **both** the public subnets. This allows ASG to launch instances across AZs.
+    - VPC: Select `my-flask-app-vpc`.
+    - Subnets: Select **both** the public subnets. This allows ASG to launch instances across AZs.
 7. Load balancing: Select "Attach to an existing load balancer".
-    * Choose from your load balancer target groups: Select `my-flask-app-tg`.
-    * Health checks: Enable "ELB health checks".
+    - Choose from your load balancer target groups: Select `my-flask-app-tg`.
+    - Health checks: Enable "ELB health checks".
 8. Click "Next".
 9. Configure group size and scaling policies:
-    * Desired capacity: `2` (Start with two instances)
-    * Scaling:
-        * Minimum capacity: `2`
-        * Maximum capacity: `4`
-        * Choose "Target tracking scaling policy".
-        * Policy name: `CPU Utilization`
-        * Metric type: `Average CPU utilization`
-        * Target value: `60`. This means ASG will add instances if CPU goes above 60%.
-    * Additional Settings: Enable monitoring within CloudWatch.
-    * Click "Next".
+    - Desired capacity: `2` (Start with two instances)
+    - Scaling:
+        - Minimum capacity: `2`
+        - Maximum capacity: `4`
+        - Choose "Target tracking scaling policy".
+        - Policy name: `CPU Utilization`
+        - Metric type: `Average CPU utilization`
+        - Target value: `60`. This means ASG will add instances if CPU goes above 60%.
+    - Additional Settings: Enable monitoring within CloudWatch.
+    - Click "Next".
 10. Add Notifications (Optional): You can set up SNS notifications here.
 11. Add Tags (Optional):
-    * `Key: Name`, `Value: FlaskASGInstance`
+    - `Key: Name`, `Value: FlaskASGInstance`
 12. Review and create.
 
 Now, your Auto Scaling group will launch instances based on your launch template, and these instances will be registered with your Application Load Balancer. It might take a few minutes for instances to launch and become healthy.
@@ -455,11 +455,11 @@ To avoid unnecessary charges, delete the Auto Scaling Group, Application Load Ba
 
 ## (Optional) Explore Further
 
-* **Production-Ready Architecture with Private Subnets:** To enhance security and mimic a production setup, redeploy the EC2 instances into a private subnet. Configure a NAT Gateway in a public subnet to enable internet access (e.g. `apt update`) for these private instances, as they won't be directly exposed to the internet.
-* **Custom Domains with Route 53:** Map your ALB's DNS name to a custom domain name using Amazon Route 53 for a more professional URL.
-* **HTTPS with AWS Certificate Manager (ACM):** Integrate ACM with your ALB to serve your application over HTTPS, ensuring secure communication.
-* **Database Integration (RDS):** Connect your Flask application to a relational database like PostgreSQL or MySQL using Amazon RDS in a private subnet. This would further enhance the scalability and persistence of your data.
-* **Logging and Monitoring with CloudWatch:** Set up detailed CloudWatch logs for your EC2 instances and Nginx, and create custom metrics and alarms for your Flask application.
+- **Production-Ready Architecture with Private Subnets:** To enhance security and mimic a production setup, redeploy the EC2 instances into a private subnet. Configure a NAT Gateway in a public subnet to enable internet access (e.g. `apt update`) for these private instances, as they won't be directly exposed to the internet.
+- **Custom Domains with Route 53:** Map your ALB's DNS name to a custom domain name using Amazon Route 53 for a more professional URL.
+- **HTTPS with AWS Certificate Manager (ACM):** Integrate ACM with your ALB to serve your application over HTTPS, ensuring secure communication.
+- **Database Integration (RDS):** Connect your Flask application to a relational database like PostgreSQL or MySQL using Amazon RDS in a private subnet. This would further enhance the scalability and persistence of your data.
+- **Logging and Monitoring with CloudWatch:** Set up detailed CloudWatch logs for your EC2 instances and Nginx, and create custom metrics and alarms for your Flask application.
 
 ## Final Words
 

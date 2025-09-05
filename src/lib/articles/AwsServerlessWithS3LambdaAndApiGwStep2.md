@@ -14,32 +14,32 @@ In Step 1 of this series, we manually set up a serverless backend on AWS, combin
 
 While manual configuration is excellent for understanding the underlying concepts, it quickly becomes cumbersome, error-prone, and difficult to scale or replicate in real-world scenarios. This is where **Infrastructure as Code (IaC)** shines. IaC allows us to define, provision, and manage our infrastructure using code, bringing the benefits of version control, automation, and reusability to our cloud resources.
 
-In this second article, we'll dive into [Terraform](https://developer.hashicorp.com/terraform), a leading IaC tool from [HashiCorp](https://www.hashicorp.com/en). We will replicate the exact same serverless architecture from Step 1, but this time, every resource will be defined in human-readable configuration files. By the end, you'll not only have deployed our serverless app with Terraform but also gained a solid foundational understanding of how to manage your AWS infrastructure declaratively.
+In this second article, we'll dive into [Terraform](https://developer.hashicorp.com/terraform), a leading IaC tool from [HashiCorp](https://www.hashicorp.com/en). We will replicate the exact same [serverless architecture](/blog/serverless-backend-on-aws-step-2-iac-with-terraform#final-architecture) from Step 1, but this time, every resource will be defined in human-readable configuration files. By the end, you'll not only have deployed our serverless app with Terraform but also gained a solid foundational understanding of how to manage your AWS infrastructure declaratively.
 
 ## Why IaC and Terraform
 
-Imagine trying to deploy the same application across multiple environments (development, staging, production) or needing to quickly spin up an identical setup for a new team member. Manually clicking through the AWS Console for each resource would be tedious and prone to inconsistencies. IaC solves this by:
+Imagine trying to deploy the same application across multiple environments (development, staging, production) or needing to quickly spin up an identical setup for a new team member. Manually clicking through the AWS Management Console for each resource would be tedious and prone to inconsistencies. IaC solves this by:
 
-* Automation: Automate the entire infrastructure provisioning process.
-* Consistency: Ensure identical environments every time, eliminating configuration drift.
-* Version Control: Track changes to the infrastructure definitions, just like application code.
-* Reusability: Create modular, reusable components for common infrastructure patterns.
-* Collaboration: Teams can work together on infrastructure definitions, leveraging standard development workflows.
+- Automation: Automate the entire infrastructure provisioning process.
+- Consistency: Ensure identical environments every time, eliminating configuration drift.
+- Version Control: Track changes to the infrastructure definitions, just like application code.
+- Reusability: Create modular, reusable components for common infrastructure patterns.
+- Collaboration: Teams can work together on infrastructure definitions, leveraging standard development workflows.
 
 Terraform, in particular, is an excellent choice due to its:
 
-* Declarative Nature: We describe the desired state of our infrastructure, and Terraform figures out how to achieve it.
-* Cloud Agnostic: It supports a vast ecosystem of providers, allowing us to manage infrastructure across multiple platforms with a single tool.
-* Strong Community and Ecosystem: A large user base and a rich collection of pre-built modules and resources.
+- Declarative Nature: We describe the desired state of our infrastructure, and Terraform figures out how to achieve it.
+- Cloud Agnostic: It supports a vast ecosystem of providers, allowing us to manage infrastructure across multiple platforms with a single tool.
+- Strong Community and Ecosystem: A large user base and a rich collection of pre-built modules and resources.
 
 ## Prerequisites
 
 Before we begin, make sure you have the following in place:
 
-1. An [AWS Account](https://aws.amazon.com/): With appropriate permissions, an [admin user is recommended](/blog/getting-started-with-aws-core-concepts-and-iam#create-a-user-and-a-group).
-2. Terraform CLI Installed: Follow the instructions on the [official HashiCorp website](https://developer.hashicorp.com/terraform/install#linux).
-3. AWS CLI Configured: Ensure your AWS CLI is [installed](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) and [configured with credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html#cli-configure-files-methods) that Terraform can use to provision resources by running `aws configure`.
-4. Familiarity with the [architecture from Step 1](/blog/serverless-backend-on-aws-step-1-s3-lambda-and-api-gateway#final-architecture).
+- An [AWS account](https://aws.amazon.com/): With appropriate permissions, an [admin user is recommended](/blog/getting-started-with-aws-core-concepts-and-iam#create-a-user-and-a-group).
+- Terraform CLI installed: Follow the instructions on the [official HashiCorp website](https://developer.hashicorp.com/terraform/install#linux).
+- AWS CLI configured: Ensure your AWS CLI is [installed](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) and [configured with credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html#cli-configure-files-methods) that Terraform can use to provision resources by running `aws configure`.
+- Familiarity with the [architecture from Step 1](/blog/serverless-backend-on-aws-step-1-s3-lambda-and-api-gateway#final-architecture).
 
 ## Terraform Core Concepts
 
@@ -47,13 +47,13 @@ Before writing any code, let's briefly recap some essential Terraform concepts t
 
 Take note of the very useful [Terraform Registry](https://registry.terraform.io/). It is practical to keep it open in a new tab as you read through this article.
 
-* **HCL:** Terraform's native configuration language, designed to be human-readable. Stands for HashiCorp Configuration Language.
-* **Provider:** This is a plugin that allows Terraform to interact with a specific cloud. We'll use the [`aws` provider](https://registry.terraform.io/providers/hashicorp/aws/).
-* **Resource (`resource`):** A resource block defines a piece of infrastructure that Terraform will manage, like an S3 bucket ([`aws_s3_bucket`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket)) or a Lambda function ([`aws_lambda_function`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function)). We specify its desired properties within the block.
-* **Data Source (`data`):** Its core purpose is to read information about existing infrastructure or external sources that Terraform did not create and does not manage in the current configuration. In special cases, it is used to compute or transform data locally.
-* **Input Variables (`variable`):** These allow us to parameterize our configurations, making them flexible and reusable. For example, we can define a variable for the AWS region or the S3 bucket name.
-* **Output Variables (`output`):** These expose specific values from the deployed infrastructure that can be useful for other configurations or for one to easily retrieve, e.g. the URL of the deployed API Gateway.
-* **State File (`terraform.tfstate`):** This is a crucial JSON file that Terraform generates and maintains. It maps the real-world infrastructure to the configuration, keeping track of what's been deployed and its current attributes. Never modify this file manually!
+- **HCL:** Terraform's native configuration language, designed to be human-readable. Stands for HashiCorp Configuration Language.
+- **Provider:** This is a plugin that allows Terraform to interact with a specific cloud. We'll use the [`aws` provider](https://registry.terraform.io/providers/hashicorp/aws/).
+- **Resource (`resource`):** A resource block defines a piece of infrastructure that Terraform will manage, like an S3 bucket ([`aws_s3_bucket`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket)) or a Lambda function ([`aws_lambda_function`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function)). We specify its desired properties within the block.
+- **Data Source (`data`):** Its core purpose is to read information about existing infrastructure or external sources that Terraform did not create and does not manage in the current configuration. In special cases, it is used to compute or transform data locally.
+- **Input Variables (`variable`):** These allow us to parameterize our configurations, making them flexible and reusable. For example, we can define a variable for the AWS region or the S3 bucket name.
+- **Output Variables (`output`):** These expose specific values from the deployed infrastructure that can be useful for other configurations or for one to easily retrieve, e.g. the URL of the deployed API Gateway.
+- **State File (`terraform.tfstate`):** This is a crucial JSON file that Terraform generates and maintains. It maps the real-world infrastructure to the configuration, keeping track of what's been deployed and its current attributes. Never modify this file manually!
 
 The order of blocks in a `.tf` file doesn't matter, Terraform's dependency graph mechanism automatically determines the correct order for creating, updating, or destroying resources based on their interconnections, regardless of how they are arranged in the file.
 
@@ -181,13 +181,13 @@ resource "aws_s3_bucket_website_configuration" "website_bucket_config" {
 
 We are using HCL to construct the JSON policy, notice we are using `=` to assign values now and secondly, the way we refer to the resource has changed:
 
-* `aws_s3_bucket.website_bucket` is a **resource reference**.
-  * `aws_s3_bucket` is the resource type, an S3 bucket.
-  * `website_bucket` is the local name we gave to the specific S3 bucket resource block.
-* `.arn`: When Terraform creates the S3 bucket, it makes its [ARN](/blog/serverless-backend-on-aws-step-1-s3-lambda-and-api-gateway#optional-understand-arn) available as an attribute. You can see all the attributes available for each resource, in the corresponding registry entry.
-* `${...}`: This is [string interpolation](https://developer.hashicorp.com/terraform/language/expressions/strings#interpolation) in HCL. Terraform will evaluate this expression and insert the actual ARN of the S3 bucket (it just created) into the policy string.
-* `aws_s3_bucket_public_access_block` disables the "Block all public access" setting, like [we manually did in Step 1](/blog/serverless-backend-on-aws-step-1-s3-lambda-and-api-gateway#set-up-the-static-website-on-amazon-s3).
-* An alternative to using `force_destroy`, is running `aws s3 rm s3://serverless-website-terraform --recursive` before [the clean up in the end](/blog/serverless-backend-on-aws-step-2-iac-with-terraform#clean-up), so that the bucket gets emptied.
+- `aws_s3_bucket.website_bucket` is a **resource reference**.
+  - `aws_s3_bucket` is the resource type, an S3 bucket.
+  - `website_bucket` is the local name we gave to the specific S3 bucket resource block.
+- `.arn`: When Terraform creates the S3 bucket, it makes its [ARN](/blog/serverless-backend-on-aws-step-1-s3-lambda-and-api-gateway#optional-understand-arn) available as an attribute. You can see all the attributes available for each resource, in the corresponding registry entry.
+- `${...}`: This is [string interpolation](https://developer.hashicorp.com/terraform/language/expressions/strings#interpolation) in HCL. Terraform will evaluate this expression and insert the actual ARN of the S3 bucket (it just created) into the policy string.
+- `aws_s3_bucket_public_access_block` disables the "Block all public access" setting, like [we manually did in Step 1](/blog/serverless-backend-on-aws-step-1-s3-lambda-and-api-gateway#set-up-the-static-website-on-amazon-s3).
+- An alternative to using `force_destroy`, is running `aws s3 rm s3://serverless-website-terraform --recursive` before [the clean up in the end](/blog/serverless-backend-on-aws-step-2-iac-with-terraform#clean-up), so that the bucket gets emptied.
 
 *Explore Further:* [S3 Bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket), [S3 Bucket Ownership Controls](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_ownership_controls), [S3 Public Access Block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block), [S3 Bucket Policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) and [S3 Bucket Website Configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_website_configuration).
 
@@ -231,9 +231,9 @@ resource "aws_lambda_function" "my_serverless_greeting_function" {
 
 This section defines the AWS Lambda function and its associated permissions.
 
-* `aws_iam_role`: This resource creates an [IAM Role](/blog/getting-started-with-aws-core-concepts-and-iam#use-iam-roles-for-aws-services) specifically for our Lambda function. The `assume_role_policy` grants Lambda the permission to assume this role.
-* `aws_iam_role_policy_attachment`: This resource attaches the standard `AWSLambdaBasicExecutionRole` managed policy to the IAM role created above. This policy provides the necessary permissions for the Lambda function to execute and, crucially, to push its logs to Amazon CloudWatch Logs.
-* `aws_lambda_function`: This is the resource that defines our actual Lambda function. Notice how the `role` here expects an [ARN](/blog/serverless-backend-on-aws-step-1-s3-lambda-and-api-gateway#optional-understand-arn), unlike the policy attachment that expected a name. The `filename` and `source_code_hash` attributes tell Terraform where to find the Lambda's code and help it detect changes for updates. The IAM role (implicitly because of `role =`) and policy (explicitly because of `depends_on`) are established before the Lambda function attempts to use them.
+- `aws_iam_role`: This resource creates an [IAM Role](/blog/getting-started-with-aws-core-concepts-and-iam#use-iam-roles-for-aws-services) specifically for our Lambda function. The `assume_role_policy` grants Lambda the permission to assume this role.
+- `aws_iam_role_policy_attachment`: This resource attaches the standard `AWSLambdaBasicExecutionRole` managed policy to the IAM role created above. This policy provides the necessary permissions for the Lambda function to execute and, crucially, to push its logs to Amazon CloudWatch Logs.
+- `aws_lambda_function`: This is the resource that defines our actual Lambda function. Notice how the `role` here expects an [ARN](/blog/serverless-backend-on-aws-step-1-s3-lambda-and-api-gateway#optional-understand-arn), unlike the policy attachment that expected a name. The `filename` and `source_code_hash` attributes tell Terraform where to find the Lambda's code and help it detect changes for updates. The IAM role (implicitly because of `role =`) and policy (explicitly because of `depends_on`) are established before the Lambda function attempts to use them.
 
 *Explore Further:* [IAM Role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role), [IAM Role Policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) and [Lambda Function](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function).
 
@@ -325,13 +325,13 @@ Web browsers typically issue an automatic **preflight `OPTIONS` request** before
 
 Since the preflight request doesn't invoke the Lambda, the Lambda cannot add the necessary CORS headers to its response. Therefore, we must explicitly configure the gateway to respond to the request with the correct CORS headers directly. This is why we need these four resources for the `OPTIONS` method:
 
-* `aws_api_gateway_method`: Defines the `OPTIONS` HTTP method for our `/greeting` resource.
-* `aws_api_gateway_integration`: Instead of integrating with a Lambda, we use a `MOCK` integration for the `OPTIONS` method. A `MOCK` integration allows API Gateway to respond directly without invoking any backend service. We configure it to return a `200` status code, indicating that the preflight request was successful.
-* `aws_api_gateway_method_response`: This resource defines the expected response schema (in terms of status codes, content types, and expected headers) for the `OPTIONS` method when a `200` status code is returned.
-  * Valid Status Codes: What HTTP status codes are allowed for a given method.
-  * Response Models: If you had complex JSON responses, this is where you'd link them to a schema for validation.
-  * Exposed Headers: If you don't declare a header here, even if `integration_response` tries to set it, the gateway will strip it out before sending it to the client.
-* `aws_api_gateway_integration_response`: Defines how the `MOCK` integration's response is mapped to the `method_response`. This is where the actual CORS headers are set.
+- `aws_api_gateway_method`: Defines the `OPTIONS` HTTP method for our `/greeting` resource.
+- `aws_api_gateway_integration`: Instead of integrating with a Lambda, we use a `MOCK` integration for the `OPTIONS` method. A `MOCK` integration allows API Gateway to respond directly without invoking any backend service. We configure it to return a `200` status code, indicating that the preflight request was successful.
+- `aws_api_gateway_method_response`: This resource defines the expected response schema (in terms of status codes, content types, and expected headers) for the `OPTIONS` method when a `200` status code is returned.
+  - Valid Status Codes: What HTTP status codes are allowed for a given method.
+  - Response Models: If you had complex JSON responses, this is where you'd link them to a schema for validation.
+  - Exposed Headers: If you don't declare a header here, even if `integration_response` tries to set it, the gateway will strip it out before sending it to the client.
+- `aws_api_gateway_integration_response`: Defines how the `MOCK` integration's response is mapped to the `method_response`. This is where the actual CORS headers are set.
 
 *Explore Further:* [HTTP Method](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_method), [HTTP Method Integration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_integration), [HTTP Method Response](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_method_response) and [HTTP Method Integration Response](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_integration_response).
 
@@ -394,9 +394,9 @@ resource "aws_lambda_permission" "apigateway_lambda_permission" {
 }
 ```
 
-* `aws_api_gateway_deployment` creates a deployable snapshot of our API. The `triggers` block ensures a new deployment happens if any relevant API Gateway components change.
-* `aws_api_gateway_stage` then defines a `"prod"` stage for this deployment, making it accessible via a public URL.
-* Finally, `aws_lambda_permission` grants API Gateway the necessary permissions to invoke our Lambda function. The `/*` part allows invocation from any stage, method and resource path within API Gateway.
+- `aws_api_gateway_deployment` creates a deployable snapshot of our API. The `triggers` block ensures a new deployment happens if any relevant API Gateway components change.
+- `aws_api_gateway_stage` then defines a `"prod"` stage for this deployment, making it accessible via a public URL.
+- Finally, `aws_lambda_permission` grants API Gateway the necessary permissions to invoke our Lambda function. The `/*` part allows invocation from any stage, method and resource path within API Gateway.
 
 *Explore Further:* [API Gateway REST Deployment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_deployment), [API Gateway Stage](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_stage) and [AWS Lambda permission](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_permission).
 
@@ -475,10 +475,10 @@ Now that our configuration files are ready, let's use the Terraform CLI to deplo
 
 Initializes a working directory containing Terraform configuration files. This is always the first command we run in a new or cloned Terraform project. It performs several key tasks:
 
-* Downloads Providers: It reads the `required_providers` block in our configuration and downloads the necessary provider plugins.
-* Sets Up Backend: If we define a [remote backend](https://developer.hashicorp.com/terraform/language/backend/remote), which we should for production, `init` configures it for storing the state file.
-* Creates `.terraform` directory: This directory stores downloaded providers, modules, and other internal Terraform files.
-* Generates `.terraform.lock.hcl`: This file locks the exact versions of providers and modules used, ensuring consistent deployments across different environments and team members.
+- Downloads Providers: It reads the `required_providers` block in our configuration and downloads the necessary provider plugins.
+- Sets Up Backend: If we define a [remote backend](https://developer.hashicorp.com/terraform/language/backend/remote), which we should for production, `init` configures it for storing the state file.
+- Creates `.terraform` directory: This directory stores downloaded providers, modules, and other internal Terraform files.
+- Generates `.terraform.lock.hcl`: This file locks the exact versions of providers and modules used, ensuring consistent deployments across different environments and team members.
 
 Run it in your `aws-serverless-terraform` directory:
 
@@ -528,9 +528,9 @@ Success! The configuration is valid.
 
 Generates an execution plan. This is a "dry run" that shows us exactly what Terraform will do to achieve the desired state defined in our configuration, without actually making any changes to our infrastructure. It details:
 
-* Resources that will be added (`+`).
-* Resources that will be changed (`~`).
-* Resources that will be destroyed (`-`).
+- Resources that will be added (`+`).
+- Resources that will be changed (`~`).
+- Resources that will be destroyed (`-`).
 
 ```bash
 terraform plan
@@ -624,8 +624,9 @@ Terraform will proceed to de-provision all the AWS resources. Notice how a `terr
 
 ## (Optional) Explore Further
 
-* Remote Backend Configuration: Learn how to store your Terraform state remotely using services like [AWS S3 for storage and DynamoDB for state locking](https://developer.hashicorp.com/terraform/language/backend/s3).
-* Explore the [HashiCorp Certified Terraform Associate companion labs repository](https://github.com/daveprowse/tac-course) by [Dave Prowse](https://prowse.tech/), it is a highly recommended learning resource.
+- Study the [`for_each` meta-argument](https://developer.hashicorp.com/terraform/language/meta-arguments/for_each).
+- Remote Backend Configuration: Learn how to store your Terraform state remotely using services like [AWS S3 for storage and DynamoDB for state locking](https://developer.hashicorp.com/terraform/language/backend/s3).
+- Explore the [HashiCorp Certified Terraform Associate companion labs repository](https://github.com/daveprowse/tac-course) by [Dave Prowse](https://prowse.tech/), it is a highly recommended learning resource.
 
 ## Final Words
 

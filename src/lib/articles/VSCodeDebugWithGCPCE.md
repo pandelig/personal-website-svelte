@@ -19,35 +19,35 @@ Additionally, we will explore how to set up a development environment inside a D
 
 Before you begin, ensure you have the following:
 
-1. [GCP account](https://cloud.google.com/): You'll need an active GCP account with billing enabled to create CE instances.
-2. [`gcloud` CLI installed](https://cloud.google.com/sdk/docs/install)
-3. [VS Code installed](https://code.visualstudio.com/)
-4. VS Code "Remote Development" extension pack: This pack includes "Remote - SSH" and "Dev Containers" which are crucial for this tutorial. Install it from the VS Code Extensions view (`Ctrl+Shift+X`) by searching for "Remote Development".
+- [GCP account](https://cloud.google.com/): You'll need an active GCP account with billing enabled to create CE instances.
+- [`gcloud` CLI installed](https://cloud.google.com/sdk/docs/install)
+- [VS Code installed](https://code.visualstudio.com/)
+- VS Code "Remote Development" extension pack: This pack includes "Remote - SSH" and "Dev Containers" which are crucial for this tutorial. Install it from the VS Code Extensions view (`Ctrl+Shift+X`) by searching for "Remote Development".
 
 ## Create a GCP CE Instance
 
 Have a tab open at the [GCP Console](https://cloud.google.com/).
 
 1. Create a project:
-    * At the GCP Console search for "resources" in the search bar at the top, and select "Manage resources".
-    * Click "Create project" and give a name to your project.
+    - At the GCP Console search for "resources" in the search bar at the top, and select "Manage resources".
+    - Click "Create project" and give a name to your project.
     ![Create a new GCP project.](/imgs/create_new_gcp_project.webp)
-    * After clicking "Create", click "Select project" on the notification that pops on the top right.
+    - After clicking "Create", click "Select project" on the notification that pops on the top right.
 2. Authenticate with `gcloud` CLI:
-    * Open a terminal locally and run: `gcloud auth login`
-    * To set your project, run: `gcloud config set project YOUR_PROJECT_ID`. To see your project's ID on the GCP Console, reveal the menu from the top-left and click on "Cloud overview" -> "Dashboard". For me, it is `remote-debugging-with-vscode`.
+    - Open a terminal locally and run: `gcloud auth login`
+    - To set your project, run: `gcloud config set project YOUR_PROJECT_ID`. To see your project's ID on the GCP Console, reveal the menu from the top-left and click on "Cloud overview" -> "Dashboard". For me, it is `remote-debugging-with-vscode`.
 3. Create a new Compute Engine instance:
-    * On the GCP Console, from the left side menu, navigate to "Compute Engine" -> "VM instances".
-    * If you see the following, click "Enable" and wait for it to complete:
+    - On the GCP Console, from the left side menu, navigate to "Compute Engine" -> "VM instances".
+    - If you see the following, click "Enable" and wait for it to complete:
     ![Enable GCP Compute Engine API.](/imgs/enable_gcp_ce_api.webp)
-    * Click "Create instance".
-    * Give your instance a "Name", e.g. `my-debug-vm`, at the "Machine Configuration" tab.
-    * For "Machine type", select `e2-medium (2 vCPU, 1 core, 4 GB memory)`. Lower specs may cause the CPU / RAM to max-out.
-    * On the "OS and storage" tab, the defaults should be good enough:
+    - Click "Create instance".
+    - Give your instance a "Name", e.g. `my-debug-vm`, at the "Machine Configuration" tab.
+    - For "Machine type", select `e2-medium (2 vCPU, 1 core, 4 GB memory)`. Lower specs may cause the CPU / RAM to max-out.
+    - On the "OS and storage" tab, the defaults should be good enough:
     ![OS and storage for our GCP CE debug VM.](/imgs/os_and_storage_for_gcp_ce_debug_vm.webp)
-    * On the "Data protection" tab, let's select "No backups" to avoid extra costs.
-    * Click "Create".
-    * Once the instance is running, note down its "Name", "Zone" and "External IP" address. We'll need them to connect via SSH.
+    - On the "Data protection" tab, let's select "No backups" to avoid extra costs.
+    - Click "Create".
+    - Once the instance is running, note down its "Name", "Zone" and "External IP" address. We'll need them to connect via SSH.
 
 ## Create the Python Script
 
@@ -110,8 +110,8 @@ This is where the magic happens! We'll use the "Remote - SSH" extension to conne
     ssh -i ~/.ssh/google_compute_engine USERNAME@YOUR_EXTERNAL_IP
     ```
 
-    * `USERNAME`: This is typically your Google account username (the part before `@gmail.com`) or the username shown when you connected via `gcloud compute ssh`.
-    * `~/.ssh/google_compute_engine`: This is the default path where `gcloud` stores the SSH private key it generated. Ensure this path is correct. If you used a different method to create SSH keys, adjust this path accordingly.
+    - `USERNAME`: This is typically your Google account username (the part before `@gmail.com`) or the username shown when you connected via `gcloud compute ssh`.
+    - `~/.ssh/google_compute_engine`: This is the default path where `gcloud` stores the SSH private key it generated. Ensure this path is correct. If you used a different method to create SSH keys, adjust this path accordingly.
 
     Press `Enter`.
 5. When prompted "Which configuration file would you like to update?", choose the default: `/home/YOUR_USERNAME/.ssh/config`.
@@ -129,14 +129,14 @@ Now that VS Code is connected and the Python extension is installed, we can debu
 1. In the VS Code Explorer, open `my_script.py`.
 2. Click in the gutter next to a line number (e.g. line 2: `result = a + b`) to set a red breakpoint.
 3. Start debugging:
-      * Go to the "Run and Debug" view (`Ctrl+Shift+D`).
-      * Click the "Run and Debug" button.
-      * VS Code will detect it's a Python file and suggest "Python File" as the debug configuration. Select it.
+      - Go to the "Run and Debug" view (`Ctrl+Shift+D`).
+      - Click the "Run and Debug" button.
+      - VS Code will detect it's a Python file and suggest "Python File" as the debug configuration. Select it.
 4. Observe the debugger: The script will start running on the GCP instance, and execution will pause at your breakpoint. You can now:
-      * Inspect variables in the "Variables" pane.
-      * Step over (F10), step into (F11), or step out (Shift+F11) of functions.
-      * Continue execution (F5).
-      * Use the Debug Console to evaluate expressions.
+      - Inspect variables in the "Variables" pane.
+      - Step over (F10), step into (F11), or step out (Shift+F11) of functions.
+      - Continue execution (F5).
+      - Use the Debug Console to evaluate expressions.
 
 Congratulations! You are now debugging a Python script running on a GCP CE instance directly from your local VS Code environment.
 
@@ -172,12 +172,12 @@ Connect to the GCP CE instance via SSH again (using `gcloud compute ssh` or thro
 1. In your remote VS Code window (connected via SSH to `my-debug-vm`), ensure you have the folder `/home/USERNAME/my_debug_project` open.
 
 2. Add Dev Container Configuration:
-    * Press `F1` and type "Dev Containers: Add Dev Container Configuration Files...".
-    * Select "From a predefined container configuration template...".
-    * Search for and select "Python 3".
-    * Choose a Python version e.g. "3.12-bullseye (default)".
-    * When asked to select features, you can skip this for now or add common ones like `git` or `zsh`.
-    * You can also skip selecting "Optional Files/Directories".
+    - Press `F1` and type "Dev Containers: Add Dev Container Configuration Files...".
+    - Select "From a predefined container configuration template...".
+    - Search for and select "Python 3".
+    - Choose a Python version e.g. "3.12-bullseye (default)".
+    - When asked to select features, you can skip this for now or add common ones like `git` or `zsh`.
+    - You can also skip selecting "Optional Files/Directories".
 
 This will create a new folder `.devcontainer` in our project with a `devcontainer.json` file. Take a look in the `devcontainer.json`, it has several useful comments.
 
@@ -207,9 +207,9 @@ The script will now run and pause within the Docker container on the GCP CE inst
 
 ## (Optional) Explore Further
 
-* Persistent Data: For Docker containers, consider using Docker volumes to persist data outside the container, especially for development environments where you might frequently rebuild containers.
-* Customizing Dev Containers: Explore `devcontainer.json` options to install specific tools, forward ports, set environment variables, and more, all within your containerized development environment.
-* VS Code Tasks: For more complex setups, you can define `tasks.json` in `.vscode` to automate steps like starting / stopping Docker containers, building images, etc.
+- **Persistent Data:** For Docker containers, consider using Docker volumes to persist data outside the container, especially for development environments where you might frequently rebuild containers.
+- **Customizing Dev Containers:** Explore `devcontainer.json` options to install specific tools, forward ports, set environment variables, and more, all within your containerized development environment.
+- **VS Code Tasks:** For more complex setups, you can define `tasks.json` in `.vscode` to automate steps like starting / stopping Docker containers, building images, etc.
 
 Let me know if you would like to see something like that in a future article!
 

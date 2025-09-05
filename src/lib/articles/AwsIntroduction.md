@@ -17,48 +17,48 @@ Navigating AWS often feels like learning a new language, with a plethora of abbr
 
 **Compute and Serverless**
 
-* EC2 (Elastic Compute Cloud): A virtual server that you can launch, configure, and scale in the cloud to run applications.
-* Lambda: A serverless compute service that runs code in response to events without provisioning or managing servers.
-* Fargate: A serverless compute engine for containers, eliminating the need to manage underlying servers.
+- EC2 (Elastic Compute Cloud): A virtual server that you can launch, configure, and scale in the cloud to run applications.
+- Lambda: A serverless compute service that runs code in response to events without provisioning or managing servers.
+- Fargate: A serverless compute engine for containers, eliminating the need to manage underlying servers.
 
 **Storage**
 
-* S3 (Simple Storage Service): Highly scalable, durable, and cost-effective object storage for any type of file.
-* Instance Store: Temporary, high-performance storage physically attached to an EC2 instance, ideal for ephemeral data.
-* EBS (Elastic Block Store): Persistent block storage volumes that attach to EC2 instances, similar to a virtual hard drive.
-* EFS (Elastic File System): Scalable and shared file storage for multiple EC2 instances and on-premises resources, acting like a network file system.
+- S3 (Simple Storage Service): Highly scalable, durable, and cost-effective object storage for any type of file.
+- Instance Store: Temporary, high-performance storage physically attached to an EC2 instance, ideal for ephemeral data.
+- EBS (Elastic Block Store): Persistent block storage volumes that attach to EC2 instances, similar to a virtual hard drive.
+- EFS (Elastic File System): Scalable and shared file storage for multiple EC2 instances and on-premises resources, acting like a network file system.
 
 **Container Services**
 
-* ECR (Elastic Container Registry): A fully managed Docker container registry for storing, managing, and deploying Docker images.
-* ECS (Elastic Container Service): A highly scalable container orchestration service for running and managing Docker containers on AWS.
-* EKS (Elastic Kubernetes Service): A fully managed Kubernetes service that simplifies running Kubernetes on AWS without managing the control plane.
+- ECR (Elastic Container Registry): A fully managed Docker container registry for storing, managing, and deploying Docker images.
+- ECS (Elastic Container Service): A highly scalable container orchestration service for running and managing Docker containers on AWS.
+- EKS (Elastic Kubernetes Service): A fully managed Kubernetes service that simplifies running Kubernetes on AWS without managing the control plane.
 
 **Networking**
 
-* VPC (Virtual Private Cloud): A logically isolated section of the AWS Cloud where you can launch AWS resources in a defined virtual network.
-* ELB (Elastic Load Balancing): Automatically distributes incoming application traffic across multiple targets, such as EC2 instances.
+- VPC (Virtual Private Cloud): A logically isolated section of the AWS Cloud where you can launch AWS resources in a defined virtual network.
+- ELB (Elastic Load Balancing): Automatically distributes incoming application traffic across multiple targets, such as EC2 instances.
 
 **Databases**
 
-* RDS (Relational Database Service): A managed relational database service supporting various popular database engines like MySQL and PostgreSQL.
-* DynamoDB: A fully managed, serverless NoSQL key-value and document database service designed for high-performance applications at any scale.
+- RDS (Relational Database Service): A managed relational database service supporting various popular database engines like MySQL and PostgreSQL.
+- DynamoDB: A fully managed, serverless NoSQL key-value and document database service designed for high-performance applications at any scale.
 
 **Management and Governance**
 
-* IAM (Identity and Access Management): A service that securely controls access to AWS resources by managing users, groups, roles, and permissions.
-* CloudWatch: A monitoring and observability service that collects data and provides insights to monitor applications and optimize resource utilization.
-* CloudFormation: An Infrastructure as Code (IaC) service that allows you to define and provision AWS infrastructure in code (JSON or YAML).
-* CloudTrail: Enables governance, compliance, operational auditing, and risk auditing of the AWS account by logging actions.
+- IAM (Identity and Access Management): A service that securely controls access to AWS resources by managing users, groups, roles, and permissions.
+- CloudWatch: A monitoring and observability service that collects data and provides insights to monitor applications and optimize resource utilization.
+- CloudFormation: An Infrastructure as Code (IaC) service that allows you to define and provision AWS infrastructure in code (JSON or YAML).
+- CloudTrail: Enables governance, compliance, operational auditing, and risk auditing of the AWS account by logging actions.
 
 **Other Common Services**
 
-* SNS (Simple Notification Service): A fully managed messaging service for application-to-application (A2A) and application-to-person (A2P) communication.
-* SQS (Simple Queue Service): A fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications.
+- SNS (Simple Notification Service): A fully managed messaging service for application-to-application (A2A) and application-to-person (A2P) communication.
+- SQS (Simple Queue Service): A fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications.
 
 ## Prerequisites
 
-Before we dive in, make sure you have an [AWS Account](https://aws.amazon.com/). If you don't have one, you can sign up for free. Be prepared to provide a credit card, though you won't be charged for free tier usage.
+Before we dive in, make sure you have an [AWS account](https://aws.amazon.com/). If you don't have one, you can sign up for free. Be prepared to provide a credit card, though you won't be charged for free tier usage.
 
 ## AWS Free Tier
 
@@ -74,8 +74,8 @@ Always keep an eye on your usage to avoid unexpected charges, especially after t
 
 AWS's infrastructure is built for scale, reliability, and performance. It's organized into Regions and Availability Zones (AZs).
 
-* **Regions:** These are large, geographically distinct areas where AWS clusters its data centers. Examples include `us-east-1` (N. Virginia), `eu-west-1` (Ireland), or `ap-southeast-2` (Sydney). Each Region is completely isolated from others to ensure fault tolerance and stability.
-* **Availability Zones (AZs):** Within each Region, there are multiple, isolated locations known as Availability Zones. An AZ is one or more discrete data centers with redundant power, networking, and connectivity. They are physically separated within a Region to prevent failures from cascading between them but are close enough for low-latency network connections. Deploying applications across multiple AZs provides high availability and fault tolerance.
+- **Regions:** These are large, geographically distinct areas where AWS clusters its data centers. Examples include `us-east-1` (N. Virginia), `eu-west-1` (Ireland), or `ap-southeast-2` (Sydney). Each Region is completely isolated from others to ensure fault tolerance and stability.
+- **Availability Zones (AZs):** Within each Region, there are multiple, isolated locations known as Availability Zones. An AZ is one or more discrete data centers with redundant power, networking, and connectivity. They are physically separated within a Region to prevent failures from cascading between them but are close enough for low-latency network connections. Deploying applications across multiple AZs provides high availability and fault tolerance.
 
 ### Choosing an AWS Region
 
@@ -106,8 +106,8 @@ Now, let's get hands-on with [IAM](https://docs.aws.amazon.com/IAM/latest/UserGu
 
 When you first create your AWS account, you log in with the **root user**. This user has unrestricted access to all services and resources in your account. **It is highly recommended to avoid using the root user for daily tasks.**
 
-* Immediately secure your root account by [enabling Multi-Factor Authentication](https://docs.aws.amazon.com/IAM/latest/UserGuide/enable-virt-mfa-for-root.html) (MFA). Use a virtual MFA device like Google Authenticator or Authy on your smartphone.
-* *Explore further:* [AWS Root Account Best Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/root-user-best-practices.html)
+- Immediately secure your root account by [enabling Multi-Factor Authentication](https://docs.aws.amazon.com/IAM/latest/UserGuide/enable-virt-mfa-for-root.html) (MFA). Use a virtual MFA device like Google Authenticator or Authy on your smartphone.
+- *Explore further:* [AWS Root Account Best Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/root-user-best-practices.html)
 
 ### Create a User and a Group
 
@@ -115,27 +115,27 @@ Instead of using the root account, you should create a dedicated IAM user for ad
 
 1. **Navigate to IAM:** In the AWS Management Console, search for "IAM" and click on the service.
 
-    ![Search for IAM in the AWS web console.](/imgs/aws_console_search_iam.webp)
+    ![Search for IAM in the AWS Management Console.](/imgs/aws_console_search_iam.webp)
 
 2. **Create a Group:**
-    * Go to `User groups` in the left navigation pane.
-    * Click `Create group`.
-    * Give it a name, e.g. `Administrators`.
-    * Under `Attach policies`, search for `AdministratorAccess` and select it. This policy grants full access to AWS services.
-    * Click `Create group`.
+    - Go to `User groups` in the left navigation pane.
+    - Click `Create group`.
+    - Give it a name, e.g. `Administrators`.
+    - Under `Attach policies`, search for `AdministratorAccess` and select it. This policy grants full access to AWS services.
+    - Click `Create group`.
 
-    ![Search for IAM in the AWS web console.](/imgs/aws_console_create_user_group.webp)
+    ![Search for IAM in the AWS Management Console.](/imgs/aws_console_create_user_group.webp)
 
 3. **Create a User:**
-    * Go to `Users` in the left navigation pane.
-    * Click `Create user`.
-    * Give it a name, e.g. `yourname-admin`.
-    * Select `Provide user access to the AWS Management Console`.
-    * Choose `I want to create an IAM user` and select `Custom password`. Enter a strong password and optionally enforce a password reset on first login.
-    * Click `Next`.
-    * On the `Set permissions` page, select `Add user to group`.
-    * Choose the `Administrators` group you just created.
-    * Click `Next`, review, and `Create user`.
+    - Go to `Users` in the left navigation pane.
+    - Click `Create user`.
+    - Give it a name, e.g. `yourname-admin`.
+    - Select `Provide user access to the AWS Management Console`.
+    - Choose `I want to create an IAM user` and select `Custom password`. Enter a strong password and optionally enforce a password reset on first login.
+    - Click `Next`.
+    - On the `Set permissions` page, select `Add user to group`.
+    - Choose the `Administrators` group you just created.
+    - Click `Next`, review, and `Create user`.
 
     For convenience, bookmark the "Console sign-in link" and use it to sign-in from now on, this way you don't have to type in your 12-digit AWS account ID every time.
 
@@ -155,34 +155,34 @@ Instead of using the root account, you should create a dedicated IAM user for ad
 
 Just like with your root account, enable MFA for all your IAM users, especially those with elevated privileges.
 
-* *Explore further:* [Enabling MFA for IAM Users](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa.html)
+- *Explore further:* [Enabling MFA for IAM Users](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa.html)
 
 ### Principle of Least Privilege
 
 This is a core security concept: **grant only the minimum necessary permissions to users and roles to perform their tasks.** Don't give full `AdministratorAccess` to everyone.
 
-* When you create users for specific purposes (e.g. a developer, a read-only user), create custom policies or use AWS managed policies that grant *only* the permissions needed for their job.
-* Example: A developer working with EC2 instances might need `ec2:RunInstances` and `ec2:TerminateInstances`, but probably not `s3:DeleteBucket`.
+- When you create users for specific purposes (e.g. a developer, a read-only user), create custom policies or use AWS managed policies that grant *only* the permissions needed for their job.
+- Example: A developer working with EC2 instances might need `ec2:RunInstances` and `ec2:TerminateInstances`, but probably not `s3:DeleteBucket`.
 
 ### Review IAM Policies
 
 Security is not a one-time setup, it's an ongoing process.
 
-* Periodically review your IAM users, groups, roles, and policies to ensure they still adhere to the principle of least privilege.
-* Use **AWS CloudTrail** to log all API calls made to your AWS account, which helps in auditing and security analysis.
-* *Explore further:* [AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html)
+- Periodically review your IAM users, groups, roles, and policies to ensure they still adhere to the principle of least privilege.
+- Use **AWS CloudTrail** to log all API calls made to your AWS account, which helps in auditing and security analysis.
+- *Explore further:* [AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html)
 
 ### Use IAM Roles for AWS Services
 
 Instead of embedding access keys directly into applications or EC2 instances, use **IAM Roles**. Roles provide temporary credentials that applications can assume to interact with AWS services, without hardcoding sensitive information.
 
-* For example, when launching an EC2 instance that needs to access S3, assign an IAM Role to the instance that has permissions to interact with S3, rather than configuring access keys on the instance itself.
-* *Explore further:* [IAM Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html)
+- For example, when launching an EC2 instance that needs to access S3, assign an IAM Role to the instance that has permissions to interact with S3, rather than configuring access keys on the instance itself.
+- *Explore further:* [IAM Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html)
 
 ## (Optional) Explore Further
 
-* [AWS Well-Architected Framework](https://aws.amazon.com/architecture/well-architected/): Learn about the pillars of a well-architected cloud environment, including security.
-* [AWS Best Practices for Security, Identity, Compliance](https://aws.amazon.com/architecture/security-identity-compliance/): A comprehensive guide directly from AWS.
+- [AWS Well-Architected Framework](https://aws.amazon.com/architecture/well-architected/): Learn about the pillars of a well-architected cloud environment, including security.
+- [AWS Best Practices for Security, Identity, Compliance](https://aws.amazon.com/architecture/security-identity-compliance/): A comprehensive guide directly from AWS.
 
 ## Final Words
 
