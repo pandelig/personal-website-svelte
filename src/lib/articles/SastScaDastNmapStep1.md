@@ -22,7 +22,7 @@ catches issues before production, saving time and resources. In this first step,
 
 ## Prerequisites
 
-To follow along with this tutorial, you will need to have the following installed on your system:
+To follow along with this tutorial, you will need to have the following:
 
 - [Docker](https://docs.docker.com/engine/install/). *Explore further:* [Docker Tutorial](https://www.docker.com/101-tutorial/).
 - A GitHub Account, if you want to [implement the CI/CD pipeline](/blog/security-in-devops-step-1-fortifying-the-foundation-with-sast-and-sca#optional-integrate-with-github-actions).
